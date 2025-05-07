@@ -5,21 +5,21 @@ public partial class StartScreen : Control
 {
 	public override void _Ready()
 	{
-		GetNode<Button>("StartButton").Pressed += OnStartButtonPressed;
-		GetNode<Button>("SettingsButton").Pressed += OnSettingsButtonPressed;
-		GetNode<Button>("QuitButton").Pressed += OnQuitButtonPressed;
+		GetNode<Button>("CenterContainer/VBoxContainer/StartButton").Pressed += OnStartButtonPressed;
+		GetNode<Button>("CenterContainer/VBoxContainer/SettingsButton").Pressed += OnSettingsButtonPressed;
+		GetNode<Button>("CenterContainer/VBoxContainer/QuitButton").Pressed += OnQuitButtonPressed;
 	}
 	
 	private void OnStartButtonPressed()
 	{
 		GD.Print("start initialized");
-		GetTree.ChangeSceneToFile(res://);
+		GetTree().ChangeSceneToFile("res://Scenes/SaveLoadScreen.tscn");
 	}
 	
 	private void OnSettingsButtonPressed()
 	{
-		GD.Print("settings screen")
-		GetTree.ChangeSceneToFile();
+		GD.Print("settings screen");
+		GetTree().ChangeSceneToFile("res://Scenes/SettingsScreen.tscn");
 	}
 	
 	private void OnQuitButtonPressed()
