@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://ds5gqvkgdupbl"]
+[gd_scene load_steps=39 format=3 uid="uid://ds5gqvkgdupbl"]
 
 [ext_resource type="Script" uid="uid://rheqkkpt571s" path="res://StartScreen.cs" id="1_ko4ly"]
 [ext_resource type="Texture2D" uid="uid://bfq8x6mtjrx8u" path="res://Assets/UI/mainmenuback.jpg" id="2_0on6r"]
+[ext_resource type="Texture2D" uid="uid://bqgb6ukevx30u" path="res://Assets/UI/logo.png" id="3_ey7n4"]
 [ext_resource type="FontFile" uid="uid://dfgj0jfm8lmqx" path="res://Assets/fonts/magna-veritas-font/MagnaVeritas-JRmm.ttf" id="3_usjih"]
 [ext_resource type="Texture2D" uid="uid://crqtqdjvfjuri" path="res://Assets/UI/button-removebg-preview.png" id="4_3u666"]
 [ext_resource type="FontFile" uid="uid://1sq4l7q6dkdm" path="res://Assets/fonts/vecna-font/VecnaBold-4YY4.ttf" id="4_a2231"]
@@ -36,6 +37,50 @@ texture = ExtResource("4_3u666")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ive4"]
 texture = ExtResource("4_3u666")
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a2231"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ey7n4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6mw8b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kehkj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_anxsw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ogpyo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aae8c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qg82j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2sbhq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i3sa8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ive4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kr8ks"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pmwbl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2n7fw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_es5ds"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_45r57"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c632w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_85jv8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_33qfa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vdff6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x1bun"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3o1n8"]
+
 [node name="StartScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -53,6 +98,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_0on6r")
+
+[node name="logo" type="TextureRect" parent="mainmenuback"]
+layout_mode = 0
+offset_left = 599.0
+offset_top = -86.0
+offset_right = 976.0
+offset_bottom = 575.0
+texture = ExtResource("3_ey7n4")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -73,7 +126,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_usjih")
 theme_override_font_sizes/font_size = 48
-text = "The Inverted Tower"
+text = "The Inverted Spire"
 horizontal_alignment = 1
 
 [node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
@@ -108,6 +161,17 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_a2231")
 theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_a2231")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_ey7n4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_6mw8b")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_kehkj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_anxsw")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_ogpyo")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_aae8c")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_qg82j")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2sbhq")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_i3sa8")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7ive4")
 text = "Settings"
 icon = ExtResource("4_3u666")
 icon_alignment = 1
@@ -124,5 +188,16 @@ size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("4_a2231")
 theme_override_font_sizes/font_size = 30
 theme_override_icons/icon = ExtResource("4_3u666")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kr8ks")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_pmwbl")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2n7fw")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_es5ds")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_45r57")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_c632w")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_85jv8")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_33qfa")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vdff6")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_x1bun")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3o1n8")
 text = "Quit"
 icon_alignment = 1

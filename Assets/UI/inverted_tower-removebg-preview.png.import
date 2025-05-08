@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8xfy2sw4kvam"
-path="res://.godot/imported/button.jpg-b97906655a5792f24b5eb01e36d729b1.ctex"
+uid="uid://74do6ia36jh0"
+path="res://.godot/imported/inverted_tower-removebg-preview.png-e7f81550aa830cfa090f2d871dedc854.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/button.jpg"
-dest_files=["res://.godot/imported/button.jpg-b97906655a5792f24b5eb01e36d729b1.ctex"]
+source_file="res://Assets/UI/inverted_tower-removebg-preview.png"
+dest_files=["res://.godot/imported/inverted_tower-removebg-preview.png-e7f81550aa830cfa090f2d871dedc854.ctex"]
 
 [params]
 
