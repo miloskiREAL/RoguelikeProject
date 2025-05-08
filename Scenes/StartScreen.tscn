@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://rheqkkpt571s" path="res://StartScreen.cs" id="1_ko4ly"]
 [ext_resource type="Texture2D" uid="uid://bfq8x6mtjrx8u" path="res://Assets/UI/mainmenuback.jpg" id="2_0on6r"]
 [ext_resource type="Texture2D" uid="uid://bqgb6ukevx30u" path="res://Assets/UI/logo.png" id="3_ey7n4"]
-[ext_resource type="FontFile" uid="uid://dfgj0jfm8lmqx" path="res://Assets/fonts/magna-veritas-font/MagnaVeritas-JRmm.ttf" id="3_usjih"]
+[ext_resource type="FontFile" uid="uid://dfgj0jfm8lmqx" path="res://Assets/Fonts/magna-veritas-font/MagnaVeritas-JRmm.ttf" id="3_usjih"]
 [ext_resource type="Texture2D" uid="uid://crqtqdjvfjuri" path="res://Assets/UI/button-removebg-preview.png" id="4_3u666"]
-[ext_resource type="FontFile" uid="uid://1sq4l7q6dkdm" path="res://Assets/fonts/vecna-font/VecnaBold-4YY4.ttf" id="4_a2231"]
+[ext_resource type="FontFile" uid="uid://1sq4l7q6dkdm" path="res://Assets/Fonts/vecna-font/VecnaBold-4YY4.ttf" id="4_a2231"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ey7n4"]
 texture = ExtResource("4_3u666")
@@ -88,6 +88,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_ko4ly")
 
 [node name="mainmenuback" type="TextureRect" parent="."]
@@ -100,11 +102,17 @@ grow_vertical = 2
 texture = ExtResource("2_0on6r")
 
 [node name="logo" type="TextureRect" parent="mainmenuback"]
-layout_mode = 0
-offset_left = 599.0
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 16.0
 offset_top = -86.0
-offset_right = 976.0
-offset_bottom = 575.0
+offset_right = 393.0
+offset_bottom = -73.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_ey7n4")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
@@ -117,6 +125,8 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
+size_flags_stretch_ratio = 20.0
+alignment = 1
 
 [node name="Title" type="Label" parent="CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 120)
