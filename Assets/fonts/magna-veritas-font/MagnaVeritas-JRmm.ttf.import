@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://dfgj0jfm8lmqx"
-path="res://.godot/imported/MagnaVeritas-JRmm.ttf-acf58cd5e89b1869a865660985a6e889.fontdata"
+path="res://.godot/imported/MagnaVeritas-JRmm.ttf-676193f80ffbf942718f7a909a8c44e6.fontdata"
 
 [deps]
 
-source_file="res://Assets/Fonts/magna-veritas-font/MagnaVeritas-JRmm.ttf"
-dest_files=["res://.godot/imported/MagnaVeritas-JRmm.ttf-acf58cd5e89b1869a865660985a6e889.fontdata"]
+source_file="res://Assets/fonts/magna-veritas-font/MagnaVeritas-JRmm.ttf"
+dest_files=["res://.godot/imported/MagnaVeritas-JRmm.ttf-676193f80ffbf942718f7a909a8c44e6.fontdata"]
 
 [params]
 
