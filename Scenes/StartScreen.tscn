@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://rheqkkpt571s" path="res://StartScreen.cs" id="1_ko4ly"]
 [ext_resource type="Texture2D" uid="uid://bfq8x6mtjrx8u" path="res://Assets/UI/mainmenuback.jpg" id="2_0on6r"]
 [ext_resource type="Texture2D" uid="uid://bqgb6ukevx30u" path="res://Assets/UI/logo.png" id="3_ey7n4"]
-[ext_resource type="FontFile" uid="uid://dfgj0jfm8lmqx" path="res://Assets/fonts/magna-veritas-font/MagnaVeritas-JRmm.ttf" id="3_usjih"]
+[ext_resource type="FontFile" uid="uid://dfgj0jfm8lmqx" path="res://Assets/Fonts/magna-veritas-font/MagnaVeritas-JRmm.ttf" id="3_usjih"]
 [ext_resource type="Texture2D" uid="uid://crqtqdjvfjuri" path="res://Assets/UI/button-removebg-preview.png" id="4_3u666"]
-[ext_resource type="FontFile" uid="uid://1sq4l7q6dkdm" path="res://Assets/fonts/vecna-font/VecnaBold-4YY4.ttf" id="4_a2231"]
+[ext_resource type="FontFile" uid="uid://1sq4l7q6dkdm" path="res://Assets/Fonts/vecna-font/VecnaBold-4YY4.ttf" id="4_a2231"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ey7n4"]
 texture = ExtResource("4_3u666")

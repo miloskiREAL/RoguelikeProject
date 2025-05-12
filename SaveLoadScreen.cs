@@ -98,7 +98,6 @@ public partial class SaveLoadScreen : Control
 		}
 	}
 
-	// Optional helper to create a new save file
 	public void CreateNewSave(int slot, SaveData saveData)
 	{
 		string path = savePaths[slot];
