@@ -1,6 +1,5 @@
 using Godot;
 using System;
-using System.IO;
 
 public partial class SaveLoadScreen : Control
 {
@@ -25,7 +24,7 @@ public partial class SaveLoadScreen : Control
 
 			// Grab UI nodes dynamically
 			statusLabels[i] = GetNode<Label>($"SaveSlot{index + 1}/StatusLabel");
-			loadButtons[i] = GetNode<Button>($"SaveSlot{index + 1}/LoadButton");
+			loadButtons[i] = GetNode<Button>($"CenterContainer/VBoxContainer/SaveSlot{index + 1}");
 			deleteButtons[i] = GetNode<Button>($"SaveSlot{index + 1}/DeleteButton");
 
 			// Check if save exists
@@ -47,16 +46,16 @@ public partial class SaveLoadScreen : Control
 			else
 			{
 				statusLabels[i].Text = $"Save {index + 1} - Empty";
-				loadButtons[i].Disabled = true;
+				loadButtons[i].Disabled = false;
 				deleteButtons[i].Disabled = true;
 			}
 
 			// Connect buttons
-			loadButtons[i].Pressed += () => LoadGame(index);
+			loadButtons[i].Pressed += () => LoadOrCreateGame(index);
 			deleteButtons[i].Pressed += () => DeleteSave(index);
 		}
 
-		// Connect return button
+		// Connect return to menu
 		var backButton = GetNode<Button>("BackButton");
 		backButton.Pressed += () =>
 		{
@@ -65,9 +64,10 @@ public partial class SaveLoadScreen : Control
 		};
 	}
 
-	public void LoadGame(int slot)
+	public void LoadOrCreateGame(int slot)
 	{
 		string path = savePaths[slot];
+		SaveData saveData;
 
 		if (FileAccess.FileExists(path))
 		{
@@ -76,14 +76,16 @@ public partial class SaveLoadScreen : Control
 			file.Close();
 
 			var data = Json.ParseString(json).AsGodotDictionary();
-			var saveData = new SaveData(data);
-
-			// Store in global singleton or GameManager
-			GameManager.Instance.LoadFromSaveData(saveData);
-
-			// Change to game scene
-			GetTree().ChangeSceneToFile("res://Scenes/Game.tscn");
+			saveData = new SaveData(data);
 		}
+		else
+		{
+			saveData = new SaveData(); // Create new save with default values
+			CreateNewSave(slot, saveData);
+		}
+
+		GameManager.Instance.LoadFromSaveData(saveData);
+		GetTree().ChangeSceneToFile("res://Scenes/Game.tscn");
 	}
 
 	public void DeleteSave(int slot)
@@ -94,7 +96,7 @@ public partial class SaveLoadScreen : Control
 		{
 			DirAccess.RemoveAbsolute(path);
 			GD.Print($"Deleted save slot {slot + 1}");
-			GetTree().ReloadCurrentScene();
+			GetTree().ReloadCurrentScene(); // Refresh UI
 		}
 	}
 
