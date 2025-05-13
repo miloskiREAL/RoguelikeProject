@@ -10,38 +10,56 @@ public class SaveData
 	public int Floor;
 	public int CurrentHP;
 	public int CurrentSP;
-	
-	
+
 	public Dictionary<string, int> Inventory;
 	public Dictionary<string, int> WildCards;
-
-	
 	public Dictionary<string, Dictionary<string, int>> AlteredAffinities;
 
-	// Constructor to initialize default values
+	// Default constructor (used for creating new save)
 	public SaveData()
 	{
+		PartyLevel = 1;
+		XP = 0;
+		Floor = 0;
+		CurrentHP = 100;
+		CurrentSP = 50;
 		Inventory = new Dictionary<string, int>();
 		WildCards = new Dictionary<string, int>();
 		AlteredAffinities = new Dictionary<string, Dictionary<string, int>>();
 	}
 
-	// Convert a SaveData object to a Godot Dictionary for easy JSON serialization
+	// Constructor from Godot dictionary (used for loading)
+	public SaveData(Godot.Collections.Dictionary data)
+	{
+		var loaded = FromDictionary(data);
+		PartyLevel = loaded.PartyLevel;
+		XP = loaded.XP;
+		Floor = loaded.Floor;
+		CurrentHP = loaded.CurrentHP;
+		CurrentSP = loaded.CurrentSP;
+		Inventory = loaded.Inventory;
+		WildCards = loaded.WildCards;
+		AlteredAffinities = loaded.AlteredAffinities;
+	}
+
+	// Convert SaveData to Godot Dictionary (for saving)
 	public Godot.Collections.Dictionary ToDictionary()
 	{
-		var dict = new Godot.Collections.Dictionary();
-		dict["party_level"] = PartyLevel;
-		dict["xp"] = XP;
-		dict["floor"] = Floor;
-		dict["current_hp"] = CurrentHP;
-		dict["current_sp"] = CurrentSP;
-		dict["inventory"] = ConvertToGodotDict(Inventory);
-		dict["wild_cards"] = ConvertToGodotDict(WildCards);
-		dict["altered_affinities"] = ConvertToGodotDict(AlteredAffinities);
+		var dict = new Godot.Collections.Dictionary
+		{
+			["party_level"] = PartyLevel,
+			["xp"] = XP,
+			["floor"] = Floor,
+			["current_hp"] = CurrentHP,
+			["current_sp"] = CurrentSP,
+			["inventory"] = ConvertToGodotDict(Inventory),
+			["wild_cards"] = ConvertToGodotDict(WildCards),
+			["altered_affinities"] = ConvertToGodotDict(AlteredAffinities)
+		};
 		return dict;
 	}
 
-	// Convert a Godot Dictionary back into a SaveData object
+	// Deserialize SaveData from Godot Dictionary
 	public static SaveData FromDictionary(Godot.Collections.Dictionary data)
 	{
 		var saveData = new SaveData
@@ -58,21 +76,21 @@ public class SaveData
 		return saveData;
 	}
 
-	//realized I needed to convert C# dict to normal dict asked gpt for help
+	// Convert Variant to Dictionary<string, Dictionary<string, int>>
 	private static Dictionary<string, Dictionary<string, int>> ConvertDictionaryToAffinities(object rawDict)
 	{
-		var godotDict = rawDict as Godot.Collections.Dictionary;
+		var godotDict = ((Variant)rawDict).AsGodotDictionary();
 		var result = new Dictionary<string, Dictionary<string, int>>();
-		
+
 		foreach (var key in godotDict.Keys)
 		{
 			string character = key.ToString();
-			var elementAffinities = godotDict[key] as Godot.Collections.Dictionary;
+			var elementAffinities = ((Variant)godotDict[key]).AsGodotDictionary();
 			var affinityDict = new Dictionary<string, int>();
 
 			foreach (var elementKey in elementAffinities.Keys)
 			{
-				affinityDict[elementKey.ToString()] = (int)elementAffinities[elementKey];
+				affinityDict[elementKey.ToString()] = (int)(Variant)elementAffinities[elementKey];
 			}
 
 			result[character] = affinityDict;
@@ -81,23 +99,23 @@ public class SaveData
 		return result;
 	}
 
-	// Helper to convert regular Dictionaries back to Godot format for serialization
+	// Convert Dictionary<string, Dictionary<string, int>> to Godot Dictionary
 	private static Godot.Collections.Dictionary ConvertToGodotDict(Dictionary<string, Dictionary<string, int>> dict)
 	{
 		var godotDict = new Godot.Collections.Dictionary();
 		foreach (var pair in dict)
 		{
-			var affinityDict = new Godot.Collections.Dictionary();
-			foreach (var subPair in pair.Value)
+			var inner = new Godot.Collections.Dictionary();
+			foreach (var sub in pair.Value)
 			{
-				affinityDict[subPair.Key] = subPair.Value;
+				inner[sub.Key] = sub.Value;
 			}
-			godotDict[pair.Key] = affinityDict;
+			godotDict[pair.Key] = inner;
 		}
 		return godotDict;
 	}
 
-	// Helper to convert a regular Dictionary<string, int> to Godot format for serialization
+	// Convert Dictionary<string, int> to Godot Dictionary
 	private static Godot.Collections.Dictionary ConvertToGodotDict(Dictionary<string, int> dict)
 	{
 		var godotDict = new Godot.Collections.Dictionary();
@@ -108,15 +126,15 @@ public class SaveData
 		return godotDict;
 	}
 
-	// Helper to convert a Godot Dictionary back to a regular Dictionary<string, int>
+	// Convert Variant to Dictionary<string, int>
 	private static Dictionary<string, int> ConvertDictionaryToItemDict(object rawDict)
 	{
-		var godotDict = rawDict as Godot.Collections.Dictionary;
+		var godotDict = ((Variant)rawDict).AsGodotDictionary();
 		var result = new Dictionary<string, int>();
-		
+
 		foreach (var key in godotDict.Keys)
 		{
-			result[key.ToString()] = (int)godotDict[key];
+			result[key.ToString()] = (int)(Variant)godotDict[key];
 		}
 
 		return result;

@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roguelite", "Roguelite.csproj", "{A283E960-B1E0-475A-B89A-4986313B8436}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roguelite", "Roguelite.csproj", "{D202AA28-6A5F-4F6B-AE2C-E2A58BD5FA01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A283E960-B1E0-475A-B89A-4986313B8436}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A283E960-B1E0-475A-B89A-4986313B8436}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A283E960-B1E0-475A-B89A-4986313B8436}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{A283E960-B1E0-475A-B89A-4986313B8436}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{A283E960-B1E0-475A-B89A-4986313B8436}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{A283E960-B1E0-475A-B89A-4986313B8436}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{D202AA28-6A5F-4F6B-AE2C-E2A58BD5FA01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D202AA28-6A5F-4F6B-AE2C-E2A58BD5FA01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D202AA28-6A5F-4F6B-AE2C-E2A58BD5FA01}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{D202AA28-6A5F-4F6B-AE2C-E2A58BD5FA01}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{D202AA28-6A5F-4F6B-AE2C-E2A58BD5FA01}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{D202AA28-6A5F-4F6B-AE2C-E2A58BD5FA01}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal

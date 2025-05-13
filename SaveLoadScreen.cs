@@ -13,7 +13,7 @@ public partial class SaveLoadScreen : Control
 	private Button[] deleteButtons = new Button[3];
 	private Label[] statusLabels = new Label[3];
 
-	[Export] public PackedScene mainMenuScene;
+	[Export] public PackedScene startScreen;
 
 	public override void _Ready()
 	{
@@ -22,10 +22,10 @@ public partial class SaveLoadScreen : Control
 			int index = i;
 			string path = savePaths[i];
 
-			// Grab UI nodes dynamically
-			statusLabels[i] = GetNode<Label>($"SaveSlot{index + 1}/StatusLabel");
-			loadButtons[i] = GetNode<Button>($"CenterContainer/VBoxContainer/SaveSlot{index + 1}");
-			deleteButtons[i] = GetNode<Button>($"SaveSlot{index + 1}/DeleteButton");
+			string loadPath = String.Format("CenterContainer/VBoxContainer/SaveSlot{0}", (i + 1));
+			statusLabels[i] = GetNode<Label>("SaveSlot{index + 1}/StatusLabel");
+			loadButtons[i] = GetNode<Button>(loadPath);
+			deleteButtons[i] = GetNode<Button>("SaveSlot{index + 1}/DeleteButton");
 
 			// Check if save exists
 			bool exists = FileAccess.FileExists(path);
@@ -59,8 +59,7 @@ public partial class SaveLoadScreen : Control
 		var backButton = GetNode<Button>("BackButton");
 		backButton.Pressed += () =>
 		{
-			if (mainMenuScene != null)
-				GetTree().ChangeSceneToPacked(mainMenuScene);
+			GetTree().ChangeSceneToFile("res://Scenes/StartScreen.tscn");
 		};
 	}
 
