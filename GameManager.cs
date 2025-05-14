@@ -20,8 +20,6 @@ public partial class GameManager : Node
 		GD.Print("GameManager initialized.");
 		// Optional: Set this to persist between scenes
 		SetProcess(false);
-		GetTree().Root.AddChild(this);
-		// this.SetAsToplevel(true);
 		this.Owner = null;
 	}
 

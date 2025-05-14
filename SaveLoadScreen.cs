@@ -4,9 +4,9 @@ using System;
 public partial class SaveLoadScreen : Control
 {
 	private string[] savePaths = {
-		"user://save_slot_1.json",
-		"user://save_slot_2.json",
-		"user://save_slot_3.json"
+		"user://save1.json",
+		"user://save2.json",
+		"user://save3.json"
 	};
 
 	private Button[] loadButtons = new Button[3];
@@ -19,16 +19,17 @@ public partial class SaveLoadScreen : Control
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			int index = i;
+			int index = i; 
 			string path = savePaths[i];
 
-			string loadPath = String.Format("CenterContainer/VBoxContainer/SaveSlot{0}", (i + 1));
-			statusLabels[i] = GetNode<Label>("SaveSlot{index + 1}/StatusLabel");
-			loadButtons[i] = GetNode<Button>(loadPath);
-			deleteButtons[i] = GetNode<Button>("SaveSlot{index + 1}/DeleteButton");
+			statusLabels[i] = GetNode<Label>($"CenterContainer2/VBoxContainer/StatusLabel{i + 1}");
+			loadButtons[i] = GetNode<Button>($"CenterContainer/VBoxContainer/SaveSlot{i + 1}");
+			deleteButtons[i] = GetNode<Button>($"VBoxContainer/DeleteButton{i + 1}");
+			GD.Print(statusLabels[i]);
 
 			// Check if save exists
 			bool exists = FileAccess.FileExists(path);
+			GD.Print($"Checking for: user://save{i + 1}.json");
 
 			if (exists)
 			{
@@ -39,13 +40,13 @@ public partial class SaveLoadScreen : Control
 				var data = Json.ParseString(json).AsGodotDictionary();
 				var saveData = new SaveData(data);
 
-				statusLabels[i].Text = $"Save {index + 1} - Level {saveData.PartyLevel}";
+				statusLabels[i].Text = $"Save {i + 1} - Level {saveData.PartyLevel}";
 				loadButtons[i].Disabled = false;
 				deleteButtons[i].Disabled = false;
 			}
 			else
 			{
-				statusLabels[i].Text = $"Save {index + 1} - Empty";
+				statusLabels[i].Text = $"Save {i + 1} - Empty";
 				loadButtons[i].Disabled = false;
 				deleteButtons[i].Disabled = true;
 			}
@@ -84,7 +85,7 @@ public partial class SaveLoadScreen : Control
 		}
 
 		GameManager.Instance.LoadFromSaveData(saveData);
-		GetTree().ChangeSceneToFile("res://Scenes/Game.tscn");
+		GetTree().ChangeSceneToFile("res://Scenes/game.tscn");
 	}
 
 	public void DeleteSave(int slot)
