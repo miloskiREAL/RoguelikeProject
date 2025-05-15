@@ -85,7 +85,7 @@ public partial class SaveLoadScreen : Control
 		}
 
 		GameManager.Instance.LoadFromSaveData(saveData);
-		GetTree().ChangeSceneToFile("res://Scenes/game.tscn");
+		GetTree().ChangeSceneToFile("res://Scenes/Dungeon.tscn");
 	}
 
 	public void DeleteSave(int slot)
@@ -96,7 +96,7 @@ public partial class SaveLoadScreen : Control
 		{
 			DirAccess.RemoveAbsolute(path);
 			GD.Print($"Deleted save slot {slot + 1}");
-			GetTree().ReloadCurrentScene(); // Refresh UI
+			GetTree().ReloadCurrentScene();
 		}
 	}
 

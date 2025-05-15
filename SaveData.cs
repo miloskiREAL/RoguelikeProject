@@ -22,7 +22,7 @@ public class SaveData
 		XP = 0;
 		Floor = 0;
 		CurrentHP = 100;
-		CurrentSP = 50;
+		CurrentSP = 100;
 		Inventory = new Dictionary<string, int>();
 		WildCards = new Dictionary<string, int>();
 		AlteredAffinities = new Dictionary<string, Dictionary<string, int>>();
