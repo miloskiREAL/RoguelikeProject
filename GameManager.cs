@@ -18,7 +18,6 @@ public partial class GameManager : Node
 
 		Instance = this;
 		GD.Print("GameManager initialized.");
-		// Optional: Set this to persist between scenes
 		SetProcess(false);
 		this.Owner = null;
 	}
