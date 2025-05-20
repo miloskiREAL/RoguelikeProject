@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=4 uid="uid://bg5pfl3phlrn5"]
+
+[ext_resource type="TileSet" uid="uid://t3s1nkss5xdd" path="res://tilesetdec.tres" id="1_fahql"]
+[ext_resource type="Script" uid="uid://ujrr48r4ti08" path="res://DoorInt.cs" id="2_fahql"]
+[ext_resource type="Texture2D" uid="uid://moim50fpqfwv" path="res://Assets/icons/excalimation mark2.png" id="2_v6xrn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ba8gm"]
+size = Vector2(64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s08t2"]
+atlas = ExtResource("2_v6xrn")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ol7ip"]
+atlas = ExtResource("2_v6xrn")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82brx"]
+atlas = ExtResource("2_v6xrn")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k41ok"]
+atlas = ExtResource("2_v6xrn")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0phs7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s08t2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ol7ip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82brx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k41ok")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="Door" type="TileMapLayer"]
+tile_map_data = PackedByteArray("AAAiAP//AQA3AAAAAAAiAAAAAQA3AAEAAAAiAAEAAQA3AAIAAAAiAAIAAQA3AAMAAAAiAAMAAQA3AAQAAAAiAAQAAQA3AAUAAAAiAAUAAQA3AAYAAAAjAP//AQA4AAAAAAAjAAAAAQA4AAEAAAAjAAEAAQA4AAIAAAAjAAIAAQA4AAMAAAAjAAMAAQA4AAQAAAAjAAQAAQA4AAUAAAAjAAUAAQA4AAYAAAAkAP//AQA5AAAAAAAkAAAAAQA5AAEAAAAkAAEAAQA5AAIAAAAkAAIAAQA5AAMAAAAkAAMAAQA5AAQAAAAkAAQAAQA5AAUAAAAkAAUAAQA5AAYAAAAlAP//AQA6AAAAAAAlAAAAAQA6AAEAAAAlAAEAAQA6AAIAAAAlAAIAAQA6AAMAAAAlAAMAAQA6AAQAAAAlAAQAAQA6AAUAAAAlAAUAAQA6AAYAAAA=")
+tile_set = ExtResource("1_fahql")
+script = ExtResource("2_fahql")
+
+[node name="InteractArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(576, 80)
+shape = SubResource("RectangleShape2D_ba8gm")
+
+[node name="Exclamation" type="AnimatedSprite2D" parent="InteractArea"]
+visible = false
+position = Vector2(576, 40)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_0phs7")
+autoplay = "default"
+frame_progress = 0.440252

@@ -1,19 +1,21 @@
 using Godot;
 using System;
+using System.Threading.Tasks;  
 
 public partial class DungeonManager : Node2D
 {
-	public override void _Ready()
+	public override async void _Ready()
 	{
-		GetTree().ChangeSceneToFile("res://Scenes/DungeonStart.tscn");
 		int floor = GameManager.Instance.SaveData.Floor;
 		FloorType type = FloorHelper.GetFloorType(floor);
 		int block = FloorHelper.GetBlock(floor);
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		switch (type)
 		{
 			case FloorType.Start:
-				GetTree().ChangeSceneToFile("res://Scenes/DungeonStart.tscn");
 				GD.Print("switching to dungeon start");
+				GetTree().ChangeSceneToFile("res://Scenes/DungeonStart.tscn");
+				
 				break;
 			case FloorType.Dungeon:
 				GetTree().ChangeSceneToFile($"res://Scenes/Dungeon{block}Floor.tscn");

@@ -1,0 +1,98 @@
+[gd_scene load_steps=15 format=3 uid="uid://ec1r5naldcp1"]
+
+[ext_resource type="Script" uid="uid://dgl6fxxqeiqe4" path="res://BonfireInt.cs" id="1_ar4x8"]
+[ext_resource type="Texture2D" uid="uid://ci025rin7ejga" path="res://Assets/map/Bonfire_2.png" id="1_v4tpo"]
+[ext_resource type="Texture2D" uid="uid://chf8koeu3d3lj" path="res://Assets/map/Bonfire_1.png" id="2_13f6i"]
+[ext_resource type="Texture2D" uid="uid://dn6tq3flkyeyh" path="res://Assets/map/Bonfire_3.png" id="3_ar4x8"]
+[ext_resource type="Texture2D" uid="uid://c5un3d1jw3s7v" path="res://Assets/map/Bonfire_4.png" id="4_fm84b"]
+[ext_resource type="Texture2D" uid="uid://moim50fpqfwv" path="res://Assets/icons/excalimation mark2.png" id="5_13f6i"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ctnts"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_v4tpo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_13f6i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ar4x8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fm84b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fyo8s"]
+size = Vector2(20, 36.5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s08t2"]
+atlas = ExtResource("5_13f6i")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ol7ip"]
+atlas = ExtResource("5_13f6i")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82brx"]
+atlas = ExtResource("5_13f6i")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k41ok"]
+atlas = ExtResource("5_13f6i")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ar4x8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s08t2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ol7ip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82brx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k41ok")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13f6i"]
+size = Vector2(128, 128)
+
+[node name="Bonfire" type="StaticBody2D"]
+script = ExtResource("1_ar4x8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(704, 288)
+scale = Vector2(1.25, 1.40909)
+sprite_frames = SubResource("SpriteFrames_ctnts")
+autoplay = "default"
+frame_progress = 0.454463
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(704, 298.25)
+shape = SubResource("RectangleShape2D_fyo8s")
+
+[node name="InteractArea" type="Area2D" parent="."]
+
+[node name="Exclamation" type="AnimatedSprite2D" parent="InteractArea"]
+visible = false
+position = Vector2(704, 272)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ar4x8")
+autoplay = "default"
+frame_progress = 0.427282
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(704, 296)
+shape = SubResource("RectangleShape2D_13f6i")

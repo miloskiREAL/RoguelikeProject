@@ -1,0 +1,85 @@
+[gd_scene load_steps=13 format=3 uid="uid://5p2brn802i0e"]
+
+[ext_resource type="Texture2D" uid="uid://bf8vd30ixjqhh" path="res://Assets/char/npcs/Old man walk-Sheet.png" id="1_5u005"]
+[ext_resource type="Texture2D" uid="uid://moim50fpqfwv" path="res://Assets/icons/excalimation mark2.png" id="2_rp4tw"]
+[ext_resource type="Script" uid="uid://dfu6mn744aamg" path="res://InteractArea.cs" id="2_s08t2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rp4tw"]
+atlas = ExtResource("1_5u005")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s08t2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rp4tw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5u005"]
+size = Vector2(64, 88)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s08t2"]
+atlas = ExtResource("2_rp4tw")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ol7ip"]
+atlas = ExtResource("2_rp4tw")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82brx"]
+atlas = ExtResource("2_rp4tw")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k41ok"]
+atlas = ExtResource("2_rp4tw")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1xyb1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s08t2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ol7ip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82brx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k41ok")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hc42i"]
+
+[node name="Merchant" type="StaticBody2D"]
+script = ExtResource("2_s08t2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_s08t2")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="InteractArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, 28)
+shape = SubResource("RectangleShape2D_5u005")
+
+[node name="Exclamation" type="AnimatedSprite2D" parent="InteractArea"]
+visible = false
+position = Vector2(0, -24)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_1xyb1")
+frame_progress = 0.538381
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hc42i")
