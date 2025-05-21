@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=4 uid="uid://bg5pfl3phlrn5"]
+[gd_scene load_steps=10 format=4 uid="uid://dx7nnwe2rscgr"]
 
-[ext_resource type="TileSet" uid="uid://t3s1nkss5xdd" path="res://tilesetdec.tres" id="1_fahql"]
+[ext_resource type="TileSet" uid="uid://dbmdlguiurdi2" path="res://tilesetdec.tres" id="1_fahql"]
 [ext_resource type="Script" uid="uid://ujrr48r4ti08" path="res://DoorInt.cs" id="2_fahql"]
-[ext_resource type="Texture2D" uid="uid://moim50fpqfwv" path="res://Assets/icons/excalimation mark2.png" id="2_v6xrn"]
+[ext_resource type="Texture2D" uid="uid://moim50fpqfwv" path="res://Assets/Icons/excalimation mark2.png" id="2_v6xrn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ba8gm"]
 size = Vector2(64, 64)
