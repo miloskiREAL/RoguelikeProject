@@ -3,7 +3,7 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	[Export] public int Speed = 150;
+	[Export] public int Speed = 100;
 	private AnimatedSprite2D animatedSprite;
 	
 	public override void _Ready()

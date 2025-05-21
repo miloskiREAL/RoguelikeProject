@@ -3,12 +3,13 @@ using System;
 
 public partial class StartScreen : Control
 {
-	public override async void _Ready()
+	private const string StartMusic = "res://audio/start/startscreen.wav";
+	public override void _Ready()
 	{
-		await ToSignal(GetTree(), "process_frame");
-		MusicManager.Instance.StopMusic();
-		var startMusic = GD.Load<AudioStream>("res://audio/start/startscreen.wav");
-		MusicManager.Instance.PlayMusic(startMusic);
+		if (MusicManager.Instance != null)
+		{
+			MusicManager.Instance.PlayMusicByPath(StartMusic);
+		}
 		GetNode<Button>("CenterContainer/VBoxContainer/StartButton").Pressed += OnStartButtonPressed;
 		GetNode<Button>("CenterContainer/VBoxContainer/SettingsButton").Pressed += OnSettingsButtonPressed;
 		GetNode<Button>("CenterContainer/VBoxContainer/QuitButton").Pressed += OnQuitButtonPressed;

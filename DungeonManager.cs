@@ -18,7 +18,8 @@ public partial class DungeonManager : Node2D
 				
 				break;
 			case FloorType.Dungeon:
-				GetTree().ChangeSceneToFile($"res://Scenes/Dungeon{block}Floor.tscn");
+				int randomLayout = GD.RandRange(1, 4);
+				GetTree().ChangeSceneToFile($"res://Scenes/Dungeon{block}FloorLayout{randomLayout}.tscn");
 				break;
 			case FloorType.Boss:
 				GetTree().ChangeSceneToFile($"res://Scenes/Boss{block}Floor.tscn");

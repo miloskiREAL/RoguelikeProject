@@ -17,8 +17,8 @@ config/icon="uid://bqgb6ukevx30u"
 
 [autoload]
 
-GameManager="*res://GameManager.cs"
 MusicManager="*res://Scenes/MusicManager.tscn"
+GameManager="*res://GameManager.cs"
 
 [display]
 

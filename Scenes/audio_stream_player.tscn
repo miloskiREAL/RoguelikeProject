@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://s5bgvn83lur0"]
+
+[ext_resource type="AudioStream" uid="uid://dfbg8bybab2x6" path="res://Assets/audio/music/start/startscreen.wav" id="1_px1li"]
+[ext_resource type="Script" uid="uid://dn0undxt57yb6" path="res://Scenes/AudioManager.cs" id="2_jxntt"]
+
+[node name="AudioManager" type="AudioStreamPlayer"]
+stream = ExtResource("1_px1li")
+volume_db = -12.294
+autoplay = true
+script = ExtResource("2_jxntt")
