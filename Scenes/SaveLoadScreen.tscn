@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b2xpqoiio82tr" path="res://Assets/UI/save load.jpg" id="2_pex4s"]
 [ext_resource type="Texture2D" uid="uid://r7fvkuk5fged" path="res://Assets/UI/image-removebg-preview (2) (1).png" id="3_fmc6g"]
 [ext_resource type="Texture2D" uid="uid://dt7y05lbhicom" path="res://Assets/UI/manuscript-game-buttons-pixel-art-260nw-2185932929-removebg-preview.png" id="3_sgkut"]
-[ext_resource type="FontFile" uid="uid://cmsmcjklokens" path="res://Assets/Fonts/vecna-font/VecnaBoldItalic-011d.ttf" id="5_2jdpi"]
+[ext_resource type="FontFile" uid="uid://cmsmcjklokens" path="res://Assets/fonts/vecna-font/VecnaBoldItalic-011d.ttf" id="5_2jdpi"]
 [ext_resource type="Texture2D" uid="uid://ncle44f8kd7p" path="res://Assets/UI/image-removebg-preview (1).png" id="6_4u2ol"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sgkut"]
