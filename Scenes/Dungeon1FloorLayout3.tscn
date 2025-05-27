@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://bc1vju0l40n5r"]
+[gd_scene load_steps=5 format=4 uid="uid://bc1vju0l40n5r"]
 
 [ext_resource type="TileSet" uid="uid://dbmdlguiurdi2" path="res://tilesetdec.tres" id="1_58a3c"]
 [ext_resource type="PackedScene" uid="uid://dx7nnwe2rscgr" path="res://Scenes/door.tscn" id="2_k3rid"]
 [ext_resource type="PackedScene" uid="uid://c2rs7xxnu36eh" path="res://Scenes/PlayerDungeon.tscn" id="3_p2x56"]
+[ext_resource type="AudioStream" uid="uid://cooi1xmspw28r" path="res://Assets/audio/music/overworld/dungeon/floor1/youtube_oBtPbENJdDo_audio.mp3" id="4_5ox7o"]
 
 [node name="Dungeon1Floor" type="Node2D"]
 
@@ -29,3 +30,9 @@ tile_set = ExtResource("1_58a3c")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 build_mode = 1
 polygon = PackedVector2Array(584, 520, 624, 520, 624, 416, 584, 416, 584, 296, 696, 296, 696, 344, 856, 344, 856, 296, 896, 296, 896, 176, 872, 176, 872, 72, 896, 72, 896, 32, 928, 32, 928, 72, 952, 72, 952, 176, 928, 176, 928, 296, 968, 296, 968, 416, 928, 416, 928, 568, 968, 568, 968, 616, 1128, 616, 1128, 568, 1232, 568, 1232, 448, 1192, 448, 1192, 280, 1304, 280, 1304, 448, 1264, 448, 1264, 568, 1368, 568, 1368, 688, 1264, 688, 1264, 792, 1336, 792, 1336, 944, 1160, 944, 1160, 792, 1232, 792, 1232, 688, 1128, 688, 1128, 640, 976, 640, 968, 640, 968, 688, 856, 688, 856, 568, 896, 568, 896, 416, 856, 416, 856, 368, 696, 368, 696, 416, 656, 416, 656, 520, 696, 520, 696, 640, 584, 640)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5ox7o")
+volume_db = -19.271
+autoplay = true
+parameters/looping = true

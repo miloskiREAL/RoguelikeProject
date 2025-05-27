@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://dmdf34fiaail5"]
+[gd_scene load_steps=6 format=4 uid="uid://dmdf34fiaail5"]
 
-[ext_resource type="TileSet" uid="uid://bwqkjy7v4rih3" path="res://tileset.tres" id="1_6m2i2"]
-[ext_resource type="TileSet" uid="uid://t3s1nkss5xdd" path="res://tilesetdec.tres" id="2_ww3ji"]
-[ext_resource type="PackedScene" uid="uid://bg5pfl3phlrn5" path="res://Scenes/door.tscn" id="3_g3y13"]
+[ext_resource type="TileSet" uid="uid://bmo7frlthja56" path="res://tileset.tres" id="1_6m2i2"]
+[ext_resource type="TileSet" uid="uid://dbmdlguiurdi2" path="res://tilesetdec.tres" id="2_ww3ji"]
+[ext_resource type="PackedScene" uid="uid://dx7nnwe2rscgr" path="res://Scenes/door.tscn" id="3_g3y13"]
 [ext_resource type="PackedScene" uid="uid://rb15qfypnsg2" path="res://Scenes/player.tscn" id="4_ww3ji"]
+[ext_resource type="AudioStream" uid="uid://cnsfyodyim1bv" path="res://Assets/audio/music/overworld/dungeon/youtube_HyANAuGTEDc_audio.mp3" id="5_g3y13"]
 
 [node name="Boss2Floor" type="Node2D"]
 
@@ -33,3 +34,9 @@ polygon = PackedVector2Array(0, 0, 0, 432, 240, 432, 240, -8, 144, -8, 144, -32,
 
 [node name="Player" parent="." instance=ExtResource("4_ww3ji")]
 position = Vector2(0, 32)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_g3y13")
+volume_db = -16.613
+autoplay = true
+parameters/looping = true

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://ctmrdcvfrc6a0"]
+[gd_scene load_steps=5 format=4 uid="uid://ctmrdcvfrc6a0"]
 
 [ext_resource type="TileSet" uid="uid://dbmdlguiurdi2" path="res://tilesetdec.tres" id="1_2g4py"]
 [ext_resource type="PackedScene" uid="uid://c2rs7xxnu36eh" path="res://Scenes/PlayerDungeon.tscn" id="2_ibau4"]
 [ext_resource type="PackedScene" uid="uid://dx7nnwe2rscgr" path="res://Scenes/door.tscn" id="3_ibau4"]
+[ext_resource type="AudioStream" uid="uid://cooi1xmspw28r" path="res://Assets/audio/music/overworld/dungeon/floor1/youtube_oBtPbENJdDo_audio.mp3" id="4_wtwbi"]
 
 [node name="Dungeon1FloorLayout1" type="Node2D"]
 
@@ -30,3 +31,9 @@ tile_set = ExtResource("1_2g4py")
 position = Vector2(512, 512)
 build_mode = 1
 polygon = PackedVector2Array(8, 8, 0, 8, 48, 8, 48, -64, 24, -64, 24, -112, -96, -112, -96, -64, -128, -64, -128, 24, -104, 24, -104, 80, -184, 80, -184, 24, -160, 24, -160, -64, -184, -64, -184, -184, -104, -184, -104, -136, 24, -136, 24, -184, 48, -184, 48, -272, 24, -272, 24, -360, 104, -360, 104, -272, 80, -272, 80, -184, 104, -184, 104, -136, 296, -136, 296, -176, 296, -184, 336, -184, 336, -272, 312, -272, 312, -408, 328, -408, 328, -440, 376, -440, 376, -408, 392, -408, 392, -408, 392, -272, 368, -272, 368, -184, 392, -184, 408, -184, 408, -136, 504, -136, 504, -184, 568, -184, 568, -64, 504, -64, 504, -112, 408, -112, 408, -64, 296, -64, 296, -112, 104, -112, 104, -64, 80, -64, 80, 8, 120, 8, 120, 128, 8, 128)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_wtwbi")
+volume_db = -19.271
+autoplay = true
+parameters/looping = true

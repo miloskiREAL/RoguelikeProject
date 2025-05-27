@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://urajodu7p4j8"]
+[gd_scene load_steps=8 format=4 uid="uid://urajodu7p4j8"]
 
-[ext_resource type="TileSet" uid="uid://bwqkjy7v4rih3" path="res://tileset.tres" id="1_bjxdd"]
-[ext_resource type="TileSet" uid="uid://t3s1nkss5xdd" path="res://tilesetdec.tres" id="2_h2c57"]
-[ext_resource type="PackedScene" uid="uid://bg5pfl3phlrn5" path="res://Scenes/door.tscn" id="3_81ivu"]
+[ext_resource type="TileSet" uid="uid://bmo7frlthja56" path="res://tileset.tres" id="1_bjxdd"]
+[ext_resource type="TileSet" uid="uid://dbmdlguiurdi2" path="res://tilesetdec.tres" id="2_h2c57"]
+[ext_resource type="PackedScene" uid="uid://dx7nnwe2rscgr" path="res://Scenes/door.tscn" id="3_81ivu"]
 [ext_resource type="PackedScene" uid="uid://rb15qfypnsg2" path="res://Scenes/player.tscn" id="4_h2c57"]
+[ext_resource type="AudioStream" uid="uid://hi0s75ym2f2l" path="res://Assets/audio/music/overworld/dungeon/floor2/youtube_tJmYAE6SNOw_audio.mp3" id="5_81ivu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjxdd"]
 size = Vector2(32, 440)
@@ -59,3 +60,9 @@ shape = SubResource("RectangleShape2D_bjxdd")
 
 [node name="Player" parent="." instance=ExtResource("4_h2c57")]
 position = Vector2(0, 32)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_81ivu")
+volume_db = -16.613
+autoplay = true
+parameters/looping = true

@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=4 uid="uid://dt6aif57r6kxb"]
+[gd_scene load_steps=13 format=4 uid="uid://dt6aif57r6kxb"]
 
 [ext_resource type="Script" uid="uid://bkn6pnjwdbp4a" path="res://DungeonStart.cs" id="1_px7mr"]
-[ext_resource type="TileSet" uid="uid://t3s1nkss5xdd" path="res://tilesetdec.tres" id="2_bo371"]
+[ext_resource type="TileSet" uid="uid://dbmdlguiurdi2" path="res://tilesetdec.tres" id="2_bo371"]
 [ext_resource type="PackedScene" uid="uid://rb15qfypnsg2" path="res://Scenes/player.tscn" id="3_30h7g"]
-[ext_resource type="PackedScene" uid="uid://bg5pfl3phlrn5" path="res://Scenes/door.tscn" id="3_bo371"]
+[ext_resource type="PackedScene" uid="uid://dx7nnwe2rscgr" path="res://Scenes/door.tscn" id="3_bo371"]
 [ext_resource type="PackedScene" uid="uid://5p2brn802i0e" path="res://Scenes/merchant.tscn" id="4_j23vi"]
 [ext_resource type="PackedScene" uid="uid://ec1r5naldcp1" path="res://Scenes/bonfire.tscn" id="6_6cfxk"]
+[ext_resource type="AudioStream" uid="uid://dpep20vxlpuca" path="res://Assets/audio/music/SafeRoom/Safezone.mp3" id="7_651cp"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_30h7g"]
 a = Vector2(0, 8)
@@ -90,3 +91,9 @@ position = Vector2(672, 176)
 
 [node name="Bonfire" parent="." instance=ExtResource("6_6cfxk")]
 position = Vector2(32, 56)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_651cp")
+volume_db = -14.122
+autoplay = true
+parameters/looping = true

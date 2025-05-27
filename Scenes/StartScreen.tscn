@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://ds5gqvkgdupbl"]
+[gd_scene load_steps=40 format=3 uid="uid://ds5gqvkgdupbl"]
 
 [ext_resource type="Script" uid="uid://bnfc3peeikfnm" path="res://StartScreen.cs" id="1_ko4ly"]
 [ext_resource type="Texture2D" uid="uid://bfq8x6mtjrx8u" path="res://Assets/UI/mainmenuback.jpg" id="2_0on6r"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dfgj0jfm8lmqx" path="res://Assets/fonts/magna-veritas-font/MagnaVeritas-JRmm.ttf" id="3_usjih"]
 [ext_resource type="Texture2D" uid="uid://crqtqdjvfjuri" path="res://Assets/UI/button-removebg-preview.png" id="4_3u666"]
 [ext_resource type="FontFile" uid="uid://1sq4l7q6dkdm" path="res://Assets/fonts/vecna-font/VecnaBold-4YY4.ttf" id="4_a2231"]
+[ext_resource type="AudioStream" uid="uid://bywt8qewcm36v" path="res://Assets/audio/music/start/startscreen.mp3" id="7_6mw8b"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ey7n4"]
 texture = ExtResource("4_3u666")
@@ -211,3 +212,9 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_x1bun")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_3o1n8")
 text = "Quit"
 icon_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_6mw8b")
+volume_db = -15.149
+autoplay = true
+parameters/looping = true

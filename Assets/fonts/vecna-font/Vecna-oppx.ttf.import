@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://f3pqldvvsoxr"
-path="res://.godot/imported/Vecna-oppx.ttf-3681a3130a4bb502bf99a279b81a4739.fontdata"
+path="res://.godot/imported/Vecna-oppx.ttf-77768934b88b546dbc19283ce29c1781.fontdata"
 
 [deps]
 
-source_file="res://Assets/Fonts/vecna-font/Vecna-oppx.ttf"
-dest_files=["res://.godot/imported/Vecna-oppx.ttf-3681a3130a4bb502bf99a279b81a4739.fontdata"]
+source_file="res://Assets/fonts/vecna-font/Vecna-oppx.ttf"
+dest_files=["res://.godot/imported/Vecna-oppx.ttf-77768934b88b546dbc19283ce29c1781.fontdata"]
 
 [params]
 

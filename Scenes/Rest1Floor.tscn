@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=4 uid="uid://dmly8v3yf7j8w"]
+[gd_scene load_steps=7 format=4 uid="uid://dmly8v3yf7j8w"]
 
 [ext_resource type="TileSet" uid="uid://dbmdlguiurdi2" path="res://tilesetdec.tres" id="1_wyoon"]
 [ext_resource type="PackedScene" uid="uid://dx7nnwe2rscgr" path="res://Scenes/door.tscn" id="2_ryjfb"]
 [ext_resource type="PackedScene" uid="uid://rb15qfypnsg2" path="res://Scenes/player.tscn" id="3_7cgog"]
 [ext_resource type="PackedScene" uid="uid://5p2brn802i0e" path="res://Scenes/merchant.tscn" id="4_qticu"]
 [ext_resource type="PackedScene" uid="uid://ec1r5naldcp1" path="res://Scenes/bonfire.tscn" id="5_ryjfb"]
+[ext_resource type="AudioStream" uid="uid://dpep20vxlpuca" path="res://Assets/audio/music/SafeRoom/Safezone.mp3" id="6_7cgog"]
 
 [node name="Rest1Floor" type="Node2D"]
 
@@ -42,3 +43,9 @@ position = Vector2(696, 152)
 position = Vector2(392, 512)
 build_mode = 1
 polygon = PackedVector2Array(0, 0, 0, 0, 0, -432, 168, -432, 168, -464, 216, -464, 216, -432, 368, -432, 368, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_7cgog")
+volume_db = -14.122
+autoplay = true
+parameters/looping = true

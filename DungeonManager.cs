@@ -48,6 +48,7 @@ public partial class DungeonManager : Node2D
 				return FloorType.FinalBoss;
 			}
 			
+			
 			int posCycle = (floor - 1) % 3;
 			
 			if (posCycle == 0)
