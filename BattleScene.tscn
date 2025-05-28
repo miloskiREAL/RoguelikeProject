@@ -1,6 +1,7 @@
-[gd_scene load_steps=208 format=3 uid="uid://b32rkbkjofudp"]
+[gd_scene load_steps=209 format=3 uid="uid://dk84g8rkk8cfr"]
 
 [ext_resource type="Texture2D" uid="uid://b72vc6jytffcv" path="res://Assets/char/knight/knight-character-sprites-pixel-art/Spritesheet 128/Knight_1/Attack 1.png" id="1_hvnqj"]
+[ext_resource type="Script" uid="uid://p74epvrppkdt" path="res://BattleManager.cs" id="1_jxb4u"]
 [ext_resource type="Texture2D" uid="uid://or83lsnn6oi0" path="res://Assets/char/monk/Elementals_ground_monk_FREE_v1.3/png/1_atk/1_atk_1.png" id="1_pfdgg"]
 [ext_resource type="Texture2D" uid="uid://d8qjjhcedlrq" path="res://Assets/char/ranger/Final/Normal Attack.png" id="1_trw3k"]
 [ext_resource type="Texture2D" uid="uid://caxciptv6d2vr" path="res://Assets/char/knight/knight-character-sprites-pixel-art/Spritesheet 128/Knight_1/Idle.png" id="1_ttbo7"]
@@ -1204,13 +1205,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Control" type="Control"]
+[node name="BattleScene" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_jxb4u")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -1258,21 +1260,32 @@ offset_left = 88.0
 offset_top = 488.0
 offset_right = 288.0
 offset_bottom = 576.0
+theme_override_font_sizes/font_size = 24
+text = "ATTACK"
 
 [node name="Item" type="Button" parent="."]
+layout_mode = 0
 offset_left = 352.0
 offset_top = 488.0
 offset_right = 544.0
 offset_bottom = 576.0
+theme_override_font_sizes/font_size = 24
+text = "ITEM"
 
 [node name="Defend" type="Button" parent="."]
+layout_mode = 0
 offset_left = 608.0
 offset_top = 488.0
 offset_right = 800.0
 offset_bottom = 576.0
+theme_override_font_sizes/font_size = 24
+text = "DEFEND"
 
 [node name="Retreat" type="Button" parent="."]
+layout_mode = 0
 offset_left = 864.0
 offset_top = 488.0
 offset_right = 1064.0
 offset_bottom = 576.0
+theme_override_font_sizes/font_size = 24
+text = "RETREAT"

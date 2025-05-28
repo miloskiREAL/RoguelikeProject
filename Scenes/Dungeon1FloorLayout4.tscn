@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://bmo7frlthja56" path="res://tileset.tres" id="2_vdcsd"]
 [ext_resource type="PackedScene" uid="uid://dx7nnwe2rscgr" path="res://Scenes/door.tscn" id="3_vrgyx"]
 [ext_resource type="PackedScene" uid="uid://c2rs7xxnu36eh" path="res://Scenes/PlayerDungeon.tscn" id="4_yao1j"]
-[ext_resource type="AudioStream" uid="uid://cooi1xmspw28r" path="res://Assets/audio/music/overworld/dungeon/floor1/youtube_oBtPbENJdDo_audio.mp3" id="5_yao1j"]
+[ext_resource type="AudioStream" uid="uid://cooi1xmspw28r" path="res://Assets/Audio/music/overworld/dungeon/floor1/youtube_oBtPbENJdDo_audio.mp3" id="5_yao1j"]
 
 [node name="Dungeon1Floor" type="Node2D"]
 
