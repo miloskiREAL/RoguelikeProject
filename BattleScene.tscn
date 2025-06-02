@@ -1,4 +1,4 @@
-[gd_scene load_steps=209 format=3 uid="uid://dk84g8rkk8cfr"]
+[gd_scene load_steps=210 format=3 uid="uid://b32rkbkjofudp"]
 
 [ext_resource type="Texture2D" uid="uid://b72vc6jytffcv" path="res://Assets/char/knight/knight-character-sprites-pixel-art/Spritesheet 128/Knight_1/Attack 1.png" id="1_hvnqj"]
 [ext_resource type="Script" uid="uid://p74epvrppkdt" path="res://BattleManager.cs" id="1_jxb4u"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://brac3cpu3gqmm" path="res://Assets/char/monk/Elementals_ground_monk_FREE_v1.3/png/1_atk/1_atk_2.png" id="2_dvttb"]
 [ext_resource type="Texture2D" uid="uid://cn28prb5tgv32" path="res://Assets/char/ranger/Final/High Attack.png" id="2_jxb4u"]
 [ext_resource type="Texture2D" uid="uid://u2ljbrcud8rl" path="res://Assets/char/knight/knight-character-sprites-pixel-art/Spritesheet 128/Knight_1/Attack 2.png" id="2_musxc"]
+[ext_resource type="Script" uid="uid://dnoq5qp1j31ab" path="res://Character.cs" id="2_ukw7v"]
 [ext_resource type="Texture2D" uid="uid://cxpas0goqr5sy" path="res://Assets/char/knight/knight-character-sprites-pixel-art/Spritesheet 128/Knight_1/Hurt.png" id="3_musxc"]
 [ext_resource type="Texture2D" uid="uid://b1josed4dmnu8" path="res://Assets/char/ranger/Final/Low attack.png" id="3_ukw7v"]
 [ext_resource type="Texture2D" uid="uid://cv6caaxkpkkd3" path="res://Assets/char/monk/Elementals_ground_monk_FREE_v1.3/png/1_atk/1_atk_3.png" id="3_wysa5"]
@@ -1229,6 +1230,7 @@ scale = Vector2(3.875, 3.5)
 sprite_frames = SubResource("SpriteFrames_j63l3")
 animation = &"Attack1"
 autoplay = "Idle"
+script = ExtResource("2_ukw7v")
 
 [node name="Monk" type="AnimatedSprite2D" parent="."]
 position = Vector2(240, 56)
@@ -1237,6 +1239,7 @@ sprite_frames = SubResource("SpriteFrames_mobn2")
 animation = &"Idle"
 autoplay = "Idle"
 frame_progress = 0.970766
+script = ExtResource("2_ukw7v")
 
 [node name="Wizard" type="AnimatedSprite2D" parent="."]
 position = Vector2(336, 288)
@@ -1245,6 +1248,7 @@ sprite_frames = SubResource("SpriteFrames_teshm")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.378698
+script = ExtResource("2_ukw7v")
 
 [node name="Knight" type="AnimatedSprite2D" parent="."]
 position = Vector2(464, 304)
@@ -1253,8 +1257,14 @@ sprite_frames = SubResource("SpriteFrames_7pwqm")
 animation = &"Idle"
 autoplay = "Idle"
 frame_progress = 0.562175
+script = ExtResource("2_ukw7v")
 
-[node name="Attack" type="Button" parent="."]
+[node name="Action Menu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Attack" type="Button" parent="Action Menu"]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 488.0
@@ -1263,7 +1273,7 @@ offset_bottom = 576.0
 theme_override_font_sizes/font_size = 24
 text = "ATTACK"
 
-[node name="Item" type="Button" parent="."]
+[node name="Item" type="Button" parent="Action Menu"]
 layout_mode = 0
 offset_left = 352.0
 offset_top = 488.0
@@ -1272,7 +1282,7 @@ offset_bottom = 576.0
 theme_override_font_sizes/font_size = 24
 text = "ITEM"
 
-[node name="Defend" type="Button" parent="."]
+[node name="Defend" type="Button" parent="Action Menu"]
 layout_mode = 0
 offset_left = 608.0
 offset_top = 488.0
@@ -1281,7 +1291,7 @@ offset_bottom = 576.0
 theme_override_font_sizes/font_size = 24
 text = "DEFEND"
 
-[node name="Retreat" type="Button" parent="."]
+[node name="Retreat" type="Button" parent="Action Menu"]
 layout_mode = 0
 offset_left = 864.0
 offset_top = 488.0

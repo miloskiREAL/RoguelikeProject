@@ -30,9 +30,9 @@ public partial class GameManager : Node
 
 	public void ResetGame()
 	{
-		SaveData = new SaveData(); // Reset to defaults
+		SaveData = new SaveData(); 
 		GD.Print("GameManager reset with new SaveData.");
 	}
 
-	// Optional: Add save/load helpers here if needed later
+	
 }
