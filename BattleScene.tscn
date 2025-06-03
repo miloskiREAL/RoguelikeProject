@@ -1259,12 +1259,12 @@ autoplay = "Idle"
 frame_progress = 0.562175
 script = ExtResource("2_ukw7v")
 
-[node name="Action Menu" type="Control" parent="."]
+[node name="ActionMenu" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Attack" type="Button" parent="Action Menu"]
+[node name="Attack" type="Button" parent="ActionMenu"]
 layout_mode = 0
 offset_left = 88.0
 offset_top = 488.0
@@ -1273,7 +1273,7 @@ offset_bottom = 576.0
 theme_override_font_sizes/font_size = 24
 text = "ATTACK"
 
-[node name="Item" type="Button" parent="Action Menu"]
+[node name="Item" type="Button" parent="ActionMenu"]
 layout_mode = 0
 offset_left = 352.0
 offset_top = 488.0
@@ -1282,7 +1282,7 @@ offset_bottom = 576.0
 theme_override_font_sizes/font_size = 24
 text = "ITEM"
 
-[node name="Defend" type="Button" parent="Action Menu"]
+[node name="Defend" type="Button" parent="ActionMenu"]
 layout_mode = 0
 offset_left = 608.0
 offset_top = 488.0
@@ -1291,7 +1291,7 @@ offset_bottom = 576.0
 theme_override_font_sizes/font_size = 24
 text = "DEFEND"
 
-[node name="Retreat" type="Button" parent="Action Menu"]
+[node name="Retreat" type="Button" parent="ActionMenu"]
 layout_mode = 0
 offset_left = 864.0
 offset_top = 488.0
@@ -1299,3 +1299,193 @@ offset_right = 1064.0
 offset_bottom = 576.0
 theme_override_font_sizes/font_size = 24
 text = "RETREAT"
+
+[node name="SkillMenus" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="KnightMenu" type="VBoxContainer" parent="SkillMenus"]
+visible = false
+layout_mode = 0
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="HSeparator6" type="HSeparator" parent="SkillMenus/KnightMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Slash" type="Button" parent="SkillMenus/KnightMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator5" type="HSeparator" parent="SkillMenus/KnightMenu"]
+layout_mode = 2
+
+[node name="Motivate" type="Button" parent="SkillMenus/KnightMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator4" type="HSeparator" parent="SkillMenus/KnightMenu"]
+layout_mode = 2
+
+[node name="HolyBlade" type="Button" parent="SkillMenus/KnightMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="SkillMenus/KnightMenu"]
+layout_mode = 2
+
+[node name="RoundSlash" type="Button" parent="SkillMenus/KnightMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="SkillMenus/KnightMenu"]
+layout_mode = 2
+
+[node name="Cleave" type="Button" parent="SkillMenus/KnightMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="SkillMenus/KnightMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="WizardMenu" type="VBoxContainer" parent="SkillMenus"]
+visible = false
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="HSeparator6" type="HSeparator" parent="SkillMenus/WizardMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Fireball" type="Button" parent="SkillMenus/WizardMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator5" type="HSeparator" parent="SkillMenus/WizardMenu"]
+layout_mode = 2
+
+[node name="Iceshard" type="Button" parent="SkillMenus/WizardMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator4" type="HSeparator" parent="SkillMenus/WizardMenu"]
+layout_mode = 2
+
+[node name="Heal" type="Button" parent="SkillMenus/WizardMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="SkillMenus/WizardMenu"]
+layout_mode = 2
+
+[node name="Meteor" type="Button" parent="SkillMenus/WizardMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="SkillMenus/WizardMenu"]
+layout_mode = 2
+
+[node name="IceAge" type="Button" parent="SkillMenus/WizardMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="SkillMenus/WizardMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="MonkMenu" type="VBoxContainer" parent="SkillMenus"]
+visible = false
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="HSeparator6" type="HSeparator" parent="SkillMenus/MonkMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Punch" type="Button" parent="SkillMenus/MonkMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator5" type="HSeparator" parent="SkillMenus/MonkMenu"]
+layout_mode = 2
+
+[node name="Rocksling" type="Button" parent="SkillMenus/MonkMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator4" type="HSeparator" parent="SkillMenus/MonkMenu"]
+layout_mode = 2
+
+[node name="Meditate" type="Button" parent="SkillMenus/MonkMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="SkillMenus/MonkMenu"]
+layout_mode = 2
+
+[node name="FlurryBlows" type="Button" parent="SkillMenus/MonkMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="SkillMenus/MonkMenu"]
+layout_mode = 2
+
+[node name="EarthShatter" type="Button" parent="SkillMenus/MonkMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="SkillMenus/MonkMenu"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="RangerMenu2" type="VBoxContainer" parent="SkillMenus"]
+visible = false
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="HSeparator6" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="Arrowshot" type="Button" parent="SkillMenus/RangerMenu2"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator5" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+layout_mode = 2
+
+[node name="WindShot" type="Button" parent="SkillMenus/RangerMenu2"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator4" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+layout_mode = 2
+
+[node name="ArrowRain" type="Button" parent="SkillMenus/RangerMenu2"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+layout_mode = 2
+
+[node name="HurricaneArrow" type="Button" parent="SkillMenus/RangerMenu2"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+layout_mode = 2
+
+[node name="SingleShot" type="Button" parent="SkillMenus/RangerMenu2"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
