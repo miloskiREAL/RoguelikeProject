@@ -1,9 +1,18 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Character : Control
 {
 	public enum SkillType { Physical, Magical, Heal, Buff, Debuff };
+	public enum TargetType
+	{
+		SingleEnemy,
+		AllEnemies,
+		SingleAlly,
+		AllAllies,
+		Self
+	}
 	public enum ElementType { Neutral, Fire, Ice, Lightning, Holy, Wind, Earth };
 	public enum CharacterClass { Knight, Monk, Wizard, Ranger };
 	public string CharacterName;
@@ -34,8 +43,8 @@ public partial class Character : Control
 					target.TakeDamage(dmg);
 					break;
 				case SkillType.Magical:
-					int dmg = Math.Max(1, user.Magic + Power - target.Defense);
-					target.TakeDamage(dmg);
+					int mdmg = Math.Max(1, user.Magic + Power - target.Defense);
+					target.TakeDamage(mdmg);
 					break;
 				case SkillType.Heal:
 					target.Heal(Power + user.Magic);

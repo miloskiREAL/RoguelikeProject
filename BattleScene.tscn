@@ -1224,7 +1224,12 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Ranger" type="AnimatedSprite2D" parent="."]
+[node name="PlayerParty" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Ranger" type="AnimatedSprite2D" parent="PlayerParty"]
 position = Vector2(160, 160)
 scale = Vector2(3.875, 3.5)
 sprite_frames = SubResource("SpriteFrames_j63l3")
@@ -1232,7 +1237,7 @@ animation = &"Attack1"
 autoplay = "Idle"
 script = ExtResource("2_ukw7v")
 
-[node name="Monk" type="AnimatedSprite2D" parent="."]
+[node name="Monk" type="AnimatedSprite2D" parent="PlayerParty"]
 position = Vector2(240, 56)
 scale = Vector2(4.88889, 4.625)
 sprite_frames = SubResource("SpriteFrames_mobn2")
@@ -1241,7 +1246,7 @@ autoplay = "Idle"
 frame_progress = 0.970766
 script = ExtResource("2_ukw7v")
 
-[node name="Wizard" type="AnimatedSprite2D" parent="."]
+[node name="Wizard" type="AnimatedSprite2D" parent="PlayerParty"]
 position = Vector2(336, 288)
 scale = Vector2(1.93939, 1.68421)
 sprite_frames = SubResource("SpriteFrames_teshm")
@@ -1250,7 +1255,7 @@ autoplay = "idle"
 frame_progress = 0.378698
 script = ExtResource("2_ukw7v")
 
-[node name="Knight" type="AnimatedSprite2D" parent="."]
+[node name="Knight" type="AnimatedSprite2D" parent="PlayerParty"]
 position = Vector2(464, 304)
 scale = Vector2(2.5, 2.25)
 sprite_frames = SubResource("SpriteFrames_7pwqm")
@@ -1258,6 +1263,22 @@ animation = &"Idle"
 autoplay = "Idle"
 frame_progress = 0.562175
 script = ExtResource("2_ukw7v")
+
+[node name="EnemyParty" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Enemy4" type="StaticBody2D" parent="EnemyParty"]
+position = Vector2(1000, 232)
+
+[node name="Enemy3" type="StaticBody2D" parent="EnemyParty"]
+position = Vector2(928, 312)
+
+[node name="Enemy2" type="StaticBody2D" parent="EnemyParty"]
+
+[node name="Enemy1" type="StaticBody2D" parent="EnemyParty"]
 
 [node name="ActionMenu" type="Control" parent="."]
 anchors_preset = 0
@@ -1489,3 +1510,8 @@ layout_mode = 2
 [node name="HSeparator" type="HSeparator" parent="SkillMenus/RangerMenu2"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+
+[node name="TargetingMenu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
