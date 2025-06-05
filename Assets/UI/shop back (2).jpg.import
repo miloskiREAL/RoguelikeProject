@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://moim50fpqfwv"
-path="res://.godot/imported/excalimation mark2.png-d93023c93c3cf55f876bc82f6794db51.ctex"
+uid="uid://bycanj1cephe8"
+path="res://.godot/imported/shop back (2).jpg-8989dee49f08aa9ea7e5c7b9d54fda59.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Icons/excalimation mark2.png"
-dest_files=["res://.godot/imported/excalimation mark2.png-d93023c93c3cf55f876bc82f6794db51.ctex"]
+source_file="res://Assets/UI/shop back (2).jpg"
+dest_files=["res://.godot/imported/shop back (2).jpg-8989dee49f08aa9ea7e5c7b9d54fda59.ctex"]
 
 [params]
 

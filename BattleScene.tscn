@@ -1256,6 +1256,7 @@ frame_progress = 0.378698
 script = ExtResource("2_ukw7v")
 
 [node name="Knight" type="AnimatedSprite2D" parent="PlayerParty"]
+visible = false
 position = Vector2(464, 304)
 scale = Vector2(2.5, 2.25)
 sprite_frames = SubResource("SpriteFrames_7pwqm")
@@ -1270,15 +1271,13 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Enemy4" type="StaticBody2D" parent="EnemyParty"]
-position = Vector2(1000, 232)
+[node name="EnemySlot4" type="Node2D" parent="EnemyParty"]
 
-[node name="Enemy3" type="StaticBody2D" parent="EnemyParty"]
-position = Vector2(928, 312)
+[node name="EnemySlot3" type="Node2D" parent="EnemyParty"]
 
-[node name="Enemy2" type="StaticBody2D" parent="EnemyParty"]
+[node name="EnemySlot2" type="Node2D" parent="EnemyParty"]
 
-[node name="Enemy1" type="StaticBody2D" parent="EnemyParty"]
+[node name="EnemySlot1" type="Node2D" parent="EnemyParty"]
 
 [node name="ActionMenu" type="Control" parent="."]
 anchors_preset = 0
