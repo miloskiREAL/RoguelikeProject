@@ -1375,6 +1375,7 @@ layout_mode = 2
 
 [node name="WizardMenu" type="VBoxContainer" parent="SkillMenus"]
 visible = false
+layout_mode = 0
 offset_left = 576.0
 offset_right = 1152.0
 offset_bottom = 648.0
@@ -1421,6 +1422,7 @@ layout_mode = 2
 
 [node name="MonkMenu" type="VBoxContainer" parent="SkillMenus"]
 visible = false
+layout_mode = 0
 offset_left = 576.0
 offset_right = 1152.0
 offset_bottom = 648.0
@@ -1467,6 +1469,7 @@ layout_mode = 2
 
 [node name="RangerMenu2" type="VBoxContainer" parent="SkillMenus"]
 visible = false
+layout_mode = 0
 offset_left = 576.0
 offset_right = 1152.0
 offset_bottom = 648.0

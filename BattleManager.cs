@@ -19,10 +19,10 @@ public partial class BattleManager : Control
 	{
 		playerParty = new List<Character>
 		{
-		GetNode<Character>("Knight"),
-		GetNode<Character>("Wizard"),
-		GetNode<Character>("Monk"),
-		GetNode<Character>("Ranger")
+		GetNode<Character>("PlayerParty/Knight"),
+		GetNode<Character>("PlayerParty/Wizard"),
+		GetNode<Character>("PlayerParty/Monk"),
+		GetNode<Character>("PlayerParty/Ranger")
 		};
 
 		foreach (var player in playerParty)

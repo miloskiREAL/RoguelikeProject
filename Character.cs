@@ -5,14 +5,7 @@ using System.Collections.Generic;
 public partial class Character : Control
 {
 	public enum SkillType { Physical, Magical, Heal, Buff, Debuff };
-	public enum TargetType
-	{
-		SingleEnemy,
-		AllEnemies,
-		SingleAlly,
-		AllAllies,
-		Self
-	}
+	public enum TargetType { SingleEnemy, AllEnemies, SingleAlly, AllAllies, Self };
 	public enum ElementType { Neutral, Fire, Ice, Lightning, Holy, Wind, Earth };
 	public enum CharacterClass { Knight, Monk, Wizard, Ranger };
 	public string CharacterName;
