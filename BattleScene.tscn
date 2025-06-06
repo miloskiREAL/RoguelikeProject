@@ -1,4 +1,4 @@
-[gd_scene load_steps=210 format=3 uid="uid://b32rkbkjofudp"]
+[gd_scene load_steps=211 format=3 uid="uid://b32rkbkjofudp"]
 
 [ext_resource type="Texture2D" uid="uid://b72vc6jytffcv" path="res://Assets/char/knight/knight-character-sprites-pixel-art/Spritesheet 128/Knight_1/Attack 1.png" id="1_hvnqj"]
 [ext_resource type="Script" uid="uid://p74epvrppkdt" path="res://BattleManager.cs" id="1_jxb4u"]
@@ -101,6 +101,7 @@
 [ext_resource type="Texture2D" uid="uid://prcugqepa04" path="res://Assets/char/monk/Elementals_ground_monk_FREE_v1.3/png/meditate/meditate_15.png" id="83_uo3po"]
 [ext_resource type="Texture2D" uid="uid://coeelkgevyc4i" path="res://Assets/char/monk/Elementals_ground_monk_FREE_v1.3/png/meditate/meditate_16.png" id="84_uivxa"]
 [ext_resource type="Texture2D" uid="uid://g42pq5jkvj6h" path="res://Assets/char/wizard/Wizard Pack/Hit.png" id="87_8nqpn"]
+[ext_resource type="Script" uid="uid://dh1dt2gd1v3x4" path="res://UIManager.cs" id="102_gugs4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dq3qt"]
 atlas = ExtResource("1_trw3k")
@@ -1329,211 +1330,211 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="KnightMenu" type="VBoxContainer" parent="SkillMenus"]
+[node name="KnightSkillMenu" type="VBoxContainer" parent="SkillMenus"]
 visible = false
 layout_mode = 0
 offset_left = 576.0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="HSeparator6" type="HSeparator" parent="SkillMenus/KnightMenu"]
+[node name="HSeparator6" type="HSeparator" parent="SkillMenus/KnightSkillMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Slash" type="Button" parent="SkillMenus/KnightMenu"]
+[node name="Slash" type="Button" parent="SkillMenus/KnightSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator5" type="HSeparator" parent="SkillMenus/KnightMenu"]
+[node name="HSeparator5" type="HSeparator" parent="SkillMenus/KnightSkillMenu"]
 layout_mode = 2
 
-[node name="Motivate" type="Button" parent="SkillMenus/KnightMenu"]
+[node name="Motivate" type="Button" parent="SkillMenus/KnightSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator4" type="HSeparator" parent="SkillMenus/KnightMenu"]
+[node name="HSeparator4" type="HSeparator" parent="SkillMenus/KnightSkillMenu"]
 layout_mode = 2
 
-[node name="HolyBlade" type="Button" parent="SkillMenus/KnightMenu"]
+[node name="HolyBlade" type="Button" parent="SkillMenus/KnightSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="SkillMenus/KnightMenu"]
+[node name="HSeparator3" type="HSeparator" parent="SkillMenus/KnightSkillMenu"]
 layout_mode = 2
 
-[node name="RoundSlash" type="Button" parent="SkillMenus/KnightMenu"]
+[node name="RoundSlash" type="Button" parent="SkillMenus/KnightSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="SkillMenus/KnightMenu"]
+[node name="HSeparator2" type="HSeparator" parent="SkillMenus/KnightSkillMenu"]
 layout_mode = 2
 
-[node name="Cleave" type="Button" parent="SkillMenus/KnightMenu"]
+[node name="Cleave" type="Button" parent="SkillMenus/KnightSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="SkillMenus/KnightMenu"]
+[node name="HSeparator" type="HSeparator" parent="SkillMenus/KnightSkillMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="WizardMenu" type="VBoxContainer" parent="SkillMenus"]
+[node name="WizardSkillMenu" type="VBoxContainer" parent="SkillMenus"]
 visible = false
 layout_mode = 0
 offset_left = 576.0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="HSeparator6" type="HSeparator" parent="SkillMenus/WizardMenu"]
+[node name="HSeparator6" type="HSeparator" parent="SkillMenus/WizardSkillMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Fireball" type="Button" parent="SkillMenus/WizardMenu"]
+[node name="Fireball" type="Button" parent="SkillMenus/WizardSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator5" type="HSeparator" parent="SkillMenus/WizardMenu"]
+[node name="HSeparator5" type="HSeparator" parent="SkillMenus/WizardSkillMenu"]
 layout_mode = 2
 
-[node name="Iceshard" type="Button" parent="SkillMenus/WizardMenu"]
+[node name="Iceshard" type="Button" parent="SkillMenus/WizardSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator4" type="HSeparator" parent="SkillMenus/WizardMenu"]
+[node name="HSeparator4" type="HSeparator" parent="SkillMenus/WizardSkillMenu"]
 layout_mode = 2
 
-[node name="Heal" type="Button" parent="SkillMenus/WizardMenu"]
+[node name="Heal" type="Button" parent="SkillMenus/WizardSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="SkillMenus/WizardMenu"]
+[node name="HSeparator3" type="HSeparator" parent="SkillMenus/WizardSkillMenu"]
 layout_mode = 2
 
-[node name="Meteor" type="Button" parent="SkillMenus/WizardMenu"]
+[node name="Meteor" type="Button" parent="SkillMenus/WizardSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="SkillMenus/WizardMenu"]
+[node name="HSeparator2" type="HSeparator" parent="SkillMenus/WizardSkillMenu"]
 layout_mode = 2
 
-[node name="IceAge" type="Button" parent="SkillMenus/WizardMenu"]
+[node name="IceAge" type="Button" parent="SkillMenus/WizardSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="SkillMenus/WizardMenu"]
+[node name="HSeparator" type="HSeparator" parent="SkillMenus/WizardSkillMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="MonkMenu" type="VBoxContainer" parent="SkillMenus"]
+[node name="MonkSkillMenu" type="VBoxContainer" parent="SkillMenus"]
 visible = false
 layout_mode = 0
 offset_left = 576.0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="HSeparator6" type="HSeparator" parent="SkillMenus/MonkMenu"]
+[node name="HSeparator6" type="HSeparator" parent="SkillMenus/MonkSkillMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Punch" type="Button" parent="SkillMenus/MonkMenu"]
+[node name="Punch" type="Button" parent="SkillMenus/MonkSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator5" type="HSeparator" parent="SkillMenus/MonkMenu"]
+[node name="HSeparator5" type="HSeparator" parent="SkillMenus/MonkSkillMenu"]
 layout_mode = 2
 
-[node name="Rocksling" type="Button" parent="SkillMenus/MonkMenu"]
+[node name="Rocksling" type="Button" parent="SkillMenus/MonkSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator4" type="HSeparator" parent="SkillMenus/MonkMenu"]
+[node name="HSeparator4" type="HSeparator" parent="SkillMenus/MonkSkillMenu"]
 layout_mode = 2
 
-[node name="Meditate" type="Button" parent="SkillMenus/MonkMenu"]
+[node name="Meditate" type="Button" parent="SkillMenus/MonkSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="SkillMenus/MonkMenu"]
+[node name="HSeparator3" type="HSeparator" parent="SkillMenus/MonkSkillMenu"]
 layout_mode = 2
 
-[node name="FlurryBlows" type="Button" parent="SkillMenus/MonkMenu"]
+[node name="FlurryBlows" type="Button" parent="SkillMenus/MonkSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="SkillMenus/MonkMenu"]
+[node name="HSeparator2" type="HSeparator" parent="SkillMenus/MonkSkillMenu"]
 layout_mode = 2
 
-[node name="EarthShatter" type="Button" parent="SkillMenus/MonkMenu"]
+[node name="EarthShatter" type="Button" parent="SkillMenus/MonkSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="SkillMenus/MonkMenu"]
+[node name="HSeparator" type="HSeparator" parent="SkillMenus/MonkSkillMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="RangerMenu2" type="VBoxContainer" parent="SkillMenus"]
+[node name="RangerSkillMenu" type="VBoxContainer" parent="SkillMenus"]
 visible = false
 layout_mode = 0
 offset_left = 576.0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="HSeparator6" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+[node name="HSeparator6" type="HSeparator" parent="SkillMenus/RangerSkillMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Arrowshot" type="Button" parent="SkillMenus/RangerMenu2"]
+[node name="Arrowshot" type="Button" parent="SkillMenus/RangerSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator5" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+[node name="HSeparator5" type="HSeparator" parent="SkillMenus/RangerSkillMenu"]
 layout_mode = 2
 
-[node name="WindShot" type="Button" parent="SkillMenus/RangerMenu2"]
+[node name="WindShot" type="Button" parent="SkillMenus/RangerSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator4" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+[node name="HSeparator4" type="HSeparator" parent="SkillMenus/RangerSkillMenu"]
 layout_mode = 2
 
-[node name="ArrowRain" type="Button" parent="SkillMenus/RangerMenu2"]
+[node name="ArrowRain" type="Button" parent="SkillMenus/RangerSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator3" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+[node name="HSeparator3" type="HSeparator" parent="SkillMenus/RangerSkillMenu"]
 layout_mode = 2
 
-[node name="HurricaneArrow" type="Button" parent="SkillMenus/RangerMenu2"]
+[node name="HurricaneArrow" type="Button" parent="SkillMenus/RangerSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator2" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+[node name="HSeparator2" type="HSeparator" parent="SkillMenus/RangerSkillMenu"]
 layout_mode = 2
 
-[node name="SingleShot" type="Button" parent="SkillMenus/RangerMenu2"]
+[node name="SingleShot" type="Button" parent="SkillMenus/RangerSkillMenu"]
 visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="SkillMenus/RangerMenu2"]
+[node name="HSeparator" type="HSeparator" parent="SkillMenus/RangerSkillMenu"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
@@ -1542,7 +1543,8 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Control" type="Control" parent="."]
+[node name="UIManager" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("102_gugs4")

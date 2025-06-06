@@ -52,14 +52,21 @@ public partial class Character : Control
 	}
 	public void Init(CharacterClass cls)
 	{
+		Class = cls;
 		switch (cls)
 		{
 			case CharacterClass.Knight:
 				CharacterName = "Knight";
-				MaxHP = 200; MaxSP = 50;
-				Strength = 30; Magic = 5; Defense = 20; Speed = 10;
-				Skills.Add(new Skill { Name="Slash", Power=20, Type=SkillType.Physical });
-				Skills.Add(new Skill { Name="Defend", Power=0, Type=SkillType.Buff });
+				MaxHP = 200 + SaveData.PartyLevel * 1.5; MaxSP = 100 + SaveData.PartyLevel * 1.5;
+				Strength = 30 + SaveData.PartyLevel; 
+				Magic = 5 + SaveData.PartyLevel; 
+				Defense = 20 + SaveData.PartyLevel; 
+				Speed = 10 + SaveData.PartyLevel;
+				Skills.Add(new Skill { Name="Slash", Power=50, Type=SkillType.Physical, Targeting=TargetType.SingleEnemy, Element=ElementType.Neutral, Unlocked=True, cost=5 });
+				Skills.Add(new Skill { Name="Motivate", Power=0, Type=SkillType.Buff, Targeting=TargetType.AllAllies, Element=ElementType.Neutral, Unlocked=True, cost=8 });
+				Skills.Add(new Skill { Name="HolyBlade", Power=100, Type=SkillType.Physical, Targeting=TargetType.SingleEnemy, Element=ElementType.Holy, Unlocked=SaveData.PartyLevel>=5, cost=10 });
+				Skills.Add(new Skill { Name="RoundSlash", Power=60, Type=SkillType.Physical, Targeting=TargetType.AllEnemies, Element=ElementType.Neutral, Unlocked=SaveData.PartyLevel>=10, cost=8 });
+				Skills.Add(new Skill { Name="Cleave", Power=150, Type=SkillType.Physical, Targeting=TargetType.SingleEnemy, Element=ElementType.Neutral, Unlocked=SaveData.PartyLevel>=15, cost=20 });
 				break;
 
 			case CharacterClass.Monk:
@@ -73,9 +80,14 @@ public partial class Character : Control
 			case CharacterClass.Wizard:
 				CharacterName = "Wizard";
 				MaxHP = 120; MaxSP = 120;
-				Strength = 5;  Magic = 30; Defense = 8; Speed = 12;
-				Skills.Add(new Skill { Name="Firebolt", Power=28, Element=ElementType.Fire, Type=SkillType.Magical });
-				Skills.Add(new Skill { Name="Ice Shard", Power=26, Element=ElementType.Ice,  Type=SkillType.Magical });
+				Strength = 5  + SaveData.PartyLevel;  
+				Magic = 30  + SaveData.PartyLevel; 
+				Defense = 8  + SaveData.PartyLevel; 
+				Speed = 12  + SaveData.PartyLevel;
+				Skills.Add(new Skill { Name="Fireball", Power=40, Type=SkillType.Magical, Targeting=TargetType.SingleEnemy, Element=ElementType.Fire, Unlocked=True, cost=5 });
+				Skills.Add(new Skill { Name="Iceshard", Power=40, Type=SkillType.Magical, Targeting=TargetType.SingleEnemy, Element=ElementType.Ice, Unlocked=True, cost=5 });
+				Skills.Add(new Skill { Name="Heal", Power=60, Type=SkillType.Heal, Targeting=TargetType.SingleAlly, Element=ElementType.Neutral, Unlocked=SaveData.PartyLevel>=6, cost=7 });
+				Skills.Add(new Skill { Name="Fireball", Power=40, Type=SkillType.Magical, Targeting=TargetType.SingleEnemy, Element=ElementType.Fire, Unlocked=True, cost=5 });
 				break;
 
 			case CharacterClass.Ranger:
