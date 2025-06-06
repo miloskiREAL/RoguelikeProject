@@ -30,8 +30,7 @@ public partial class BattleManager : Control
 		foreach (Character character in playerPartyContainer.GetChildren())
 		{
 			playerParty.Add(character);
-			character.Init(); // Reset HP/SP or use saved data
-			character.HideAllSkillButtons(); // If you want skills hidden by default
+			character.Init(character.Class);
 		}
 	}
 
@@ -39,11 +38,13 @@ public partial class BattleManager : Control
 	{
 		int block = GameManager.Instance.SaveData.Floor;
 		var enemies = EnemyPool.GetRandomEnemiesForBlock(block, 1, 4);
-		foreach (var enemy in enemies)
+
+		foreach (var enemyScene in enemies)
 		{
-			var enemyInstance = (Character)enemy.Instantiate();
+			var enemyInstance = (Character)enemyScene.Instantiate();
 			enemyParty.Add(enemyInstance);
 			enemyPartyContainer.AddChild(enemyInstance);
+			enemyInstance.Init(enemyInstance.Class); // Initialize enemy stats
 		}
 	}
 
@@ -62,22 +63,24 @@ public partial class BattleManager : Control
 			{
 				isPlayerTurn = false;
 				turnIndex = 0;
-				StartTurn(); // Move to enemy phase
+				StartTurn();
 				return;
 			}
 
 			var currentChar = playerParty[turnIndex];
-			ShowActionMenuForCharacter(currentChar);
+			if (currentChar.IsDead())
+			{
+				turnIndex++;
+				StartTurn();
+				return;
+			}
+
+			UIManager.Instance.ShowActionButtons(currentChar);
 		}
 		else
 		{
 			EnemyTurn();
 		}
-	}
-
-	private void ShowActionMenuForCharacter(Character character)
-	{
-		UIManager.Instance.ShowActionButtons(character);
 	}
 
 	public void OnPlayerActionSelected(string actionType)
@@ -113,7 +116,8 @@ public partial class BattleManager : Control
 
 	public void OnTargetSelected(Character target, Character.Skill skill)
 	{
-		skill.Activate(playerParty[turnIndex], target);
+		var user = playerParty[turnIndex];
+		skill.Activate(user, target);
 		EndPlayerTurn();
 	}
 
@@ -128,6 +132,7 @@ public partial class BattleManager : Control
 	{
 		foreach (var enemy in enemyParty)
 		{
+			if (enemy.IsDead()) continue;
 			await ToSignal(GetTree().CreateTimer(1.0), "timeout");
 			enemy.PerformAI(playerParty);
 		}
@@ -146,9 +151,15 @@ public partial class BattleManager : Control
 	private void EndBattle(bool playerWon)
 	{
 		if (playerWon)
+		{
 			GD.Print("Victory!");
+			// Handle victory logic
+		}
 		else
+		{
 			GD.Print("Retreated or Defeated");
+			// Handle loss or retreat
+		}
 
 		GetTree().ChangeSceneToFile("res://Scenes/DungeonManager.tscn");
 	}

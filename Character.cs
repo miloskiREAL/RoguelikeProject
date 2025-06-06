@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public partial class Character : Control
 {
+	public CharacterClass Class { get; private set; }
 	public enum SkillType { Physical, Magical, Heal, Buff, Debuff };
 	public enum TargetType { SingleEnemy, AllEnemies, SingleAlly, AllAllies, Self };
 	public enum ElementType { Neutral, Fire, Ice, Lightning, Holy, Wind, Earth };
@@ -17,6 +18,7 @@ public partial class Character : Control
 	public int Magic;
 	public int Defense;
 	public int Speed;
+	public bool IsDefending = false;
 	public List<Skill> Skills = new();
 	public bool IsDead() => CurrentHP <= 0;
 	public class Skill
@@ -92,9 +94,14 @@ public partial class Character : Control
 	
 	public void TakeDamage(int amount)
 	{
+		if (IsDefending)
+		{
+			amount = (int)Math.Ceiling(amount / 2.0);
+			GD.Print($"{CharacterName} is defending! Blocked half the damage!");
+		}
 		CurrentHP = Math.Max(0, CurrentHP - amount);
 		GD.Print($"{CharacterName} took {amount} dmg → {CurrentHP}/{MaxHP} HP");
-		
+		IsDefending = false;
 	}
 
 	public void Heal(int amount)
@@ -102,5 +109,9 @@ public partial class Character : Control
 		CurrentHP = Math.Min(MaxHP, CurrentHP + amount);
 		GD.Print($"{CharacterName} healed {amount} → {CurrentHP}/{MaxHP} HP");
 	}
-
+	public void Defend()
+	{
+		IsDefending = true;
+		GD.Print($"{CharacterName} is defending!");
+	}
 }

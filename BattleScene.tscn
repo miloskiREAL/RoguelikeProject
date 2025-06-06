@@ -1256,7 +1256,6 @@ frame_progress = 0.378698
 script = ExtResource("2_ukw7v")
 
 [node name="Knight" type="AnimatedSprite2D" parent="PlayerParty"]
-visible = false
 position = Vector2(464, 304)
 scale = Vector2(2.5, 2.25)
 sprite_frames = SubResource("SpriteFrames_7pwqm")
@@ -1272,12 +1271,16 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="EnemySlot4" type="Node2D" parent="EnemyParty"]
+position = Vector2(992, 232)
 
 [node name="EnemySlot3" type="Node2D" parent="EnemyParty"]
+position = Vector2(896, 312)
 
 [node name="EnemySlot2" type="Node2D" parent="EnemyParty"]
+position = Vector2(832, 360)
 
 [node name="EnemySlot1" type="Node2D" parent="EnemyParty"]
+position = Vector2(776, 448)
 
 [node name="ActionMenu" type="Control" parent="."]
 anchors_preset = 0
@@ -1321,6 +1324,7 @@ theme_override_font_sizes/font_size = 24
 text = "RETREAT"
 
 [node name="SkillMenus" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -1337,6 +1341,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="Slash" type="Button" parent="SkillMenus/KnightMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1344,6 +1349,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Motivate" type="Button" parent="SkillMenus/KnightMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1351,6 +1357,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="HolyBlade" type="Button" parent="SkillMenus/KnightMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1358,6 +1365,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="RoundSlash" type="Button" parent="SkillMenus/KnightMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1365,6 +1373,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Cleave" type="Button" parent="SkillMenus/KnightMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1384,6 +1393,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="Fireball" type="Button" parent="SkillMenus/WizardMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1391,6 +1401,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Iceshard" type="Button" parent="SkillMenus/WizardMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1398,6 +1409,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Heal" type="Button" parent="SkillMenus/WizardMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1405,6 +1417,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Meteor" type="Button" parent="SkillMenus/WizardMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1412,6 +1425,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="IceAge" type="Button" parent="SkillMenus/WizardMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1431,6 +1445,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="Punch" type="Button" parent="SkillMenus/MonkMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1438,6 +1453,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Rocksling" type="Button" parent="SkillMenus/MonkMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1445,6 +1461,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Meditate" type="Button" parent="SkillMenus/MonkMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1452,6 +1469,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="FlurryBlows" type="Button" parent="SkillMenus/MonkMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1459,6 +1477,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="EarthShatter" type="Button" parent="SkillMenus/MonkMenu"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1478,6 +1497,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="Arrowshot" type="Button" parent="SkillMenus/RangerMenu2"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1485,6 +1505,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="WindShot" type="Button" parent="SkillMenus/RangerMenu2"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1492,6 +1513,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="ArrowRain" type="Button" parent="SkillMenus/RangerMenu2"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1499,6 +1521,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="HurricaneArrow" type="Button" parent="SkillMenus/RangerMenu2"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1506,6 +1529,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="SingleShot" type="Button" parent="SkillMenus/RangerMenu2"]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
@@ -1514,6 +1538,11 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="TargetingMenu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Control" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
