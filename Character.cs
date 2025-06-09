@@ -2,13 +2,12 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Character : Control
+public partial class Character : Node2D
 {
-	public CharacterClass Class { get; private set; }
-	public enum SkillType { Physical, Magical, Heal, Buff, Debuff };
-	public enum TargetType { SingleEnemy, AllEnemies, SingleAlly, AllAllies, Self };
-	public enum ElementType { Neutral, Fire, Ice, Lightning, Holy, Wind, Earth };
-	public enum CharacterClass { Knight, Monk, Wizard, Ranger };
+	public enum SkillType { Physical, Magical, Heal, Buff, Debuff }
+	public enum TargetType { SingleEnemy, AllEnemies, SingleAlly, AllAllies, Self }
+	public enum ElementType { Neutral, Fire, Ice, Lightning, Holy, Wind, Earth, Darkness }
+
 	public string CharacterName;
 	public int MaxHP;
 	public int CurrentHP;
@@ -19,91 +18,74 @@ public partial class Character : Control
 	public int Defense;
 	public int Speed;
 	public bool IsDefending = false;
+	public int BuffStacks = 0;
 	public List<Skill> Skills = new();
+	public HashSet<ElementType> Weaknesses = new();
+	public HashSet<ElementType> Resistances = new();
+
+	protected Random rng = new();
+
 	public bool IsDead() => CurrentHP <= 0;
+
 	public class Skill
 	{
 		public string Name;
 		public int Cost;
-		public SkillType Type; 
-   		public int Power;
-		public ElementType Element; 
-		public bool Unlocked;    
+		public SkillType Type;
+		public TargetType Targeting;
+		public int Power;
+		public ElementType Element;
+		public bool Unlocked;
+
 		public void Activate(Character user, Character target)
 		{
-			 switch (Type)
+			switch (Type)
 			{
 				case SkillType.Physical:
-					int dmg = Math.Max(1, user.Strength + Power - target.Defense);
-					target.TakeDamage(dmg);
+					int baseDmg = Math.Max(1, user.Strength + Power - target.Defense);
+					user.DealDamage(target, baseDmg, Element);
 					break;
 				case SkillType.Magical:
-					int mdmg = Math.Max(1, user.Magic + Power - target.Defense);
-					target.TakeDamage(mdmg);
+					int magicDmg = Math.Max(1, user.Magic + Power - target.Defense);
+					user.DealDamage(target, magicDmg, Element);
 					break;
 				case SkillType.Heal:
 					target.Heal(Power + user.Magic);
 					break;
-		
-
-		   
+				case SkillType.Buff:
+					target.BuffStacks += 1;
+					GD.Print($"{target.CharacterName} gained a buff! Total Buff Stacks: {target.BuffStacks}");
+					break;
 			}
 		}
 	}
-	public void Init(CharacterClass cls)
+
+	public void DealDamage(Character target, int baseDamage, ElementType element)
 	{
-		Class = cls;
-		switch (cls)
+		double finalDmg = baseDamage;
+
+		if (target.Weaknesses.Contains(element))
 		{
-			case CharacterClass.Knight:
-				CharacterName = "Knight";
-				MaxHP = 200 + SaveData.PartyLevel * 1.5; MaxSP = 100 + SaveData.PartyLevel * 1.5;
-				Strength = 30 + SaveData.PartyLevel; 
-				Magic = 5 + SaveData.PartyLevel; 
-				Defense = 20 + SaveData.PartyLevel; 
-				Speed = 10 + SaveData.PartyLevel;
-				Skills.Add(new Skill { Name="Slash", Power=50, Type=SkillType.Physical, Targeting=TargetType.SingleEnemy, Element=ElementType.Neutral, Unlocked=True, cost=5 });
-				Skills.Add(new Skill { Name="Motivate", Power=0, Type=SkillType.Buff, Targeting=TargetType.AllAllies, Element=ElementType.Neutral, Unlocked=True, cost=8 });
-				Skills.Add(new Skill { Name="HolyBlade", Power=100, Type=SkillType.Physical, Targeting=TargetType.SingleEnemy, Element=ElementType.Holy, Unlocked=SaveData.PartyLevel>=5, cost=10 });
-				Skills.Add(new Skill { Name="RoundSlash", Power=60, Type=SkillType.Physical, Targeting=TargetType.AllEnemies, Element=ElementType.Neutral, Unlocked=SaveData.PartyLevel>=10, cost=8 });
-				Skills.Add(new Skill { Name="Cleave", Power=150, Type=SkillType.Physical, Targeting=TargetType.SingleEnemy, Element=ElementType.Neutral, Unlocked=SaveData.PartyLevel>=15, cost=20 });
-				break;
-
-			case CharacterClass.Monk:
-				CharacterName = "Monk";
-				MaxHP = 160; MaxSP = 60;
-				Strength = 25; Magic = 10; Defense = 15; Speed = 18;
-				Skills.Add(new Skill { Name="Flurry Fists", Power=18, Type=SkillType.Physical });
-				Skills.Add(new Skill { Name="Meditate", Power=20, Type=SkillType.Heal });
-				break;
-
-			case CharacterClass.Wizard:
-				CharacterName = "Wizard";
-				MaxHP = 120; MaxSP = 120;
-				Strength = 5  + SaveData.PartyLevel;  
-				Magic = 30  + SaveData.PartyLevel; 
-				Defense = 8  + SaveData.PartyLevel; 
-				Speed = 12  + SaveData.PartyLevel;
-				Skills.Add(new Skill { Name="Fireball", Power=40, Type=SkillType.Magical, Targeting=TargetType.SingleEnemy, Element=ElementType.Fire, Unlocked=True, cost=5 });
-				Skills.Add(new Skill { Name="Iceshard", Power=40, Type=SkillType.Magical, Targeting=TargetType.SingleEnemy, Element=ElementType.Ice, Unlocked=True, cost=5 });
-				Skills.Add(new Skill { Name="Heal", Power=60, Type=SkillType.Heal, Targeting=TargetType.SingleAlly, Element=ElementType.Neutral, Unlocked=SaveData.PartyLevel>=6, cost=7 });
-				Skills.Add(new Skill { Name="Fireball", Power=40, Type=SkillType.Magical, Targeting=TargetType.SingleEnemy, Element=ElementType.Fire, Unlocked=True, cost=5 });
-				break;
-
-			case CharacterClass.Ranger:
-				CharacterName = "Ranger";
-				MaxHP = 140; MaxSP = 70;
-				Strength = 22; Magic = 12; Defense = 12; Speed = 22;
-				Skills.Add(new Skill { Name="Arrow Shot", Power=22, Type=SkillType.Physical });
-				Skills.Add(new Skill { Name="Quick Step", Power=0,  Type=SkillType.Buff });
-				break;
+			finalDmg *= 1.5;
+			GD.Print($"{target.CharacterName} is weak to {element}! Bonus damage!");
+		}
+		else if (target.Resistances.Contains(element))
+		{
+			finalDmg *= 0.5;
+			GD.Print($"{target.CharacterName} resists {element}! Reduced damage!");
 		}
 
-		CurrentHP = MaxHP;
-		CurrentSP = MaxSP;
+		finalDmg *= 1 + (0.5 * BuffStacks);
+
+		if (rng.NextDouble() <= 0.1)
+		{
+			finalDmg *= 2;
+			GD.Print($"CRITICAL HIT!");
+		}
+
+		target.TakeDamage((int)Math.Round(finalDmg));
 	}
 
-	
 	public void TakeDamage(int amount)
 	{
 		if (IsDefending)
@@ -121,6 +103,7 @@ public partial class Character : Control
 		CurrentHP = Math.Min(MaxHP, CurrentHP + amount);
 		GD.Print($"{CharacterName} healed {amount} → {CurrentHP}/{MaxHP} HP");
 	}
+
 	public void Defend()
 	{
 		IsDefending = true;

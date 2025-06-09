@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 public partial class BattleManager : Control
 {
-	private List<Character> playerParty = new();
-	private List<Character> enemyParty = new();
+	private List<PlayerCharacter> playerParty = new();
+	private List<Enemy> enemyParty = new(); 
 	private int turnIndex = 0;
 	private bool isPlayerTurn = true;
 
 	[Export] private NodePath playerPartyContainerPath;
 	[Export] private NodePath enemyPartyContainerPath;
 
-	private VBoxContainer playerPartyContainer;
-	private VBoxContainer enemyPartyContainer;
+	private Control playerPartyContainer;
+	private Control enemyPartyContainer;
 
 	public override void _Ready()
 	{
-		playerPartyContainer = GetNode<VBoxContainer>(playerPartyContainerPath);
-		enemyPartyContainer = GetNode<VBoxContainer>(enemyPartyContainerPath);
+		playerPartyContainer = GetNode<Control>("PlayerParty");
+		enemyPartyContainer = GetNode<Control>("EnemyParty");
 
 		LoadPlayerParty();
 		LoadEnemyParty();
@@ -27,7 +27,7 @@ public partial class BattleManager : Control
 
 	private void LoadPlayerParty()
 	{
-		foreach (Character character in playerPartyContainer.GetChildren())
+		foreach (PlayerCharacter character in playerPartyContainer.GetChildren())
 		{
 			playerParty.Add(character);
 			character.Init(character.Class);
@@ -36,15 +36,10 @@ public partial class BattleManager : Control
 
 	private void LoadEnemyParty()
 	{
-		int block = GameManager.Instance.SaveData.Floor;
-		var enemies = EnemyPool.GetRandomEnemiesForBlock(block, 1, 4);
-
-		foreach (var enemyScene in enemies)
+		foreach (Enemy enemy in enemyPartyContainer.GetChildren())
 		{
-			var enemyInstance = (Character)enemyScene.Instantiate();
-			enemyParty.Add(enemyInstance);
-			enemyPartyContainer.AddChild(enemyInstance);
-			enemyInstance.Init(enemyInstance.Class); // Initialize enemy stats
+			enemyParty.Add(enemy); 
+			enemy.Init(enemy.Class); 
 		}
 	}
 
@@ -134,7 +129,7 @@ public partial class BattleManager : Control
 		{
 			if (enemy.IsDead()) continue;
 			await ToSignal(GetTree().CreateTimer(1.0), "timeout");
-			enemy.PerformAI(playerParty);
+			enemy.PerformAI(playerParty); 
 		}
 
 		isPlayerTurn = true;

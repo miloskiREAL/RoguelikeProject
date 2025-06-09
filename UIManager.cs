@@ -7,7 +7,7 @@ public partial class UIManager : Control
 	public static UIManager Instance;
 
 	[Export] private Control actionMenu;
-	[Export] private List<Control> skillMenus; // Each index matches a character's skill menu (e.g., Knight = 0, Mage = 1...)
+	[Export] private Godot.Collections.Array<Control> skillMenus;
 	[Export] private Control itemMenu;
 	[Export] private Control targetMenu;
 
