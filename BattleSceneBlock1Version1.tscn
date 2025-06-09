@@ -1,4 +1,4 @@
-[gd_scene load_steps=214 format=3 uid="uid://b7a3joblppi6n"]
+[gd_scene load_steps=214 format=3 uid="uid://cgfwn63w3ap4w"]
 
 [ext_resource type="Script" uid="uid://p74epvrppkdt" path="res://BattleManager.cs" id="1_bmfsc"]
 [ext_resource type="Script" uid="uid://bsa43fqcspqnp" path="res://PlayerCharacter.cs" id="2_k4tle"]
