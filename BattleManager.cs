@@ -11,14 +11,19 @@ public partial class BattleManager : Control
 
 	[Export] private NodePath playerPartyContainerPath;
 	[Export] private NodePath enemyPartyContainerPath;
+	[Export] private NodePath uiManagerPath;
 
 	private Control playerPartyContainer;
 	private Control enemyPartyContainer;
+	private UIManager uiManager;
 
 	public override void _Ready()
 	{
-		playerPartyContainer = GetNode<Control>("PlayerParty");
-		enemyPartyContainer = GetNode<Control>("EnemyParty");
+		playerPartyContainer = GetNode<Control>(playerPartyContainerPath);
+		enemyPartyContainer = GetNode<Control>(enemyPartyContainerPath);
+		uiManager = GetNode<UIManager>(uiManagerPath);
+
+		uiManager.SetBattleManager(this); 
 
 		LoadPlayerParty();
 		LoadEnemyParty();
@@ -27,7 +32,9 @@ public partial class BattleManager : Control
 
 	private void LoadPlayerParty()
 	{
-		foreach (PlayerCharacter character in playerPartyContainer.GetChildren())
+		var children = playerPartyContainer.GetChildren();
+		children.Reverse();
+		foreach (PlayerCharacter character in children)
 		{
 			playerParty.Add(character);
 			character.Init(character.Class);
@@ -70,7 +77,7 @@ public partial class BattleManager : Control
 				return;
 			}
 
-			UIManager.Instance.ShowActionButtons(currentChar);
+			uiManager.ShowActionButtons(currentChar);
 		}
 		else
 		{
@@ -85,10 +92,10 @@ public partial class BattleManager : Control
 		switch (actionType)
 		{
 			case "Skill":
-				UIManager.Instance.ShowSkillMenu(currentChar);
+				uiManager.ShowSkillMenu(currentChar);
 				break;
 			case "Item":
-				UIManager.Instance.ShowItemMenu(currentChar);
+				uiManager.ShowItemMenu(currentChar);
 				break;
 			case "Defend":
 				currentChar.Defend();
@@ -106,7 +113,7 @@ public partial class BattleManager : Control
 
 	public void OnSkillSelected(Character.Skill skill)
 	{
-		UIManager.Instance.ShowTargetMenu(skill);
+		uiManager.ShowTargetMenu(skill);
 	}
 
 	public void OnTargetSelected(Character target, Character.Skill skill)
@@ -118,7 +125,7 @@ public partial class BattleManager : Control
 
 	private void EndPlayerTurn()
 	{
-		UIManager.Instance.HideAllMenus();
+		uiManager.HideAllMenus();
 		turnIndex++;
 		StartTurn();
 	}
