@@ -15,7 +15,6 @@ public partial class UIManager : Control
 
 	private Character currentCharacter;
 	private BattleManager battleManager;
-
 	private Dictionary<Button, Action> skillButtonActions = new();
 
 	public override void _Ready()
@@ -91,7 +90,86 @@ public partial class UIManager : Control
 	{
 		HideAllMenus();
 		targetMenu.Visible = true;
-		// Add targeting button logic here
+
+		var bm = BattleManager;
+		var user = bm.CurrentUser;
+
+		foreach (Button btn in targetMenu.GetChildren())
+		{
+			btn.Visible = false;
+			btn.Pressed -= null;
+		}
+
+		switch (skill.TargetType)
+		{
+			case TargetType.SingleEnemy:
+				for (int i = 0; i < bm.enemyParty.Count; i++)
+				{
+					var enemy = bm.enemyParty[i];
+					if (enemy.IsDead()) continue;
+
+					var btn = targetMenu.GetNode<Button>($"TargetEnemy{i + 1}");
+					btn.Visible = true;
+
+					var label = btn.GetNode<Label>("ClassLabel");
+					label.Text = enemy.Class.ClassName;
+
+					btn.Pressed += () => bm.OnTargetSelected(enemy, skill);
+				}
+				break;
+
+			case TargetType.AllEnemies:
+				var allEnemiesBtn = targetMenu.GetNode<Button>("TargetAllEnemies");
+				allEnemiesBtn.Visible = true;
+
+				var allEnemiesLabel = allEnemiesBtn.GetNode<Label>("ClassLabel");
+				allEnemiesLabel.Text = "All Enemies";
+
+				allEnemiesBtn.Pressed += () =>
+				{
+					foreach (var enemy in bm.enemyParty)
+					{
+						if (!enemy.IsDead())
+							skill.Activate(user, enemy);
+					}
+					bm.EndPlayerTurn();
+				};
+				break;
+
+			case TargetType.SingleAlly:
+				for (int i = 0; i < bm.playerParty.Count; i++)
+				{
+					var ally = bm.playerParty[i];
+					if (ally.IsDead()) continue;
+
+					var btn = targetMenu.GetNode<Button>($"TargetAlly{i + 1}");
+					btn.Visible = true;
+
+					var label = btn.GetNode<Label>("ClassLabel");
+					label.Text = ally.Class.ClassName;
+
+					btn.Pressed += () => bm.OnTargetSelected(ally, skill);
+				}
+				break;
+
+			case TargetType.AllAllies:
+				var allAlliesBtn = targetMenu.GetNode<Button>("TargetAllAllies");
+				allAlliesBtn.Visible = true;
+
+				var allAlliesLabel = allAlliesBtn.GetNode<Label>("ClassLabel");
+				allAlliesLabel.Text = "All Allies";
+
+				allAlliesBtn.Pressed += () =>
+				{
+					foreach (var ally in bm.playerParty)
+					{
+						if (!ally.IsDead())
+							skill.Activate(user, ally);
+					}
+					bm.EndPlayerTurn();
+				};
+				break;
+		}
 	}
 
 	public void HideAllMenus()

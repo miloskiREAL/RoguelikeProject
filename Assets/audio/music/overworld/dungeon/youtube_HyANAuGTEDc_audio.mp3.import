@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://cnsfyodyim1bv"
-path="res://.godot/imported/youtube_HyANAuGTEDc_audio.mp3-315d3f7f75518aefb1c845d0dcdb3a1f.mp3str"
+path="res://.godot/imported/youtube_HyANAuGTEDc_audio.mp3-e79058aa629430e9d5d66a6d18e74f50.mp3str"
 
 [deps]
 
-source_file="res://Assets/audio/music/overworld/dungeon/youtube_HyANAuGTEDc_audio.mp3"
-dest_files=["res://.godot/imported/youtube_HyANAuGTEDc_audio.mp3-315d3f7f75518aefb1c845d0dcdb3a1f.mp3str"]
+source_file="res://Assets/Audio/music/overworld/dungeon/youtube_HyANAuGTEDc_audio.mp3"
+dest_files=["res://.godot/imported/youtube_HyANAuGTEDc_audio.mp3-e79058aa629430e9d5d66a6d18e74f50.mp3str"]
 
 [params]
 
