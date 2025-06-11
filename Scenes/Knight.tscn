@@ -205,3 +205,9 @@ sprite_frames = SubResource("SpriteFrames_7pwqm")
 animation = &"Idle"
 autoplay = "Idle"
 frame_progress = 0.562175
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 288.0
+offset_top = 272.0
+offset_right = 464.0
+offset_bottom = 299.0

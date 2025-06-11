@@ -39,6 +39,13 @@ public partial class Character : Node2D
 
 		public void Activate(Character user, Character target)
 		{
+			if (user.CurrentSP < Cost)
+			{
+				GD.Print($"{user.CharacterName} doesn't have enough SP to use {Name}!");
+				return;
+			}
+			user.CurrentSP = Math.Max(0, user.CurrentSP - Cost);
+			GD.Print($"Skill {Name} activated by {user.CharacterName} on {target.CharacterName}");
 			switch (Type)
 			{
 				case SkillType.Physical:

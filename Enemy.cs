@@ -8,7 +8,7 @@ public partial class Enemy : Character
 	public enum EnemyClass
 	{
 		Skeleton,
-		SkeletonGraveTender,
+		Gravetender,
 		Goblin,
 		Minotaur,
 		GoblinArcher,
@@ -35,7 +35,7 @@ public partial class Enemy : Character
 				Skills.Add(new Skill { Name = "Bone Smash", Power = 40, Type = SkillType.Physical, Targeting = TargetType.SingleEnemy, Element = ElementType.Neutral, Cost = 0, Unlocked = true });
 				break;
 
-			case EnemyClass.SkeletonGraveTender:
+			case EnemyClass.Gravetender:
 				MaxHP = 120;
 				MaxSP = 40;
 				Strength = 10;

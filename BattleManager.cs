@@ -4,10 +4,13 @@ using System.Collections.Generic;
 
 public partial class BattleManager : Control
 {
-	private List<PlayerCharacter> playerParty = new();
-	private List<Enemy> enemyParty = new(); 
+	public List<PlayerCharacter> playerParty = new();
+	public List<Enemy> enemyParty = new(); 
 	private int turnIndex = 0;
 	private bool isPlayerTurn = true;
+
+	
+	private Character.Skill selectedSkill = null;
 
 	[Export] private NodePath playerPartyContainerPath;
 	[Export] private NodePath enemyPartyContainerPath;
@@ -61,6 +64,9 @@ public partial class BattleManager : Control
 	{
 		if (isPlayerTurn)
 		{
+			GD.Print($"StartTurn | isPlayerTurn: {isPlayerTurn}, turnIndex: {turnIndex}");
+			
+			
 			if (turnIndex >= playerParty.Count)
 			{
 				isPlayerTurn = false;
@@ -76,6 +82,9 @@ public partial class BattleManager : Control
 				StartTurn();
 				return;
 			}
+
+			
+			selectedSkill = null;
 
 			uiManager.ShowActionButtons(currentChar);
 		}
@@ -113,17 +122,55 @@ public partial class BattleManager : Control
 
 	public void OnSkillSelected(Character.Skill skill)
 	{
+		
+		selectedSkill = skill;
 		uiManager.ShowTargetMenu(skill);
 	}
 
 	public void OnTargetSelected(Character target, Character.Skill skill)
 	{
 		var user = playerParty[turnIndex];
-		skill.Activate(user, target);
+		
+		
+		if (selectedSkill == null)
+		{
+			GD.PrintErr("No skill selected to activate!");
+			return;
+		}
+
+		
+		switch (selectedSkill.Targeting)
+		{
+			case Character.TargetType.SingleEnemy:
+			case Character.TargetType.SingleAlly:
+				if (target != null)
+				{
+					selectedSkill.Activate(user, target);
+				}
+				break;
+
+			case Character.TargetType.AllEnemies:
+				foreach (var enemy in enemyParty)
+				{
+					if (!enemy.IsDead())
+						selectedSkill.Activate(user, enemy);
+				}
+				break;
+
+			case Character.TargetType.AllAllies:
+				foreach (var ally in playerParty)
+				{
+					if (!ally.IsDead())
+						selectedSkill.Activate(user, ally);
+				}
+				break;
+		};
+		
+		selectedSkill = null;  
 		EndPlayerTurn();
 	}
 
-	private void EndPlayerTurn()
+	public void EndPlayerTurn()
 	{
 		uiManager.HideAllMenus();
 		turnIndex++;
@@ -132,15 +179,21 @@ public partial class BattleManager : Control
 
 	private async void EnemyTurn()
 	{
+		GD.Print("Enemy turn starting...");
+		
 		foreach (var enemy in enemyParty)
 		{
 			if (enemy.IsDead()) continue;
+			
+			
 			await ToSignal(GetTree().CreateTimer(1.0), "timeout");
 			enemy.PerformAI(playerParty); 
 		}
 
+		
 		isPlayerTurn = true;
 		turnIndex = 0;
+		GD.Print("Enemy turn complete, switching to player turn");
 		StartTurn();
 	}
 
