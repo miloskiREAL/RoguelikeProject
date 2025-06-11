@@ -216,8 +216,45 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.378698
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="Name" type="Label" parent="."]
+offset_left = 232.0
+offset_top = 136.0
+offset_right = 408.0
+offset_bottom = 159.0
+text = "WIZARD"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HPBar" type="ProgressBar" parent="."]
+offset_left = 232.0
+offset_top = 160.0
+offset_right = 408.0
+offset_bottom = 187.0
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="HPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SPBar" type="ProgressBar" parent="."]
 offset_left = 232.0
 offset_top = 192.0
 offset_right = 408.0
 offset_bottom = 219.0
+show_percentage = false
+
+[node name="SPLabel" type="Label" parent="SPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1

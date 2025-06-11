@@ -41,6 +41,7 @@ public partial class BattleManager : Control
 		{
 			playerParty.Add(character);
 			character.Init(character.Class);
+			character.UpdateUI(); 
 		}
 	}
 
@@ -49,7 +50,8 @@ public partial class BattleManager : Control
 		foreach (Enemy enemy in enemyPartyContainer.GetChildren())
 		{
 			enemyParty.Add(enemy); 
-			enemy.Init(enemy.Class); 
+			enemy.Init(enemy.Class);
+			enemy.UpdateUI(); 
 		}
 	}
 

@@ -5,12 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://xqsekcdwc20n" path="res://Scenes/Monk.tscn" id="3_ewggh"]
 [ext_resource type="PackedScene" uid="uid://dra8ni1w5c0ne" path="res://Scenes/Wizard.tscn" id="4_4csvl"]
 [ext_resource type="PackedScene" uid="uid://xb77dlq1y6kq" path="res://Scenes/Knight.tscn" id="5_5ljbc"]
+[ext_resource type="PackedScene" uid="uid://joh2pqeh6spe" path="res://Scenes/Goblin.tscn" id="6_ewggh"]
+[ext_resource type="PackedScene" uid="uid://rfkaswaj0krl" path="res://Scenes/Gravetender.tscn" id="7_4csvl"]
+[ext_resource type="PackedScene" uid="uid://bwodx36quwt0d" path="res://Scenes/Skeleton.tscn" id="8_4csvl"]
 [ext_resource type="Script" uid="uid://dh1dt2gd1v3x4" path="res://UIManager.cs" id="102_3wce7"]
-[ext_resource type="Script" uid="uid://bvqipmcjxq5ti" path="res://Enemy.cs" id="102_l8o15"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_bmfsc"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_l8o15"]
 
 [node name="BattleScene" type="Control"]
 layout_mode = 3
@@ -52,30 +50,17 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Goblin2" type="Node2D" parent="EnemyParty"]
-position = Vector2(992, 232)
-script = ExtResource("102_l8o15")
-Class = 2
-
-[node name="Goblin" type="AnimatedSprite2D" parent="EnemyParty/Goblin2"]
-sprite_frames = SubResource("SpriteFrames_bmfsc")
-
-[node name="Goblin" type="Node2D" parent="EnemyParty"]
+[node name="Goblin2" parent="EnemyParty" instance=ExtResource("6_ewggh")]
 position = Vector2(896, 312)
-script = ExtResource("102_l8o15")
-Class = 2
 
-[node name="Goblin" type="AnimatedSprite2D" parent="EnemyParty/Goblin"]
-sprite_frames = SubResource("SpriteFrames_l8o15")
+[node name="Goblin" parent="EnemyParty" instance=ExtResource("6_ewggh")]
+position = Vector2(896, 312)
 
-[node name="SkeletonGravetender" type="Node2D" parent="EnemyParty"]
+[node name="SkeletonGravetender" parent="EnemyParty" instance=ExtResource("7_4csvl")]
 position = Vector2(832, 360)
-script = ExtResource("102_l8o15")
-Class = 1
 
-[node name="Skeleton" type="Node2D" parent="EnemyParty"]
+[node name="Skeleton" parent="EnemyParty" instance=ExtResource("8_4csvl")]
 position = Vector2(776, 448)
-script = ExtResource("102_l8o15")
 
 [node name="ActionMenu" type="Control" parent="."]
 anchors_preset = 0
@@ -119,6 +104,7 @@ theme_override_font_sizes/font_size = 24
 text = "RETREAT"
 
 [node name="SkillMenus" type="Control" parent="."]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -426,6 +412,66 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="ItemMenu" type="VBoxContainer" parent="ItemMenu"]
+layout_mode = 0
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Potion" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "POTION"
+
+[node name="Ether" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "ETHER"
+
+[node name="Mega Potion" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "MEGA POTION"
+
+[node name="Mega Ether" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "MEGA ETHER"
+
+[node name="Full Heal" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "FULL HEAL"
+
+[node name="Full Ether" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "FULL ETHER"
+
+[node name="Team Heal" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "TEAM HEAL"
+
+[node name="Team Ether" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "TEAM ETHER"
+
+[node name="Golden Elixer" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "GOLDEN ELIXER"
+
 [node name="UIManager" type="Control" parent="." node_paths=PackedStringArray("actionMenu", "skillMenus", "itemMenu", "targetMenu", "attackButton", "itemButton", "defendButton", "retreatButton", "skillBackButton", "targetBackButton")]
 anchors_preset = 0
 offset_right = 40.0
@@ -444,12 +490,21 @@ targetBackButton = NodePath("../TargetBackButton")
 
 [node name="SkillBackButton" type="Button" parent="."]
 layout_mode = 0
-offset_right = 128.0
+offset_left = 440.0
+offset_right = 568.0
+offset_bottom = 64.0
+text = "BACK"
+
+[node name="ItemBackButton" type="Button" parent="."]
+offset_left = 440.0
+offset_right = 568.0
 offset_bottom = 64.0
 text = "BACK"
 
 [node name="TargetBackButton" type="Button" parent="."]
 layout_mode = 0
-offset_right = 128.0
-offset_bottom = 64.0
+offset_left = 288.0
+offset_top = 376.0
+offset_right = 416.0
+offset_bottom = 440.0
 text = "BACK"

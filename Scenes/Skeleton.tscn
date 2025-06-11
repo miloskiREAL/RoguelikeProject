@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwodx36quwt0d"]
+
+[ext_resource type="Script" uid="uid://bvqipmcjxq5ti" path="res://Enemy.cs" id="1_vif15"]
+
+[node name="Skeleton" type="Node2D"]
+script = ExtResource("1_vif15")
+
+[node name="HPBar" type="ProgressBar" parent="."]
+offset_left = 72.0
+offset_top = 40.0
+offset_right = 248.0
+offset_bottom = 67.0
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="HPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SPBar" type="ProgressBar" parent="."]
+offset_left = 288.0
+offset_top = 272.0
+offset_right = 464.0
+offset_bottom = 299.0
+show_percentage = false
+
+[node name="SPLabel" type="Label" parent="SPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class Character : Node2D
 {
 	public enum SkillType { Physical, Magical, Heal, Buff, Debuff }
-	public enum TargetType { SingleEnemy, AllEnemies, SingleAlly, AllAllies, Self }
+	public enum TargetType { SingleEnemy, AllEnemies, SingleAlly, AllAllies }
 	public enum ElementType { Neutral, Fire, Ice, Lightning, Holy, Wind, Earth, Darkness }
 
 	public string CharacterName;
@@ -45,6 +45,7 @@ public partial class Character : Node2D
 				return;
 			}
 			user.CurrentSP = Math.Max(0, user.CurrentSP - Cost);
+			user.UpdateUI();
 			GD.Print($"Skill {Name} activated by {user.CharacterName} on {target.CharacterName}");
 			switch (Type)
 			{
@@ -103,17 +104,44 @@ public partial class Character : Node2D
 		CurrentHP = Math.Max(0, CurrentHP - amount);
 		GD.Print($"{CharacterName} took {amount} dmg → {CurrentHP}/{MaxHP} HP");
 		IsDefending = false;
+		UpdateUI();
 	}
 
 	public void Heal(int amount)
 	{
 		CurrentHP = Math.Min(MaxHP, CurrentHP + amount);
 		GD.Print($"{CharacterName} healed {amount} → {CurrentHP}/{MaxHP} HP");
+		UpdateUI();
 	}
 
 	public void Defend()
 	{
 		IsDefending = true;
 		GD.Print($"{CharacterName} is defending!");
+	}
+	public void UpdateUI()
+	{
+		var hpBar = GetNode<ProgressBar>("HPBar");
+		var spBar = GetNode<ProgressBar>("SPBar");
+		var hpLabel = GetNodeOrNull<Label>("HPBar/HPLabel");
+		var spLabel = GetNodeOrNull<Label>("SPBar/SPLabel");
+	
+		hpBar.MaxValue = MaxHP;
+		hpBar.Value = CurrentHP;
+		spBar.MaxValue = MaxSP;
+		spBar.Value = CurrentSP;
+		
+		if (hpLabel != null)
+		{
+			hpLabel.Text = $"{CurrentHP}/{MaxHP}";
+		}
+		if (spLabel != null)
+		{
+			spLabel.Text = $"{CurrentSP}/{MaxSP}";
+		}
+
+		var tween = CreateTween();
+		tween.TweenProperty(hpBar, "value", CurrentHP, 0.3f);
+		tween.TweenProperty(spBar, "value", CurrentSP, 0.3f);
 	}
 }

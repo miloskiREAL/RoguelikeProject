@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://pf0k1n3dywp7"
-path="res://.godot/imported/youtube_kfVRPFdpMa8_audio.mp3-051e50a499c7bed7ecd3d12b5494d3f6.mp3str"
+path="res://.godot/imported/youtube_kfVRPFdpMa8_audio.mp3-40a5a5ecb22c96dad366b22f167a0565.mp3str"
 
 [deps]
 
-source_file="res://Assets/audio/music/battle/boss/floor123/youtube_kfVRPFdpMa8_audio.mp3"
-dest_files=["res://.godot/imported/youtube_kfVRPFdpMa8_audio.mp3-051e50a499c7bed7ecd3d12b5494d3f6.mp3str"]
+source_file="res://Assets/Audio/music/battle/boss/floor123/youtube_kfVRPFdpMa8_audio.mp3"
+dest_files=["res://.godot/imported/youtube_kfVRPFdpMa8_audio.mp3-40a5a5ecb22c96dad366b22f167a0565.mp3str"]
 
 [params]
 
