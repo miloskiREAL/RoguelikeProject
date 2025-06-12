@@ -7,6 +7,7 @@ public partial class UIManager : Control
 	[Export] private Control actionMenu;
 	[Export] private Godot.Collections.Array<Control> skillMenus;
 	[Export] private Control itemMenu;
+	[Export] private VBoxContainer itemVBox;
 	[Export] private Control targetMenu;
 	[Export] private Button attackButton;
 	[Export] private Button itemButton;
@@ -14,11 +15,14 @@ public partial class UIManager : Control
 	[Export] private Button retreatButton;
 	[Export] private Button skillBackButton;
 	[Export] private Button targetBackButton;
+	[Export] private Button itemBackButton; 
 
 	private Character currentCharacter;
 	private BattleManager battleManager;
 	private Dictionary<Button, Action> skillButtonActions = new();
 	private Dictionary<Button, Action> targetButtonActions = new(); 
+	private Dictionary<Button, string> itemButtonKeys = new();
+	private Item selectedItem; 
 
 	public override void _Ready()
 	{
@@ -35,7 +39,7 @@ public partial class UIManager : Control
 	private void ConnectActionButtons()
 	{
 		attackButton.Pressed += () => ShowSkillMenu(currentCharacter);
-		itemButton.Pressed += () => battleManager.OnPlayerActionSelected("Item");
+		itemButton.Pressed += () => ShowItemMenu(currentCharacter);
 		defendButton.Pressed += () => battleManager.OnPlayerActionSelected("Defend");
 		retreatButton.Pressed += () => battleManager.OnPlayerActionSelected("Retreat");
 	}
@@ -52,7 +56,7 @@ public partial class UIManager : Control
 		HideAllMenus();
 		currentCharacter = character;
 		skillBackButton.Visible = true;
-		
+
 		foreach (var menu in skillMenus)
 		{
 			bool isCorrectMenu = menu.Name == $"{character.CharacterName}SkillMenu";
@@ -89,6 +93,85 @@ public partial class UIManager : Control
 		HideAllMenus();
 		currentCharacter = character;
 		itemMenu.Visible = true;
+		itemBackButton.Visible = true;
+
+		// Clear existing buttons
+		foreach (Node child in itemVBox.GetChildren())
+		{
+			child.QueueFree();
+		}
+		itemButtonKeys.Clear();
+
+		
+		foreach (var entry in GameManager.Instance.SaveData.Inventory)
+		{
+			string itemKey = entry.Key;
+			int count = entry.Value;
+
+			if (count <= 0) continue;
+
+			
+			if (!Item.All.TryGetValue(itemKey, out Item item))
+			{
+				GD.PrintErr($"Item with key '{itemKey}' not found in Item.All dictionary!");
+				continue;
+			}
+
+			Button btn = new Button();
+			btn.Text = $"{item.Name} x{count}";
+			btn.Disabled = false;
+			itemVBox.AddChild(btn);
+			itemButtonKeys[btn] = itemKey;
+			btn.Pressed += () => OnItemButtonPressed(item);
+		}
+	}
+
+	private void OnItemButtonPressed(Item item)
+	{
+		selectedItem = item;
+		
+		if (item.IsTeamWide)
+		{
+			
+			battleManager.OnItemSelected(item, null);
+		}
+		else
+		{
+			ShowItemTargetMenu(item);
+		}
+	}
+
+	private void ShowItemTargetMenu(Item item)
+	{
+		HideAllMenus();
+		targetMenu.Visible = true;
+		targetBackButton.Visible = true;
+
+		
+		foreach (Button btn in targetMenu.GetChildren())
+		{
+			if (targetButtonActions.TryGetValue(btn, out var oldHandler))
+				btn.Pressed -= oldHandler;
+			btn.Visible = false;
+		}
+		targetButtonActions.Clear();
+
+		
+		for (int i = 0; i < battleManager.playerParty.Count; i++)
+		{
+			var ally = battleManager.playerParty[i];
+			if (ally.IsDead()) continue;
+
+			var btn = targetMenu.GetNode<Button>($"TargetAlly{i + 1}");
+			btn.Visible = true;
+
+			var label = btn.GetNode<Label>("ClassLabel");
+			label.Text = ally.CharacterName; 
+
+			Action handler = () => battleManager.OnItemSelected(selectedItem, ally);
+			btn.Pressed += handler;
+			targetButtonActions[btn] = handler;
+		}
 	}
 
 	public void ShowTargetMenu(Character.Skill skill)
@@ -173,12 +256,15 @@ public partial class UIManager : Control
 	{
 		skillBackButton.Visible = false;
 		targetBackButton.Visible = false;
+		itemBackButton.Visible = false;
 
 		skillBackButton.Pressed -= OnSkillBackPressed;
 		targetBackButton.Pressed -= OnTargetBackPressed;
+		itemBackButton.Pressed -= OnItemBackPressed;
 
 		skillBackButton.Pressed += OnSkillBackPressed;
 		targetBackButton.Pressed += OnTargetBackPressed;
+		itemBackButton.Pressed += OnItemBackPressed;
 	}
 
 	private void OnSkillBackPressed()
@@ -189,8 +275,22 @@ public partial class UIManager : Control
 
 	private void OnTargetBackPressed()
 	{
+		if (selectedItem != null)
+		{
+			selectedItem = null;
+			ShowItemMenu(currentCharacter);
+		}
+		else
+		{
+			ShowSkillMenu(currentCharacter);
+		}
+	}
+
+	private void OnItemBackPressed()
+	{
+		selectedItem = null;
 		HideAllMenus();
-		ShowSkillMenu(currentCharacter);
+		ShowActionButtons(currentCharacter);
 	}
 
 	public void HideAllMenus()
@@ -200,8 +300,8 @@ public partial class UIManager : Control
 		targetMenu.Visible = false;
 		skillBackButton.Visible = false;
 		targetBackButton.Visible = false;
+		itemBackButton.Visible = false;
 
-		
 		foreach (var menu in skillMenus)
 		{
 			menu.Visible = false;
@@ -213,12 +313,13 @@ public partial class UIManager : Control
 		}
 		skillButtonActions.Clear();
 
-		
 		foreach (Button btn in targetMenu.GetChildren())
 		{
 			if (targetButtonActions.TryGetValue(btn, out var handler))
 				btn.Pressed -= handler;
 		}
 		targetButtonActions.Clear();
+
+		selectedItem = null;
 	}
 }

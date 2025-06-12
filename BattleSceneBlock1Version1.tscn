@@ -56,7 +56,7 @@ position = Vector2(896, 312)
 [node name="Goblin" parent="EnemyParty" instance=ExtResource("6_ewggh")]
 position = Vector2(896, 312)
 
-[node name="SkeletonGravetender" parent="EnemyParty" instance=ExtResource("7_4csvl")]
+[node name="Gravetender" parent="EnemyParty" instance=ExtResource("7_4csvl")]
 position = Vector2(832, 360)
 
 [node name="Skeleton" parent="EnemyParty" instance=ExtResource("8_4csvl")]
@@ -104,7 +104,6 @@ theme_override_font_sizes/font_size = 24
 text = "RETREAT"
 
 [node name="SkillMenus" type="Control" parent="."]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -472,7 +471,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "GOLDEN ELIXER"
 
-[node name="UIManager" type="Control" parent="." node_paths=PackedStringArray("actionMenu", "skillMenus", "itemMenu", "targetMenu", "attackButton", "itemButton", "defendButton", "retreatButton", "skillBackButton", "targetBackButton")]
+[node name="UIManager" type="Control" parent="." node_paths=PackedStringArray("actionMenu", "skillMenus", "itemMenu", "itemVBox", "targetMenu", "attackButton", "itemButton", "defendButton", "retreatButton", "skillBackButton", "targetBackButton", "itemBackButton")]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -480,6 +479,7 @@ script = ExtResource("102_3wce7")
 actionMenu = NodePath("../ActionMenu")
 skillMenus = [NodePath("../SkillMenus/KnightSkillMenu"), NodePath("../SkillMenus/WizardSkillMenu"), NodePath("../SkillMenus/MonkSkillMenu"), NodePath("../SkillMenus/RangerSkillMenu")]
 itemMenu = NodePath("../ItemMenu")
+itemVBox = NodePath("../ItemMenu/ItemMenu")
 targetMenu = NodePath("../TargetingMenu")
 attackButton = NodePath("../ActionMenu/Attack")
 itemButton = NodePath("../ActionMenu/Item")
@@ -487,6 +487,7 @@ defendButton = NodePath("../ActionMenu/Defend")
 retreatButton = NodePath("../ActionMenu/Retreat")
 skillBackButton = NodePath("../SkillBackButton")
 targetBackButton = NodePath("../TargetBackButton")
+itemBackButton = NodePath("../ItemBackButton")
 
 [node name="SkillBackButton" type="Button" parent="."]
 layout_mode = 0
@@ -496,6 +497,7 @@ offset_bottom = 64.0
 text = "BACK"
 
 [node name="ItemBackButton" type="Button" parent="."]
+layout_mode = 0
 offset_left = 440.0
 offset_right = 568.0
 offset_bottom = 64.0

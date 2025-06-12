@@ -10,10 +10,9 @@ public class SaveData
 	public int Floor;
 	public int CurrentHP;
 	public int CurrentSP;
-
+	public int Gold;
 	public Dictionary<string, int> Inventory;
 	public Dictionary<string, int> WildCards;
-	public Dictionary<string, Dictionary<string, int>> AlteredAffinities;
 
 	// Default constructor (used for creating new save)
 	public SaveData()
@@ -21,9 +20,10 @@ public class SaveData
 		PartyLevel = 1;
 		XP = 0;
 		Floor = 0;
+		Gold = 0;
 		Inventory = new Dictionary<string, int>();
 		WildCards = new Dictionary<string, int>();
-		AlteredAffinities = new Dictionary<string, Dictionary<string, int>>();
+		
 	}
 
 	// Constructor from Godot dictionary (used for loading)
@@ -33,11 +33,12 @@ public class SaveData
 		PartyLevel = loaded.PartyLevel;
 		XP = loaded.XP;
 		Floor = loaded.Floor;
+		Gold = loaded.Gold;
 		CurrentHP = loaded.CurrentHP;
 		CurrentSP = loaded.CurrentSP;
 		Inventory = loaded.Inventory;
 		WildCards = loaded.WildCards;
-		AlteredAffinities = loaded.AlteredAffinities;
+	
 	}
 
 	// Convert SaveData to Godot Dictionary (for saving)
@@ -50,9 +51,9 @@ public class SaveData
 			["floor"] = Floor,
 			["current_hp"] = CurrentHP,
 			["current_sp"] = CurrentSP,
+			["gold"] = Gold,
 			["inventory"] = ConvertToGodotDict(Inventory),
 			["wild_cards"] = ConvertToGodotDict(WildCards),
-			["altered_affinities"] = ConvertToGodotDict(AlteredAffinities)
 		};
 		return dict;
 	}
@@ -67,34 +68,11 @@ public class SaveData
 			Floor = (int)data["floor"],
 			CurrentHP = (int)data["current_hp"],
 			CurrentSP = (int)data["current_sp"],
+			Gold = (int)data["gold"],
 			Inventory = ConvertDictionaryToItemDict(data["inventory"]),
 			WildCards = ConvertDictionaryToItemDict(data["wild_cards"]),
-			AlteredAffinities = ConvertDictionaryToAffinities(data["altered_affinities"])
 		};
 		return saveData;
-	}
-
-	// Convert Variant to Dictionary<string, Dictionary<string, int>>
-	private static Dictionary<string, Dictionary<string, int>> ConvertDictionaryToAffinities(object rawDict)
-	{
-		var godotDict = ((Variant)rawDict).AsGodotDictionary();
-		var result = new Dictionary<string, Dictionary<string, int>>();
-
-		foreach (var key in godotDict.Keys)
-		{
-			string character = key.ToString();
-			var elementAffinities = ((Variant)godotDict[key]).AsGodotDictionary();
-			var affinityDict = new Dictionary<string, int>();
-
-			foreach (var elementKey in elementAffinities.Keys)
-			{
-				affinityDict[elementKey.ToString()] = (int)(Variant)elementAffinities[elementKey];
-			}
-
-			result[character] = affinityDict;
-		}
-
-		return result;
 	}
 
 	// Convert Dictionary<string, Dictionary<string, int>> to Godot Dictionary

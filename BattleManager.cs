@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class BattleManager : Control
 {
@@ -9,7 +10,6 @@ public partial class BattleManager : Control
 	private int turnIndex = 0;
 	private bool isPlayerTurn = true;
 
-	
 	private Character.Skill selectedSkill = null;
 
 	[Export] private NodePath playerPartyContainerPath;
@@ -68,7 +68,6 @@ public partial class BattleManager : Control
 		{
 			GD.Print($"StartTurn | isPlayerTurn: {isPlayerTurn}, turnIndex: {turnIndex}");
 			
-			
 			if (turnIndex >= playerParty.Count)
 			{
 				isPlayerTurn = false;
@@ -85,9 +84,7 @@ public partial class BattleManager : Control
 				return;
 			}
 
-			
 			selectedSkill = null;
-
 			uiManager.ShowActionButtons(currentChar);
 		}
 		else
@@ -124,15 +121,40 @@ public partial class BattleManager : Control
 
 	public void OnSkillSelected(Character.Skill skill)
 	{
-		
 		selectedSkill = skill;
 		uiManager.ShowTargetMenu(skill);
+	}
+
+	public void OnItemSelected(Item item, Character target)
+	{
+		if (item.IsTeamWide)
+		{
+		
+			var aliveAllies = playerParty.Where(p => !p.IsDead()).ToList();
+			foreach (var ally in aliveAllies)
+			{
+				item.UseOn(ally);
+			}
+			GD.Print($"Used {item.Name} on all party members");
+		}
+		else
+		{
+	
+			if (target != null)
+			{
+				item.UseOn(target);
+				GD.Print($"Used {item.Name} on {target.CharacterName}");
+			}
+			else
+			{
+				GD.PrintErr("No target specified for single-target item!");
+			}
+		}
 	}
 
 	public void OnTargetSelected(Character target, Character.Skill skill)
 	{
 		var user = playerParty[turnIndex];
-		
 		
 		if (selectedSkill == null)
 		{
@@ -140,7 +162,6 @@ public partial class BattleManager : Control
 			return;
 		}
 
-		
 		switch (selectedSkill.Targeting)
 		{
 			case Character.TargetType.SingleEnemy:
@@ -187,12 +208,10 @@ public partial class BattleManager : Control
 		{
 			if (enemy.IsDead()) continue;
 			
-			
 			await ToSignal(GetTree().CreateTimer(1.0), "timeout");
 			enemy.PerformAI(playerParty); 
 		}
 
-		
 		isPlayerTurn = true;
 		turnIndex = 0;
 		GD.Print("Enemy turn complete, switching to player turn");
