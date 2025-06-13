@@ -125,6 +125,8 @@ public partial class Enemy : Character
 		Skill skill = Skills[rng.Next(Skills.Count)];
 		Character target;
 
+		activityIndicator?.AddMessage($"{CharacterName}'s turn");
+
 		if (skill.Targeting == TargetType.AllEnemies)
 		{
 			foreach (var p in playerParty)

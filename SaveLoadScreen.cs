@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class SaveLoadScreen : Control
 {
@@ -8,11 +9,9 @@ public partial class SaveLoadScreen : Control
 		"user://save2.json",
 		"user://save3.json"
 	};
-
 	private Button[] loadButtons = new Button[3];
 	private Button[] deleteButtons = new Button[3];
 	private Label[] statusLabels = new Label[3];
-
 	[Export] public PackedScene startScreen;
 
 	public override void _Ready()
@@ -21,7 +20,6 @@ public partial class SaveLoadScreen : Control
 		{
 			int index = i; 
 			string path = savePaths[i];
-
 			statusLabels[i] = GetNode<Label>($"CenterContainer2/VBoxContainer/StatusLabel{i + 1}");
 			loadButtons[i] = GetNode<Button>($"CenterContainer/VBoxContainer/SaveSlot{i + 1}");
 			deleteButtons[i] = GetNode<Button>($"VBoxContainer/DeleteButton{i + 1}");
@@ -37,7 +35,8 @@ public partial class SaveLoadScreen : Control
 				var json = file.GetAsText();
 				file.Close();
 
-				var data = Json.ParseString(json).AsGodotDictionary();
+				var godotData = Json.ParseString(json).AsGodotDictionary();
+				var data = ConvertGodotDictToStringVariantDict(godotData);
 				var saveData = new SaveData(data);
 
 				statusLabels[i].Text = $"Save {i + 1} - Level {saveData.PartyLevel}";
@@ -75,7 +74,8 @@ public partial class SaveLoadScreen : Control
 			var json = file.GetAsText();
 			file.Close();
 
-			var data = Json.ParseString(json).AsGodotDictionary();
+			var godotData = Json.ParseString(json).AsGodotDictionary();
+			var data = ConvertGodotDictToStringVariantDict(godotData);
 			saveData = new SaveData(data);
 		}
 		else
@@ -84,7 +84,7 @@ public partial class SaveLoadScreen : Control
 			CreateNewSave(slot, saveData);
 		}
 
-		GameManager.Instance.LoadFromSaveData(saveData);
+		GameManager.Instance.LoadFromSaveData(saveData, slot);
 		GetTree().ChangeSceneToFile("res://Scenes/Dungeon.tscn");
 	}
 
@@ -103,10 +103,37 @@ public partial class SaveLoadScreen : Control
 	public void CreateNewSave(int slot, SaveData saveData)
 	{
 		string path = savePaths[slot];
-		string json = Json.Stringify(saveData.ToDictionary(), "\t");
+		var saveDict = saveData.ToDictionary();
+		var godotDict = ConvertStringVariantDictToGodotDict(saveDict);
+		string json = Json.Stringify(godotDict, "\t");
 
 		using var file = FileAccess.Open(path, FileAccess.ModeFlags.Write);
 		file.StoreString(json);
 		file.Close();
+	}
+
+	// Convert Godot.Collections.Dictionary to Dictionary<string, Variant>
+	private Dictionary<string, Variant> ConvertGodotDictToStringVariantDict(Godot.Collections.Dictionary godotDict)
+	{
+		var result = new Dictionary<string, Variant>();
+		foreach (var key in godotDict.Keys)
+		{
+			if (key.VariantType == Variant.Type.String)
+			{
+				result[key.AsString()] = godotDict[key];
+			}
+		}
+		return result;
+	}
+
+	// Convert Dictionary<string, Variant> to Godot.Collections.Dictionary
+	private Godot.Collections.Dictionary ConvertStringVariantDictToGodotDict(Dictionary<string, Variant> dict)
+	{
+		var godotDict = new Godot.Collections.Dictionary();
+		foreach (var pair in dict)
+		{
+			godotDict[pair.Key] = pair.Value;
+		}
+		return godotDict;
 	}
 }

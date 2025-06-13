@@ -2,19 +2,21 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class SaveData
+public partial class SaveData : RefCounted
 {
 	// Basic stats
-	public int PartyLevel;
-	public int XP;
-	public int Floor;
-	public int CurrentHP;
-	public int CurrentSP;
-	public int Gold;
-	public Dictionary<string, int> Inventory;
-	public Dictionary<string, int> WildCards;
+	public int PartyLevel { get; set; } = 1;
+	public int XP { get; set; } = 0;
+	public int Floor { get; set; } = 0;
+	public int Gold { get; set; } = 0;
+	public Dictionary<string, int> Inventory { get; set; } = new Dictionary<string, int>();
+	public Dictionary<string, int> WildCards { get; set; } = new Dictionary<string, int>();
+	
+	// Position data - NOTE: This is now only for regular saves, not battle saves
+	public Vector2 SavedPosition { get; set; } = Vector2.Zero;
+	public bool HasSavedPosition { get; set; } = false;
 
-	// Default constructor (used for creating new save)
+	// Default constructor
 	public SaveData()
 	{
 		PartyLevel = 1;
@@ -23,72 +25,76 @@ public class SaveData
 		Gold = 0;
 		Inventory = new Dictionary<string, int>();
 		WildCards = new Dictionary<string, int>();
-		
+		SavedPosition = Vector2.Zero;
+		HasSavedPosition = false;
 	}
 
-	// Constructor from Godot dictionary (used for loading)
-	public SaveData(Godot.Collections.Dictionary data)
+	// Constructor from dictionary (used for loading)
+	public SaveData(Dictionary<string, Variant> data)
 	{
 		var loaded = FromDictionary(data);
 		PartyLevel = loaded.PartyLevel;
 		XP = loaded.XP;
 		Floor = loaded.Floor;
 		Gold = loaded.Gold;
-		CurrentHP = loaded.CurrentHP;
-		CurrentSP = loaded.CurrentSP;
 		Inventory = loaded.Inventory;
 		WildCards = loaded.WildCards;
-	
+		SavedPosition = loaded.SavedPosition;
+		HasSavedPosition = loaded.HasSavedPosition;
 	}
 
-	// Convert SaveData to Godot Dictionary (for saving)
-	public Godot.Collections.Dictionary ToDictionary()
+	// Convert SaveData to Dictionary (for saving)
+	public Dictionary<string, Variant> ToDictionary()
 	{
-		var dict = new Godot.Collections.Dictionary
+		var dict = new Dictionary<string, Variant>
 		{
-			["party_level"] = PartyLevel,
-			["xp"] = XP,
-			["floor"] = Floor,
-			["current_hp"] = CurrentHP,
-			["current_sp"] = CurrentSP,
-			["gold"] = Gold,
-			["inventory"] = ConvertToGodotDict(Inventory),
-			["wild_cards"] = ConvertToGodotDict(WildCards),
+			{"PartyLevel", PartyLevel},
+			{"XP", XP},
+			{"Floor", Floor},
+			{"Gold", Gold},
+			{"Inventory", ConvertToGodotDict(Inventory)},
+			{"WildCards", ConvertToGodotDict(WildCards)},
+			{"SavedPositionX", SavedPosition.X},
+			{"SavedPositionY", SavedPosition.Y},
+			{"HasSavedPosition", HasSavedPosition}
 		};
 		return dict;
 	}
 
-	// Deserialize SaveData from Godot Dictionary
-	public static SaveData FromDictionary(Godot.Collections.Dictionary data)
+	// Deserialize SaveData from Dictionary
+	public static SaveData FromDictionary(Dictionary<string, Variant> dict)
 	{
-		var saveData = new SaveData
+		var saveData = new SaveData();
+		
+		if (dict.ContainsKey("PartyLevel"))
+			saveData.PartyLevel = dict["PartyLevel"].AsInt32();
+		
+		if (dict.ContainsKey("XP"))
+			saveData.XP = dict["XP"].AsInt32();
+		
+		if (dict.ContainsKey("Floor"))
+			saveData.Floor = dict["Floor"].AsInt32();
+		
+		if (dict.ContainsKey("Gold"))
+			saveData.Gold = dict["Gold"].AsInt32();
+		
+		if (dict.ContainsKey("Inventory"))
+			saveData.Inventory = ConvertDictionaryToItemDict(dict["Inventory"]);
+		
+		if (dict.ContainsKey("WildCards"))
+			saveData.WildCards = ConvertDictionaryToItemDict(dict["WildCards"]);
+		
+		if (dict.ContainsKey("SavedPositionX") && dict.ContainsKey("SavedPositionY"))
 		{
-			PartyLevel = (int)data["party_level"],
-			XP = (int)data["xp"],
-			Floor = (int)data["floor"],
-			CurrentHP = (int)data["current_hp"],
-			CurrentSP = (int)data["current_sp"],
-			Gold = (int)data["gold"],
-			Inventory = ConvertDictionaryToItemDict(data["inventory"]),
-			WildCards = ConvertDictionaryToItemDict(data["wild_cards"]),
-		};
-		return saveData;
-	}
-
-	// Convert Dictionary<string, Dictionary<string, int>> to Godot Dictionary
-	private static Godot.Collections.Dictionary ConvertToGodotDict(Dictionary<string, Dictionary<string, int>> dict)
-	{
-		var godotDict = new Godot.Collections.Dictionary();
-		foreach (var pair in dict)
-		{
-			var inner = new Godot.Collections.Dictionary();
-			foreach (var sub in pair.Value)
-			{
-				inner[sub.Key] = sub.Value;
-			}
-			godotDict[pair.Key] = inner;
+			float x = dict["SavedPositionX"].AsSingle();
+			float y = dict["SavedPositionY"].AsSingle();
+			saveData.SavedPosition = new Vector2(x, y);
 		}
-		return godotDict;
+		
+		if (dict.ContainsKey("HasSavedPosition"))
+			saveData.HasSavedPosition = dict["HasSavedPosition"].AsBool();
+
+		return saveData;
 	}
 
 	// Convert Dictionary<string, int> to Godot Dictionary
@@ -103,14 +109,20 @@ public class SaveData
 	}
 
 	// Convert Variant to Dictionary<string, int>
-	private static Dictionary<string, int> ConvertDictionaryToItemDict(object rawDict)
+	private static Dictionary<string, int> ConvertDictionaryToItemDict(Variant rawDict)
 	{
-		var godotDict = ((Variant)rawDict).AsGodotDictionary();
+		if (rawDict.VariantType != Variant.Type.Dictionary)
+			return new Dictionary<string, int>();
+
+		var godotDict = rawDict.AsGodotDictionary();
 		var result = new Dictionary<string, int>();
 
 		foreach (var key in godotDict.Keys)
 		{
-			result[key.ToString()] = (int)(Variant)godotDict[key];
+			if (key.VariantType == Variant.Type.String && godotDict[key].VariantType == Variant.Type.Int)
+			{
+				result[key.AsString()] = godotDict[key].AsInt32();
+			}
 		}
 
 		return result;

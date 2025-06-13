@@ -15,16 +15,19 @@ public partial class BattleManager : Control
 	[Export] private NodePath playerPartyContainerPath;
 	[Export] private NodePath enemyPartyContainerPath;
 	[Export] private NodePath uiManagerPath;
+	[Export] private NodePath activityIndicatorPath;
 
 	private Control playerPartyContainer;
 	private Control enemyPartyContainer;
 	private UIManager uiManager;
+	private ActivityIndicator activityIndicator;
 
 	public override void _Ready()
 	{
 		playerPartyContainer = GetNode<Control>(playerPartyContainerPath);
 		enemyPartyContainer = GetNode<Control>(enemyPartyContainerPath);
 		uiManager = GetNode<UIManager>(uiManagerPath);
+		activityIndicator = GetNode<ActivityIndicator>(activityIndicatorPath);
 
 		uiManager.SetBattleManager(this); 
 
@@ -40,6 +43,7 @@ public partial class BattleManager : Control
 		foreach (PlayerCharacter character in children)
 		{
 			playerParty.Add(character);
+			character.SetActivityIndicator(activityIndicator);
 			character.Init(character.Class);
 			character.UpdateUI(); 
 		}
@@ -49,7 +53,8 @@ public partial class BattleManager : Control
 	{
 		foreach (Enemy enemy in enemyPartyContainer.GetChildren())
 		{
-			enemyParty.Add(enemy); 
+			enemyParty.Add(enemy);
+			enemy.SetActivityIndicator(activityIndicator);
 			enemy.Init(enemy.Class);
 			enemy.UpdateUI(); 
 		}
@@ -59,15 +64,14 @@ public partial class BattleManager : Control
 	{
 		turnIndex = 0;
 		isPlayerTurn = true;
+		activityIndicator.AddMessage("Battle begins!");
 		StartTurn();
 	}
 
 	private void StartTurn()
 	{
 		if (isPlayerTurn)
-		{
-			GD.Print($"StartTurn | isPlayerTurn: {isPlayerTurn}, turnIndex: {turnIndex}");
-			
+		{			
 			if (turnIndex >= playerParty.Count)
 			{
 				isPlayerTurn = false;
@@ -85,6 +89,7 @@ public partial class BattleManager : Control
 			}
 
 			selectedSkill = null;
+			activityIndicator.AddMessage($"{currentChar.CharacterName}'s turn");
 			uiManager.ShowActionButtons(currentChar);
 		}
 		else
@@ -112,9 +117,15 @@ public partial class BattleManager : Control
 			case "Retreat":
 				bool success = TryRetreat(currentChar);
 				if (success)
+				{
+					activityIndicator.AddMessage($"{currentChar.CharacterName} successfully retreats!");
 					EndBattle(false);
+				}
 				else
+				{
+					activityIndicator.AddMessage($"{currentChar.CharacterName} couldn't escape!");
 					EndPlayerTurn();
+				}
 				break;
 		}
 	}
@@ -129,25 +140,23 @@ public partial class BattleManager : Control
 	{
 		if (item.IsTeamWide)
 		{
-		
 			var aliveAllies = playerParty.Where(p => !p.IsDead()).ToList();
 			foreach (var ally in aliveAllies)
 			{
 				item.UseOn(ally);
 			}
-			GD.Print($"Used {item.Name} on all party members");
+			activityIndicator?.Log($"Used {item.Name} on all party members");
 		}
 		else
 		{
-	
 			if (target != null)
 			{
 				item.UseOn(target);
-				GD.Print($"Used {item.Name} on {target.CharacterName}");
+				activityIndicator?.Log($"Used {item.Name} on {target.CharacterName}");
 			}
 			else
 			{
-				GD.PrintErr("No target specified for single-target item!");
+				activityIndicator?.Log("No target specified for single-target item!");
 			}
 		}
 	}
@@ -158,7 +167,7 @@ public partial class BattleManager : Control
 		
 		if (selectedSkill == null)
 		{
-			GD.PrintErr("No skill selected to activate!");
+			activityIndicator?.Log("No skill selected to activate!");
 			return;
 		}
 
@@ -202,7 +211,7 @@ public partial class BattleManager : Control
 
 	private async void EnemyTurn()
 	{
-		GD.Print("Enemy turn starting...");
+		activityIndicator?.Log("Enemy turn starting...");
 		
 		foreach (var enemy in enemyParty)
 		{
@@ -214,7 +223,7 @@ public partial class BattleManager : Control
 
 		isPlayerTurn = true;
 		turnIndex = 0;
-		GD.Print("Enemy turn complete, switching to player turn");
+		activityIndicator?.Log("Enemy turn complete, switching to player turn");
 		StartTurn();
 	}
 
@@ -228,13 +237,11 @@ public partial class BattleManager : Control
 	{
 		if (playerWon)
 		{
-			GD.Print("Victory!");
-			// Handle victory logic
+			activityIndicator?.Log("Victory!");
 		}
 		else
 		{
-			GD.Print("Retreated or Defeated");
-			// Handle loss or retreat
+			activityIndicator?.Log("Retreated or Defeated");
 		}
 
 		GetTree().ChangeSceneToFile("res://Scenes/DungeonManager.tscn");

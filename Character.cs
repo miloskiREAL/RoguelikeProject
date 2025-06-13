@@ -24,8 +24,14 @@ public partial class Character : Node2D
 	public HashSet<ElementType> Resistances = new();
 
 	protected Random rng = new();
+	protected ActivityIndicator activityIndicator;
 
 	public bool IsDead() => CurrentHP <= 0;
+
+	public void SetActivityIndicator(ActivityIndicator indicator)
+	{
+		activityIndicator = indicator;
+	}
 
 	public class Skill
 	{
@@ -41,12 +47,13 @@ public partial class Character : Node2D
 		{
 			if (user.CurrentSP < Cost)
 			{
-				GD.Print($"{user.CharacterName} doesn't have enough SP to use {Name}!");
+				user.activityIndicator?.AddMessage($"{user.CharacterName} doesn't have enough SP for {Name}!");
 				return;
 			}
 			user.CurrentSP = Math.Max(0, user.CurrentSP - Cost);
 			user.UpdateUI();
-			GD.Print($"Skill {Name} activated by {user.CharacterName} on {target.CharacterName}");
+			user.activityIndicator?.AddMessage($"{user.CharacterName} uses {Name}!");
+			
 			switch (Type)
 			{
 				case SkillType.Physical:
@@ -62,7 +69,7 @@ public partial class Character : Node2D
 					break;
 				case SkillType.Buff:
 					target.BuffStacks += 1;
-					GD.Print($"{target.CharacterName} gained a buff! Total Buff Stacks: {target.BuffStacks}");
+					target.activityIndicator?.AddMessage($"{target.CharacterName} gains a buff! (Total: {target.BuffStacks})");
 					break;
 			}
 		}
@@ -75,23 +82,31 @@ public partial class Character : Node2D
 		if (target.Weaknesses.Contains(element))
 		{
 			finalDmg *= 1.5;
-			GD.Print($"{target.CharacterName} is weak to {element}! Bonus damage!");
+			activityIndicator?.AddMessage($"{target.CharacterName} is weak to {element}! Extra damage!");
 		}
 		else if (target.Resistances.Contains(element))
 		{
 			finalDmg *= 0.5;
-			GD.Print($"{target.CharacterName} resists {element}! Reduced damage!");
+			activityIndicator?.AddMessage($"{target.CharacterName} resists {element}! Reduced damage!");
 		}
 
 		finalDmg *= 1 + (0.5 * BuffStacks);
 
+		bool isCritical = false;
 		if (rng.NextDouble() <= 0.1)
 		{
 			finalDmg *= 2;
-			GD.Print($"CRITICAL HIT!");
+			isCritical = true;
+			activityIndicator?.AddMessage("CRITICAL HIT!");
 		}
 
-		target.TakeDamage((int)Math.Round(finalDmg));
+		int finalDamage = (int)Math.Round(finalDmg);
+		target.TakeDamage(finalDamage);
+		
+		string damageMsg = isCritical 
+			? $"CRITICAL! {CharacterName} deals {finalDamage} damage to {target.CharacterName}!"
+			: $"{CharacterName} deals {finalDamage} damage to {target.CharacterName}";
+		activityIndicator?.AddMessage(damageMsg);
 	}
 
 	public void TakeDamage(int amount)
@@ -99,26 +114,34 @@ public partial class Character : Node2D
 		if (IsDefending)
 		{
 			amount = (int)Math.Ceiling(amount / 2.0);
-			GD.Print($"{CharacterName} is defending! Blocked half the damage!");
+			activityIndicator?.AddMessage($"{CharacterName} blocks half the damage!");
 		}
 		CurrentHP = Math.Max(0, CurrentHP - amount);
-		GD.Print($"{CharacterName} took {amount} dmg → {CurrentHP}/{MaxHP} HP");
+		activityIndicator?.Log($"{CharacterName} → {CurrentHP}/{MaxHP} HP");
 		IsDefending = false;
+		
+		if (IsDead())
+		{
+			activityIndicator?.AddMessage($"{CharacterName} has been defeated!");
+		}
+		
 		UpdateUI();
 	}
 
 	public void Heal(int amount)
 	{
+		int actualHeal = Math.Min(amount, MaxHP - CurrentHP);
 		CurrentHP = Math.Min(MaxHP, CurrentHP + amount);
-		GD.Print($"{CharacterName} healed {amount} → {CurrentHP}/{MaxHP} HP");
+		activityIndicator?.AddMessage($"{CharacterName} recovers {actualHeal} HP");
 		UpdateUI();
 	}
 
 	public void Defend()
 	{
 		IsDefending = true;
-		GD.Print($"{CharacterName} is defending!");
+		activityIndicator?.AddMessage($"{CharacterName} takes a defensive stance");
 	}
+
 	public void UpdateUI()
 	{
 		var hpBar = GetNode<ProgressBar>("HPBar");

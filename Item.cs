@@ -42,7 +42,9 @@ public class Item
 				"HP_Potion_Single",
 				"HP Potion",
 				"Restores 50 HP to one ally.",
-				(target) => target.Heal(50)
+				(target) => {
+					target.Heal(50);
+				}
 			)
 		},
 		{
@@ -51,7 +53,11 @@ public class Item
 				"SP_Potion_Single",
 				"SP Potion",
 				"Restores 30 SP to one ally.",
-				(target) => target.CurrentSP = Math.Min(target.MaxSP, target.CurrentSP + 30)
+				(target) => {
+					int restored = Math.Min(30, target.MaxSP - target.CurrentSP);
+					target.CurrentSP = Math.Min(target.MaxSP, target.CurrentSP + 30);
+					// Note: ActivityIndicator messages would need to be handled in BattleManager
+				}
 			)
 		},
 		{

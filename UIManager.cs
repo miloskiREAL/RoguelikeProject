@@ -21,7 +21,7 @@ public partial class UIManager : Control
 	private BattleManager battleManager;
 	private Dictionary<Button, Action> skillButtonActions = new();
 	private Dictionary<Button, Action> targetButtonActions = new(); 
-	private Dictionary<Button, string> itemButtonKeys = new();
+	private Dictionary<Button, Action> itemButtonActions = new();
 	private Item selectedItem; 
 
 	public override void _Ready()
@@ -95,34 +95,42 @@ public partial class UIManager : Control
 		itemMenu.Visible = true;
 		itemBackButton.Visible = true;
 
-		// Clear existing buttons
-		foreach (Node child in itemVBox.GetChildren())
+	
+		foreach (var entry in itemButtonActions)
 		{
-			child.QueueFree();
+			entry.Key.Pressed -= entry.Value;
 		}
-		itemButtonKeys.Clear();
+		itemButtonActions.Clear();
 
-		
-		foreach (var entry in GameManager.Instance.SaveData.Inventory)
+
+		foreach (Button btn in itemVBox.GetChildren())
 		{
-			string itemKey = entry.Key;
-			int count = entry.Value;
-
-			if (count <= 0) continue;
-
 			
-			if (!Item.All.TryGetValue(itemKey, out Item item))
+			if (Item.All.TryGetValue(btn.Name, out Item item))
 			{
-				GD.PrintErr($"Item with key '{itemKey}' not found in Item.All dictionary!");
-				continue;
+				btn.Visible = true;
+				int count = 0;
+				GameManager.Instance.SaveData.Inventory.TryGetValue(item.Key, out count);
+				btn.Text = $"{item.Name} x{count}";
+				
+				if (count > 0)
+				{
+					btn.Disabled = false;
+					Action handler = () => OnItemButtonPressed(item);
+					btn.Pressed += handler;
+					itemButtonActions[btn] = handler;
+				}
+				else
+				{
+					btn.Disabled = true;
+				}
 			}
-
-			Button btn = new Button();
-			btn.Text = $"{item.Name} x{count}";
-			btn.Disabled = false;
-			itemVBox.AddChild(btn);
-			itemButtonKeys[btn] = itemKey;
-			btn.Pressed += () => OnItemButtonPressed(item);
+			else
+			{
+				btn.Visible = true;
+				btn.Disabled = true;
+				btn.Text = $"{btn.Name} x0";
+			}
 		}
 	}
 
@@ -132,7 +140,6 @@ public partial class UIManager : Control
 		
 		if (item.IsTeamWide)
 		{
-			
 			battleManager.OnItemSelected(item, null);
 		}
 		else
@@ -147,7 +154,6 @@ public partial class UIManager : Control
 		targetMenu.Visible = true;
 		targetBackButton.Visible = true;
 
-		
 		foreach (Button btn in targetMenu.GetChildren())
 		{
 			if (targetButtonActions.TryGetValue(btn, out var oldHandler))
@@ -156,7 +162,6 @@ public partial class UIManager : Control
 		}
 		targetButtonActions.Clear();
 
-		
 		for (int i = 0; i < battleManager.playerParty.Count; i++)
 		{
 			var ally = battleManager.playerParty[i];
@@ -319,6 +324,11 @@ public partial class UIManager : Control
 				btn.Pressed -= handler;
 		}
 		targetButtonActions.Clear();
+		foreach (var entry in itemButtonActions)
+		{
+			entry.Key.Pressed -= entry.Value;
+		}
+		itemButtonActions.Clear();
 
 		selectedItem = null;
 	}

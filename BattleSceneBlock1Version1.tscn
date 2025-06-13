@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cgfwn63w3ap4w"]
+[gd_scene load_steps=11 format=3 uid="uid://cgfwn63w3ap4w"]
 
 [ext_resource type="Script" uid="uid://p74epvrppkdt" path="res://BattleManager.cs" id="1_bmfsc"]
 [ext_resource type="PackedScene" uid="uid://b3ltkdbccaqtv" path="res://Scenes/Ranger.tscn" id="2_dxw1e"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://joh2pqeh6spe" path="res://Scenes/Goblin.tscn" id="6_ewggh"]
 [ext_resource type="PackedScene" uid="uid://rfkaswaj0krl" path="res://Scenes/Gravetender.tscn" id="7_4csvl"]
 [ext_resource type="PackedScene" uid="uid://bwodx36quwt0d" path="res://Scenes/Skeleton.tscn" id="8_4csvl"]
+[ext_resource type="Script" uid="uid://ub8kr3f7fvo3" path="res://ActivityIndicator.cs" id="9_5ljbc"]
 [ext_resource type="Script" uid="uid://dh1dt2gd1v3x4" path="res://UIManager.cs" id="102_3wce7"]
 
 [node name="BattleScene" type="Control"]
@@ -21,6 +22,7 @@ script = ExtResource("1_bmfsc")
 playerPartyContainerPath = NodePath("PlayerParty")
 enemyPartyContainerPath = NodePath("EnemyParty")
 uiManagerPath = NodePath("UIManager")
+activityIndicatorPath = NodePath("ActivityIndicator")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -102,6 +104,17 @@ offset_right = 1064.0
 offset_bottom = 576.0
 theme_override_font_sizes/font_size = 24
 text = "RETREAT"
+
+[node name="ActivityIndicator" type="Label" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_right = 832.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 32
+text = "test text"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_5ljbc")
 
 [node name="SkillMenus" type="Control" parent="."]
 anchors_preset = 0
@@ -465,7 +478,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "TEAM ETHER"
 
-[node name="Golden Elixer" type="Button" parent="ItemMenu/ItemMenu"]
+[node name="Elixer" type="Button" parent="ItemMenu/ItemMenu"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
