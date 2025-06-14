@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://dpep20vxlpuca"
-path="res://.godot/imported/Safezone.mp3-48fea498aa0b405a4d85b724fbc6f4d8.mp3str"
+path="res://.godot/imported/Safezone.mp3-9b6672534a59493d674d65c870fa709f.mp3str"
 
 [deps]
 
-source_file="res://Assets/audio/music/SafeRoom/Safezone.mp3"
-dest_files=["res://.godot/imported/Safezone.mp3-48fea498aa0b405a4d85b724fbc6f4d8.mp3str"]
+source_file="res://Assets/Audio/music/SafeRoom/Safezone.mp3"
+dest_files=["res://.godot/imported/Safezone.mp3-9b6672534a59493d674d65c870fa709f.mp3str"]
 
 [params]
 

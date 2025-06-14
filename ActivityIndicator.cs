@@ -7,7 +7,7 @@ public partial class ActivityIndicator : Label
 	private Timer messageTimer;
 	private bool isProcessing = false;
 	
-	[Export] private float messageDelay = 0.8f;  
+	[Export] private float messageDelay = 0.6f;  
 	[Export] private int maxMessages = 8;       
 	
 	public override void _Ready()
@@ -69,5 +69,11 @@ public partial class ActivityIndicator : Label
 	{
 		GD.Print(message);  
 		AddMessage(message);  
+	}
+	
+	// Public method to check if the indicator is still processing messages
+	public bool IsProcessing()
+	{
+		return isProcessing || messageQueue.Count > 0;
 	}
 }

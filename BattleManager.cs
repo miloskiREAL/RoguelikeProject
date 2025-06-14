@@ -221,10 +221,27 @@ public partial class BattleManager : Control
 			enemy.PerformAI(playerParty); 
 		}
 
+		// Add the ending message
+		activityIndicator?.Log("Enemy turn complete, switching to player turn");
+		
+		// Wait for the activity indicator to finish processing all messages
+		await WaitForActivityIndicatorToFinish();
+
 		isPlayerTurn = true;
 		turnIndex = 0;
-		activityIndicator?.Log("Enemy turn complete, switching to player turn");
 		StartTurn();
+	}
+
+	private async System.Threading.Tasks.Task WaitForActivityIndicatorToFinish()
+	{
+		// Wait until the activity indicator is no longer processing messages
+		while (activityIndicator.IsProcessing())
+		{
+			await ToSignal(GetTree().CreateTimer(0.1), "timeout");
+		}
+		
+		// Add a small additional delay to ensure the last message is fully displayed
+		await ToSignal(GetTree().CreateTimer(0.2), "timeout");
 	}
 
 	private bool TryRetreat(Character character)

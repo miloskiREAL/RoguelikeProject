@@ -1,15 +1,15 @@
 [gd_scene load_steps=11 format=3 uid="uid://cgfwn63w3ap4w"]
 
-[ext_resource type="Script" uid="uid://p74epvrppkdt" path="res://BattleManager.cs" id="1_bmfsc"]
-[ext_resource type="PackedScene" uid="uid://b3ltkdbccaqtv" path="res://Scenes/Ranger.tscn" id="2_dxw1e"]
-[ext_resource type="PackedScene" uid="uid://xqsekcdwc20n" path="res://Scenes/Monk.tscn" id="3_ewggh"]
-[ext_resource type="PackedScene" uid="uid://dra8ni1w5c0ne" path="res://Scenes/Wizard.tscn" id="4_4csvl"]
-[ext_resource type="PackedScene" uid="uid://xb77dlq1y6kq" path="res://Scenes/Knight.tscn" id="5_5ljbc"]
-[ext_resource type="PackedScene" uid="uid://joh2pqeh6spe" path="res://Scenes/Goblin.tscn" id="6_ewggh"]
-[ext_resource type="PackedScene" uid="uid://rfkaswaj0krl" path="res://Scenes/Gravetender.tscn" id="7_4csvl"]
-[ext_resource type="PackedScene" uid="uid://bwodx36quwt0d" path="res://Scenes/Skeleton.tscn" id="8_4csvl"]
-[ext_resource type="Script" uid="uid://ub8kr3f7fvo3" path="res://ActivityIndicator.cs" id="9_5ljbc"]
-[ext_resource type="Script" uid="uid://dh1dt2gd1v3x4" path="res://UIManager.cs" id="102_3wce7"]
+[ext_resource type="Script" uid="uid://p74epvrppkdt" path="res://BattleManager.cs" id="1_5j33r"]
+[ext_resource type="PackedScene" uid="uid://b3ltkdbccaqtv" path="res://Scenes/Ranger.tscn" id="2_jgtbt"]
+[ext_resource type="PackedScene" uid="uid://xqsekcdwc20n" path="res://Scenes/Monk.tscn" id="3_2acjt"]
+[ext_resource type="PackedScene" uid="uid://dra8ni1w5c0ne" path="res://Scenes/Wizard.tscn" id="4_3gtlq"]
+[ext_resource type="PackedScene" uid="uid://xb77dlq1y6kq" path="res://Scenes/Knight.tscn" id="5_dhdqu"]
+[ext_resource type="PackedScene" uid="uid://joh2pqeh6spe" path="res://Scenes/Goblin.tscn" id="6_1av1i"]
+[ext_resource type="PackedScene" uid="uid://rfkaswaj0krl" path="res://Scenes/Gravetender.tscn" id="7_673ai"]
+[ext_resource type="PackedScene" uid="uid://bwodx36quwt0d" path="res://Scenes/Skeleton.tscn" id="8_pgfro"]
+[ext_resource type="Script" uid="uid://ub8kr3f7fvo3" path="res://ActivityIndicator.cs" id="9_24ajl"]
+[ext_resource type="Script" uid="uid://dh1dt2gd1v3x4" path="res://UIManager.cs" id="10_60rrs"]
 
 [node name="BattleScene" type="Control"]
 layout_mode = 3
@@ -18,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_bmfsc")
+script = ExtResource("1_5j33r")
 playerPartyContainerPath = NodePath("PlayerParty")
 enemyPartyContainerPath = NodePath("EnemyParty")
 uiManagerPath = NodePath("UIManager")
@@ -38,13 +38,13 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Ranger" parent="PlayerParty" instance=ExtResource("2_dxw1e")]
+[node name="Ranger" parent="PlayerParty" instance=ExtResource("2_jgtbt")]
 
-[node name="Monk" parent="PlayerParty" instance=ExtResource("3_ewggh")]
+[node name="Monk" parent="PlayerParty" instance=ExtResource("3_2acjt")]
 
-[node name="Wizard" parent="PlayerParty" instance=ExtResource("4_4csvl")]
+[node name="Wizard" parent="PlayerParty" instance=ExtResource("4_3gtlq")]
 
-[node name="Knight" parent="PlayerParty" instance=ExtResource("5_5ljbc")]
+[node name="Knight" parent="PlayerParty" instance=ExtResource("5_dhdqu")]
 
 [node name="EnemyParty" type="Control" parent="."]
 layout_mode = 3
@@ -52,16 +52,16 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Goblin2" parent="EnemyParty" instance=ExtResource("6_ewggh")]
+[node name="Goblin2" parent="EnemyParty" instance=ExtResource("6_1av1i")]
 position = Vector2(896, 312)
 
-[node name="Goblin" parent="EnemyParty" instance=ExtResource("6_ewggh")]
+[node name="Goblin" parent="EnemyParty" instance=ExtResource("6_1av1i")]
 position = Vector2(896, 312)
 
-[node name="Gravetender" parent="EnemyParty" instance=ExtResource("7_4csvl")]
+[node name="Gravetender" parent="EnemyParty" instance=ExtResource("7_673ai")]
 position = Vector2(832, 360)
 
-[node name="Skeleton" parent="EnemyParty" instance=ExtResource("8_4csvl")]
+[node name="Skeleton" parent="EnemyParty" instance=ExtResource("8_pgfro")]
 position = Vector2(776, 448)
 
 [node name="ActionMenu" type="Control" parent="."]
@@ -114,7 +114,7 @@ theme_override_font_sizes/font_size = 32
 text = "test text"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("9_5ljbc")
+script = ExtResource("9_24ajl")
 
 [node name="SkillMenus" type="Control" parent="."]
 anchors_preset = 0
@@ -488,7 +488,7 @@ text = "GOLDEN ELIXER"
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("102_3wce7")
+script = ExtResource("10_60rrs")
 actionMenu = NodePath("../ActionMenu")
 skillMenus = [NodePath("../SkillMenus/KnightSkillMenu"), NodePath("../SkillMenus/WizardSkillMenu"), NodePath("../SkillMenus/MonkSkillMenu"), NodePath("../SkillMenus/RangerSkillMenu")]
 itemMenu = NodePath("../ItemMenu")
