@@ -11,7 +11,7 @@ public partial class GameManager : Node
 	// Track which save slot we're currently using
 	private int currentSaveSlot = -1;
 	
-	// Battle-specific temporary position storage (separate from main save data)
+	// Battle specific temporary position storage 
 	public Vector2 BattleReturnPosition { get; set; } = Vector2.Zero;
 	public bool HasBattleReturnPosition { get; set; } = false;
 	
@@ -53,7 +53,7 @@ public partial class GameManager : Node
 		GD.Print("GameManager reset with new SaveData.");
 	}
 
-	// Set battle return position (used when entering battle)
+	// Set battle return position
 	public void SetBattleReturnPosition(Vector2 position)
 	{
 		BattleReturnPosition = position;
@@ -61,7 +61,7 @@ public partial class GameManager : Node
 		GD.Print($"Battle return position set to: {position}");
 	}
 
-	// Get and clear battle return position (used when returning from battle)
+	// Get and clear battle return position 
 	public Vector2 GetAndClearBattleReturnPosition()
 	{
 		Vector2 position = BattleReturnPosition;
@@ -76,6 +76,62 @@ public partial class GameManager : Node
 		HasBattleReturnPosition = false;
 	}
 
+	// WildCard Management Methods
+	public void AddWildCard(string cardName, int quantity = 1)
+	{
+		if (SaveData == null)
+		{
+			GD.PrintErr("Cannot add wildcard: No SaveData available!");
+			return;
+		}
+
+		if (SaveData.WildCards.ContainsKey(cardName))
+		{
+			SaveData.WildCards[cardName] += quantity;
+		}
+		else
+		{
+			SaveData.WildCards[cardName] = quantity;
+		}
+
+		GD.Print($"Added {quantity}x {cardName} to collection. Total: {SaveData.WildCards[cardName]}");
+	}
+
+	public bool HasWildCard(string cardName)
+	{
+		if (SaveData?.WildCards == null)
+			return false;
+			
+		return SaveData.WildCards.ContainsKey(cardName) && SaveData.WildCards[cardName] > 0;
+	}
+
+	public int GetWildCardCount(string cardName)
+	{
+		if (SaveData?.WildCards == null)
+			return 0;
+			
+		return SaveData.WildCards.ContainsKey(cardName) ? SaveData.WildCards[cardName] : 0;
+	}
+
+	public void RemoveWildCard(string cardName, int quantity = 1)
+	{
+		if (SaveData?.WildCards == null)
+			return;
+
+		if (SaveData.WildCards.ContainsKey(cardName))
+		{
+			SaveData.WildCards[cardName] = Math.Max(0, SaveData.WildCards[cardName] - quantity);
+			
+			// Remove the entry if count reaches 0
+			if (SaveData.WildCards[cardName] == 0)
+			{
+				SaveData.WildCards.Remove(cardName);
+			}
+		}
+	}
+
+
+	// Writes the save file to the slot
 	public bool SaveGame(int saveSlot = -1)
 	{
 		if (SaveData == null)
@@ -114,7 +170,9 @@ public partial class GameManager : Node
 				currentSaveSlot = saveSlot;
 			}
 
-			GD.Print($"Game saved successfully to slot {slotToUse + 1}");
+			// Log wildcard save info for debugging
+			int wildcardCount = SaveData.WildCards?.Count ?? 0;
+			GD.Print($"Game saved successfully to slot {slotToUse + 1} with {wildcardCount} wildcards");
 			return true;
 		}
 		catch (Exception e)
@@ -124,7 +182,7 @@ public partial class GameManager : Node
 		}
 	}
 
-	// Quick save for battle system - this does NOT save the main game state
+	// Quick save for battle system
 	// It only preserves the current position for battle return
 	public bool QuickSaveForBattle(Vector2 playerPosition)
 	{

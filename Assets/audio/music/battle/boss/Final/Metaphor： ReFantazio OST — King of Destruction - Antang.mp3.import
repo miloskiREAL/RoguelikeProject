@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cdbfkmi8ff3nw"
+path="res://.godot/imported/Metaphor： ReFantazio OST — King of Destruction - Antang.mp3-5caab2789ee8ba57d8ee5b129b6af67a.mp3str"
+
+[deps]
+
+source_file="res://Assets/audio/music/battle/boss/Final/Metaphor： ReFantazio OST — King of Destruction - Antang.mp3"
+dest_files=["res://.godot/imported/Metaphor： ReFantazio OST — King of Destruction - Antang.mp3-5caab2789ee8ba57d8ee5b129b6af67a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

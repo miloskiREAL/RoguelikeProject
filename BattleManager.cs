@@ -22,6 +22,7 @@ public partial class BattleManager : Control
 	private UIManager uiManager;
 	private ActivityIndicator activityIndicator;
 
+	// Initialize the battle system and load parties
 	public override void _Ready()
 	{
 		playerPartyContainer = GetNode<Control>(playerPartyContainerPath);
@@ -36,6 +37,7 @@ public partial class BattleManager : Control
 		StartBattle();
 	}
 
+	// Load player characters from the scene and initialize them
 	private void LoadPlayerParty()
 	{
 		var children = playerPartyContainer.GetChildren();
@@ -49,6 +51,7 @@ public partial class BattleManager : Control
 		}
 	}
 
+	// Load enemy characters from the scene and initialize them
 	private void LoadEnemyParty()
 	{
 		foreach (Enemy enemy in enemyPartyContainer.GetChildren())
@@ -60,6 +63,7 @@ public partial class BattleManager : Control
 		}
 	}
 
+	// Begin the battle and start the first turn
 	private void StartBattle()
 	{
 		turnIndex = 0;
@@ -68,10 +72,25 @@ public partial class BattleManager : Control
 		StartTurn();
 	}
 
+	// Main turn logic, checks win conditions and manages turn flow
 	private void StartTurn()
 	{
+		// Check for battle end conditions
+		if (playerParty.All(p => p.IsDead()))
+		{
+			EndBattle(BattleResult.Defeat);
+			return;
+		}
+		
+		if (enemyParty.All(e => e.IsDead()))
+		{
+			EndBattle(BattleResult.Victory);
+			return;
+		}
+
 		if (isPlayerTurn)
 		{			
+			// Move to enemy turn if all players have acted
 			if (turnIndex >= playerParty.Count)
 			{
 				isPlayerTurn = false;
@@ -81,6 +100,7 @@ public partial class BattleManager : Control
 			}
 
 			var currentChar = playerParty[turnIndex];
+			// Skip dead characters
 			if (currentChar.IsDead())
 			{
 				turnIndex++;
@@ -98,6 +118,7 @@ public partial class BattleManager : Control
 		}
 	}
 
+	// Handle player action selection (Skill, Item, Defend, Retreat)
 	public void OnPlayerActionSelected(string actionType)
 	{
 		var currentChar = playerParty[turnIndex];
@@ -119,7 +140,7 @@ public partial class BattleManager : Control
 				if (success)
 				{
 					activityIndicator.AddMessage($"{currentChar.CharacterName} successfully retreats!");
-					EndBattle(false);
+					EndBattle(BattleResult.Retreat);
 				}
 				else
 				{
@@ -130,47 +151,84 @@ public partial class BattleManager : Control
 		}
 	}
 
+	// Store selected skill and show target selection menu
 	public void OnSkillSelected(Character.Skill skill)
 	{
 		selectedSkill = skill;
 		uiManager.ShowTargetMenu(skill);
 	}
 
+	// Handle item usage on characters
 	public void OnItemSelected(Item item, Character target)
 	{
+		// Check if we have the item in inventory
+		if (!GameManager.Instance.SaveData.Inventory.ContainsKey(item.Key) || 
+			GameManager.Instance.SaveData.Inventory[item.Key] <= 0)
+		{
+			activityIndicator.AddMessage($"No {item.Name} available!");
+			return;
+		}
+
+		bool itemUsed = false;
+		
+		// Handle teamwide items
 		if (item.IsTeamWide)
 		{
-			var aliveAllies = playerParty.Where(p => !p.IsDead()).ToList();
-			foreach (var ally in aliveAllies)
+			var aliveAllies = playerParty.Where(p => !p.IsDead()).Cast<Character>().ToList();
+			if (aliveAllies.Count > 0)
 			{
-				item.UseOn(ally);
+				if (item.MultiTargetEffect != null)
+				{
+					item.MultiTargetEffect.Invoke(aliveAllies);
+				}
+				else if (item.SingleTargetEffect != null)
+				{
+					foreach (var ally in aliveAllies)
+					{
+						item.SingleTargetEffect.Invoke(ally);
+					}
+				}
+				itemUsed = true;
+				activityIndicator.AddMessage($"Used {item.Name} on all party members");
 			}
-			activityIndicator?.Log($"Used {item.Name} on all party members");
 		}
+		// Handle single target items
 		else
 		{
-			if (target != null)
+			if (target != null && !target.IsDead() && item.SingleTargetEffect != null)
 			{
-				item.UseOn(target);
-				activityIndicator?.Log($"Used {item.Name} on {target.CharacterName}");
+				item.SingleTargetEffect.Invoke(target);
+				itemUsed = true;
+				activityIndicator.AddMessage($"Used {item.Name} on {target.CharacterName}");
 			}
-			else
+		}
+
+		// Remove item from inventory and update UI
+		if (itemUsed)
+		{
+			GameManager.Instance.SaveData.Inventory[item.Key]--;
+			if (GameManager.Instance.SaveData.Inventory[item.Key] <= 0)
 			{
-				activityIndicator?.Log("No target specified for single-target item!");
+				GameManager.Instance.SaveData.Inventory.Remove(item.Key);
 			}
+			
+			foreach (var character in playerParty)
+			{
+				character.UpdateUI();
+			}
+
+			EndPlayerTurn();
 		}
 	}
 
+	// Execute selected skill on target/s
 	public void OnTargetSelected(Character target, Character.Skill skill)
 	{
 		var user = playerParty[turnIndex];
 		
-		if (selectedSkill == null)
-		{
-			activityIndicator?.Log("No skill selected to activate!");
-			return;
-		}
+		if (selectedSkill == null) return;
 
+		// Handle different targeting types
 		switch (selectedSkill.Targeting)
 		{
 			case Character.TargetType.SingleEnemy:
@@ -202,6 +260,7 @@ public partial class BattleManager : Control
 		EndPlayerTurn();
 	}
 
+	// Complete current player's turn and move to next
 	public void EndPlayerTurn()
 	{
 		uiManager.HideAllMenus();
@@ -209,6 +268,7 @@ public partial class BattleManager : Control
 		StartTurn();
 	}
 
+	// Execute AI actions for all living enemies
 	private async void EnemyTurn()
 	{
 		activityIndicator?.Log("Enemy turn starting...");
@@ -221,10 +281,8 @@ public partial class BattleManager : Control
 			enemy.PerformAI(playerParty); 
 		}
 
-		// Add the ending message
 		activityIndicator?.Log("Enemy turn complete, switching to player turn");
-		
-		// Wait for the activity indicator to finish processing all messages
+	
 		await WaitForActivityIndicatorToFinish();
 
 		isPlayerTurn = true;
@@ -232,35 +290,58 @@ public partial class BattleManager : Control
 		StartTurn();
 	}
 
+	// Wait for all activity messages to finish displaying
 	private async System.Threading.Tasks.Task WaitForActivityIndicatorToFinish()
 	{
-		// Wait until the activity indicator is no longer processing messages
 		while (activityIndicator.IsProcessing())
 		{
 			await ToSignal(GetTree().CreateTimer(0.1), "timeout");
 		}
 		
-		// Add a small additional delay to ensure the last message is fully displayed
 		await ToSignal(GetTree().CreateTimer(0.2), "timeout");
 	}
 
+	// Roll against character's speed to determine retreat success
 	private bool TryRetreat(Character character)
 	{
 		int roll = GD.RandRange(0, 100);
 		return roll < character.Speed;
 	}
 
-	private void EndBattle(bool playerWon)
+	private enum BattleResult
 	{
-		if (playerWon)
-		{
-			activityIndicator?.Log("Victory!");
-		}
-		else
-		{
-			activityIndicator?.Log("Retreated or Defeated");
-		}
+		Victory,
+		Defeat,
+		Retreat
+	}
 
-		GetTree().ChangeSceneToFile("res://Scenes/DungeonManager.tscn");
+	// End battle and transition to appropriate scene
+	private void EndBattle(BattleResult result)
+	{
+		switch (result)
+		{
+			case BattleResult.Victory:
+				activityIndicator?.Log("Victory!");
+				GetTree().ChangeSceneToFile("res://Scenes/VictoryScreen.tscn");
+				break;
+				
+			case BattleResult.Defeat:
+				activityIndicator?.Log("Defeated!");
+				GetTree().ChangeSceneToFile("res://Scenes/DefeatScreen.tscn");
+				break;
+				
+			case BattleResult.Retreat:
+				activityIndicator?.Log("Retreated successfully!");
+				var gameManager = GameManager.Instance;
+				if (gameManager != null && gameManager.HasBattleReturnPosition)
+				{
+					GetTree().ChangeSceneToFile("res://Scenes/Dungeon.tscn");
+				}
+				else
+				{
+					GetTree().ChangeSceneToFile("res://Scenes/Dungeon.tscn");
+				}
+				break;
+		}
 	}
 }

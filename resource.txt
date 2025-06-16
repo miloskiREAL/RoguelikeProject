@@ -1,0 +1,398 @@
+Youtube Video Tutorials:
+
+C# basics and introduction to C# Godot 
+https://youtu.be/vsMv6dxkduo 
+
+Introduced me to how to work with nodes, as well as how to work with tilemaps which I used to create my dungeons, and also how to create animations
+https://www.youtube.com/watch?v=nAh_Kx5Zh5Q
+
+Used this as a basis for creating my save system and converted it and modified it using AI to use C#
+https://www.youtube.com/watch?v=lXO5Jt957BA
+
+Used this logic to create my own battle scenes, it ended up being modified heavily though due to wanting a more complex UI
+https://youtu.be/HEexLmt7enc
+
+Used this to learn how to create UI and read signals
+https://youtu.be/P8gBda5AwPE
+
+Used this for the logic to create random encounters 
+https://youtu.be/MiEEHaQ3q6Y
+
+A LOT of my GPT prompts were to help with debugging and figure out where my code was going wrong, and majority of the debug is no longer present in my code. 
+
+GPT Prompts:
+
+Can you help me convert a C# dictionary to a godot dictionary to help with my save system 
+response:
+private Dictionary<string, Variant> ConvertGodotDictToStringVariantDict(Godot.Collections.Dictionary godotDict)
+	{
+		var result = new Dictionary<string, Variant>();
+		foreach (var key in godotDict.Keys)
+		{
+			if (key.VariantType == Variant.Type.String)
+			{
+				result[key.AsString()] = godotDict[key];
+			}
+		}
+		return result;
+	}
+
+	// Convert Dictionary<string, Variant> to Godot.Collections.Dictionary
+	private Godot.Collections.Dictionary ConvertStringVariantDictToGodotDict(Dictionary<string, Variant> dict)
+	{
+		var godotDict = new Godot.Collections.Dictionary();
+		foreach (var pair in dict)
+		{
+			godotDict[pair.Key] = pair.Value;
+		}
+		return godotDict;
+	}
+
+Can you create helper functions to convert my data to saveable data types and vice versa 
+// Convert Dictionary<string, int> to Godot Dictionary
+	private static Godot.Collections.Dictionary ConvertToGodotDict(Dictionary<string, int> dict)
+	{
+		var godotDict = new Godot.Collections.Dictionary();
+		if (dict != null)
+		{
+			foreach (var pair in dict)
+			{
+				godotDict[pair.Key] = pair.Value;
+			}
+		}
+		return godotDict;
+	}
+
+	// Convert Dictionary<string, bool> to Godot Dictionary
+	private static Godot.Collections.Dictionary ConvertBoolDictToGodotDict(Dictionary<string, bool> dict)
+	{
+		var godotDict = new Godot.Collections.Dictionary();
+		if (dict != null)
+		{
+			foreach (var pair in dict)
+			{
+				godotDict[pair.Key] = pair.Value;
+			}
+		}
+		return godotDict;
+	}
+
+	// Convert HashSet<string> to Godot Array
+	private static Godot.Collections.Array ConvertHashSetToGodotArray(HashSet<string> hashSet)
+	{
+		var godotArray = new Godot.Collections.Array();
+		if (hashSet != null)
+		{
+			foreach (var item in hashSet)
+			{
+				godotArray.Add(item);
+			}
+		}
+		return godotArray;
+	}
+
+	// Convert Variant to Dictionary<string, int>
+	private static Dictionary<string, int> ConvertVariantToItemDict(Variant rawDict)
+	{
+		var result = new Dictionary<string, int>();
+		
+		if (rawDict.VariantType != Variant.Type.Dictionary)
+			return result;
+
+		var godotDict = rawDict.AsGodotDictionary();
+		
+		foreach (var key in godotDict.Keys)
+		{
+			string keyStr = key.AsString();
+			int value = godotDict[key].AsInt32();
+			result[keyStr] = value;
+		}
+
+		return result;
+	}
+
+	// Convert Variant to Dictionary<string, bool>
+	private static Dictionary<string, bool> ConvertVariantToBoolDict(Variant rawDict)
+	{
+		var result = new Dictionary<string, bool>();
+		
+		if (rawDict.VariantType != Variant.Type.Dictionary)
+			return result;
+
+		var godotDict = rawDict.AsGodotDictionary();
+
+		foreach (var key in godotDict.Keys)
+		{
+			string keyStr = key.AsString();
+			bool value = godotDict[key].AsBool();
+			result[keyStr] = value;
+		}
+
+		return result;
+	}
+
+	// Convert Variant to HashSet<string>
+	private static HashSet<string> ConvertVariantToHashSet(Variant rawArray)
+	{
+		var result = new HashSet<string>();
+		
+		if (rawArray.VariantType != Variant.Type.Array)
+			return result;
+
+		var godotArray = rawArray.AsGodotArray();
+
+		foreach (var item in godotArray)
+		{
+			string itemStr = item.AsString();
+			result.Add(itemStr);
+		}
+
+		return result;
+	}
+
+	// Adds item to inventory or increases quantity if already exists
+	public void AddItem(string itemKey, int quantity)
+	{
+		if (Inventory.ContainsKey(itemKey))
+		{
+			Inventory[itemKey] += quantity;
+		}
+		else
+		{
+			Inventory[itemKey] = quantity;
+		}
+	}
+can you help me create a more powerful enemy AI for bosses 
+if (Class == EnemyClass.FellGod || Class == EnemyClass.Kingslayer || 
+		Class == EnemyClass.TheLich || Class == EnemyClass.Asterius)
+	{
+			// Prioritize powerful attacks
+		var attackSkills = Skills.Where(s => s.Type == SkillType.Physical || s.Type == SkillType.Magical).ToList();
+		var supportSkills = Skills.Where(s => s.Type == SkillType.Buff || s.Type == SkillType.Heal || s.Type == SkillType.Debuff).ToList();
+			
+		if (rng.Next(100) < 70 && attackSkills.Count > 0)
+		{
+			skill = attackSkills[rng.Next(attackSkills.Count)];
+		}
+		else if (supportSkills.Count > 0)
+		{
+			skill = supportSkills[rng.Next(supportSkills.Count)];
+		}
+		else
+		{
+			skill = Skills[rng.Next(Skills.Count)];
+		}
+	}
+	else
+	{
+		skill = Skills[rng.Next(Skills.Count)];
+	}
+can you help me set up an item class for my game 
+using System;
+using System.Collections.Generic;
+
+public class Item
+{
+	public string Key;                        
+	public string Name;                        
+	public string Description;                 
+	public bool IsTeamWide;                   
+
+	public Action<Character> SingleTargetEffect;          
+	public Action<List<Character>> MultiTargetEffect;     
+
+	public Item(string key, string name, string description,
+				Action<Character> singleTargetEffect = null,
+				bool isTeamWide = false,
+				Action<List<Character>> multiTargetEffect = null)
+	{
+		Key = key;
+		Name = name;
+		Description = description;
+		SingleTargetEffect = singleTargetEffect;
+		IsTeamWide = isTeamWide;
+		MultiTargetEffect = multiTargetEffect;
+	}
+//These are the activation functions for the items 
+	public void UseOn(Character target)
+	{
+		SingleTargetEffect?.Invoke(target);
+	}
+	
+	public void UseOn(List<Character> targets)
+	{
+		MultiTargetEffect?.Invoke(targets);
+	}
+	// All of the item definitions, has a key, name, desc, and effect type
+	public static Dictionary<string, Item> All = new()
+	{
+		{
+			"Potion",
+			new Item(
+				"Potion",
+				"Potion",
+				"Restores 50 HP to one ally.",
+				(target) => {
+					if (target != null)
+					{
+						target.Heal(50);
+					}
+				}
+			)
+		},
+		{
+			"Ether",
+			new Item(
+				"Ether",
+				"Ether",
+				"Restores 30 SP to one ally.",
+				(target) => {
+					if (target != null)
+					{
+						int restored = Math.Min(30, target.MaxSP - target.CurrentSP);
+						target.CurrentSP = Math.Min(target.MaxSP, target.CurrentSP + 30);
+					}
+				}
+			)
+		},
+		{
+			"Mega Potion",
+			new Item(
+				"Mega Potion",
+				"Mega Potion",
+				"Restores 30 HP to all allies.",
+				null,
+				true, 
+				(targets) => {
+					if (targets != null)
+					{
+						foreach (var target in targets)
+						{
+							if (target != null)
+							{
+								target.Heal(30);
+							}
+						}
+					}
+				}
+			)
+		},
+		{
+			"Mega Ether",
+			new Item(
+				"Mega Ether",
+				"Mega Ether",
+				"Restores 15 SP to all allies.",
+				null, 
+				true, 
+				(targets) => {
+					if (targets != null)
+					{
+						foreach (var target in targets)
+						{
+							if (target != null)
+							{
+								target.CurrentSP = Math.Min(target.MaxSP, target.CurrentSP + 15);
+							}
+						}
+					}
+				}
+			)
+		},
+		{
+			"Full Heal",
+			new Item(
+				"Full Heal",
+				"Full Heal",
+				"Fully heals one ally.",
+				(target) => {
+					if (target != null)
+					{
+						target.Heal(target.MaxHP);
+					}
+				}
+			)
+		},
+		{
+			"Full Ether",
+			new Item(
+				"Full Ether",
+				"Full SP",
+				"Fully restores SP to one ally.",
+				(target) => {
+					if (target != null)
+					{
+						target.CurrentSP = target.MaxSP;
+					}
+				}
+			)
+		},
+		{
+			"Team Heal",
+			new Item(
+				"Team Heal",
+				"Team Heal",
+				"Fully heals all allies.",
+				null,
+				true,
+				(targets) => {
+					if (targets != null)
+					{
+						foreach (var target in targets)
+						{
+							if (target != null)
+							{
+								target.Heal(target.MaxHP);
+							}
+						}
+					}
+				}
+			)
+		},
+		{
+			"Team Ether",
+			new Item(
+				"Team Ether",
+				"Team Ether",
+				"Fully restores SP to all allies.",
+				null, 
+				true, 
+				(targets) => {
+					if (targets != null)
+					{
+						foreach (var target in targets)
+						{
+							if (target != null)
+							{
+								target.CurrentSP = target.MaxSP;
+							}
+						}
+					}
+				}
+			)
+		},
+		{
+			"Elixer",
+			new Item(
+				"Elixer",
+				"Elixir",
+				"Fully restores HP and SP to all allies.",
+				null,
+				true, 
+				(targets) => {
+					if (targets != null)
+					{
+						foreach (var target in targets)
+						{
+							if (target != null)
+							{
+								target.Heal(target.MaxHP);
+								target.CurrentSP = target.MaxSP;
+							}
+						}
+					}
+				}
+			)
+		},
+	};
+}

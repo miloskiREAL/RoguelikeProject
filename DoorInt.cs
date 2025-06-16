@@ -35,7 +35,16 @@ public partial class DoorInt : TileMapLayer
 	{
 		if (inRange && Input.IsActionJustPressed("interact"))
 		{
+			// Advance to the next floor and clear the current dungeon layout
+			// so the next dungeon floor will be random
 			GameManager.Instance.SaveData.Floor++;
+			
+			// Clear stored layout
+			GameManager.Instance.SaveData.CurrentDungeonLayout = 0; 
+			
+			// Clear any battle return position since we're advancing floors
+			GameManager.Instance.ClearBattlePosition();
+			
 			GetTree().ChangeSceneToFile("res://Scenes/Dungeon.tscn");
 		}
 	}

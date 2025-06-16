@@ -7,7 +7,7 @@ public partial class ActivityIndicator : Label
 	private Timer messageTimer;
 	private bool isProcessing = false;
 	
-	[Export] private float messageDelay = 0.6f;  
+	[Export] private float messageDelay = 0.8f;  
 	[Export] private int maxMessages = 8;       
 	
 	public override void _Ready()

@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=4 uid="uid://db3liukb06sr2"]
+[gd_scene load_steps=9 format=4 uid="uid://db3liukb06sr2"]
 
 [ext_resource type="TileSet" uid="uid://dbmdlguiurdi2" path="res://tilesetdec.tres" id="1_0lc4e"]
 [ext_resource type="TileSet" uid="uid://bmo7frlthja56" path="res://tileset.tres" id="2_lk5rg"]
 [ext_resource type="PackedScene" uid="uid://dx7nnwe2rscgr" path="res://Scenes/door.tscn" id="3_86snb"]
 [ext_resource type="PackedScene" uid="uid://c2rs7xxnu36eh" path="res://Scenes/PlayerDungeon.tscn" id="4_wlobv"]
+[ext_resource type="PackedScene" uid="uid://b8401mwkrhb8k" path="res://Scenes/Chest.tscn" id="5_86snb"]
 [ext_resource type="AudioStream" uid="uid://cv4ofa7g1pl7c" path="res://Assets/audio/music/overworld/dungeon/floor3/youtube_Nsbdw_k2vYQ_audio.mp3" id="5_lk5rg"]
+[ext_resource type="PackedScene" uid="uid://dk03vjkt4dwt" path="res://Scenes/ChestFlip.tscn" id="6_wlobv"]
+[ext_resource type="Script" uid="uid://d1segrgu0q31x" path="res://AudioPlayerController.cs" id="8_fc4eh"]
 
 [node name="Dungeon1Floor" type="Node2D"]
 
@@ -32,8 +35,21 @@ tile_set = ExtResource("1_0lc4e")
 build_mode = 1
 polygon = PackedVector2Array(-16, 648, -56, 648, -56, 768, 56, 768, 56, 648, 16, 648, 16, 512, 56, 512, 56, 464, 200, 464, 200, 512, 240, 512, 240, 648, 200, 648, 200, 768, 312, 768, 312, 648, 272, 648, 272, 512, 312, 512, 312, 464, 456, 464, 456, 512, 568, 512, 568, 392, 456, 392, 456, 440, 312, 440, 312, 392, 272, 392, 272, 256, 312, 256, 312, 136, 200, 136, 200, 256, 240, 256, 240, 392, 200, 392, 200, 440, 56, 440, 56, 392, 16, 392, 16, 256, 56, 256, 56, 136, 16, 136, 16, 64, 40, 64, 40, -104, 16, -104, 16, -144, -16, -144, -16, -104, -40, -104, -40, 64, -16, 64, -16, 136, -56, 136, -56, 256, -16, 256, -16, 392, -56, 392, -56, 440, -200, 440, -200, 392, -240, 392, -240, 256, -200, 256, -200, 136, -312, 136, -312, 256, -272, 256, -272, 392, -312, 392, -312, 440, -456, 440, -456, 392, -568, 392, -568, 512, -456, 512, -456, 464, -312, 464, -312, 512, -272, 512, -272, 648, -312, 648, -312, 768, -200, 768, -200, 648, -240, 648, -240, 512, -200, 512, -200, 464, -56, 464, -56, 512, -16, 512)
 
+[node name="ChestFaceLeft" parent="." instance=ExtResource("5_86snb")]
+position = Vector2(512, 448)
+
+[node name="ChestFaceLeft2" parent="." instance=ExtResource("5_86snb")]
+position = Vector2(256, 192)
+
+[node name="ChestFaceRight" parent="." instance=ExtResource("6_wlobv")]
+position = Vector2(-256, 205)
+
+[node name="ChestFaceRight2" parent="." instance=ExtResource("6_wlobv")]
+position = Vector2(-512, 448)
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_lk5rg")
 volume_db = -19.272
 autoplay = true
 parameters/looping = true
+script = ExtResource("8_fc4eh")

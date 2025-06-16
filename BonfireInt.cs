@@ -5,13 +5,13 @@ public partial class BonfireInt : Node2D
 {
 	private bool inRange = false;
 	
-	// Visual components - adjust node paths as needed for your setup
+	// Visual components
 	private AnimatedSprite2D exclamationSprite;
 	private Area2D interactArea;
 	
 	public override void _Ready()
 	{
-		// Get child nodes - adjust these paths to match your scene structure
+		//Get child nodes
 		interactArea = GetNode<Area2D>("InteractArea");
 		exclamationSprite = GetNode<AnimatedSprite2D>("InteractArea/Exclamation");
 		
@@ -43,6 +43,7 @@ public partial class BonfireInt : Node2D
 	
 	public override void _Process(double delta)
 	{
+		// As seen before upon pressing E it performs the task
 		if (inRange && Input.IsActionJustPressed("interact"))
 		{
 			InteractWithBonfire();
@@ -56,21 +57,16 @@ public partial class BonfireInt : Node2D
 		{
 			ShowMessage("Game saved at bonfire.");
 		}
-		else
-		{
-			ShowMessage("Failed to save game.");
-		}
 	}
 	
 	private void ShowMessage(string message)
 	{
-		// Simple message display - you can enhance this with a proper UI
 		GD.Print(message);
 		
-		// Optional: Create a temporary label to show the message on screen
+		//Creates a temporary label to show the message on screen for confirmation of saving
 		var label = new Label();
 		label.Text = message;
-		label.Position = new Vector2(400, 300); // Adjust position as needed
+		label.Position = new Vector2(480, 440);
 		label.AddThemeStyleboxOverride("normal", new StyleBoxFlat());
 		
 		GetTree().CurrentScene.AddChild(label);

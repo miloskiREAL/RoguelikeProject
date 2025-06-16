@@ -67,7 +67,7 @@ public partial class SaveLoadScreen : Control
 	{
 		string path = savePaths[slot];
 		SaveData saveData;
-
+		// Finds any files that exist and loads it, else creates a new save
 		if (FileAccess.FileExists(path))
 		{
 			var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
@@ -87,7 +87,7 @@ public partial class SaveLoadScreen : Control
 		GameManager.Instance.LoadFromSaveData(saveData, slot);
 		GetTree().ChangeSceneToFile("res://Scenes/Dungeon.tscn");
 	}
-
+	// Deletes save file located at that path
 	public void DeleteSave(int slot)
 	{
 		string path = savePaths[slot];
@@ -99,7 +99,7 @@ public partial class SaveLoadScreen : Control
 			GetTree().ReloadCurrentScene();
 		}
 	}
-
+	// Writes a new save file at the selected path
 	public void CreateNewSave(int slot, SaveData saveData)
 	{
 		string path = savePaths[slot];

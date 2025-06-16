@@ -1,0 +1,525 @@
+[gd_scene load_steps=11 format=3 uid="uid://0681pltcyjia"]
+
+[ext_resource type="Script" uid="uid://p74epvrppkdt" path="res://BattleManager.cs" id="1_i6406"]
+[ext_resource type="PackedScene" uid="uid://b3ltkdbccaqtv" path="res://Scenes/Ranger.tscn" id="2_jwswy"]
+[ext_resource type="PackedScene" uid="uid://xqsekcdwc20n" path="res://Scenes/Monk.tscn" id="3_2w3md"]
+[ext_resource type="PackedScene" uid="uid://dra8ni1w5c0ne" path="res://Scenes/Wizard.tscn" id="4_18sjm"]
+[ext_resource type="PackedScene" uid="uid://xb77dlq1y6kq" path="res://Scenes/Knight.tscn" id="5_i5l7r"]
+[ext_resource type="PackedScene" uid="uid://bdufgonokh405" path="res://Scenes/MinotaurBoss.tscn" id="6_qkpc4"]
+[ext_resource type="AudioStream" uid="uid://pf0k1n3dywp7" path="res://Assets/audio/music/battle/boss/floor12/youtube_kfVRPFdpMa8_audio.mp3" id="9_irtle"]
+[ext_resource type="Script" uid="uid://ub8kr3f7fvo3" path="res://ActivityIndicator.cs" id="9_j1wc6"]
+[ext_resource type="Script" uid="uid://dh1dt2gd1v3x4" path="res://UIManager.cs" id="10_8mejd"]
+[ext_resource type="Script" uid="uid://d1segrgu0q31x" path="res://AudioPlayerController.cs" id="10_irtle"]
+
+[node name="BattleScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i6406")
+playerPartyContainerPath = NodePath("PlayerParty")
+enemyPartyContainerPath = NodePath("EnemyParty")
+uiManagerPath = NodePath("UIManager")
+activityIndicatorPath = NodePath("ActivityIndicator")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="PlayerParty" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Ranger" parent="PlayerParty" instance=ExtResource("2_jwswy")]
+
+[node name="Monk" parent="PlayerParty" instance=ExtResource("3_2w3md")]
+
+[node name="Wizard" parent="PlayerParty" instance=ExtResource("4_18sjm")]
+
+[node name="Knight" parent="PlayerParty" instance=ExtResource("5_i5l7r")]
+
+[node name="EnemyParty" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 672.0
+offset_top = 88.0
+offset_right = 712.0
+offset_bottom = 128.0
+
+[node name="MinotaurBoss" parent="EnemyParty" instance=ExtResource("6_qkpc4")]
+position = Vector2(8, -40)
+
+[node name="ActionMenu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Attack" type="Button" parent="ActionMenu"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 488.0
+offset_right = 288.0
+offset_bottom = 576.0
+theme_override_font_sizes/font_size = 24
+text = "ATTACK"
+
+[node name="Item" type="Button" parent="ActionMenu"]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 488.0
+offset_right = 544.0
+offset_bottom = 576.0
+theme_override_font_sizes/font_size = 24
+text = "ITEM"
+
+[node name="Defend" type="Button" parent="ActionMenu"]
+layout_mode = 0
+offset_left = 608.0
+offset_top = 488.0
+offset_right = 800.0
+offset_bottom = 576.0
+theme_override_font_sizes/font_size = 24
+text = "DEFEND"
+
+[node name="Retreat" type="Button" parent="ActionMenu"]
+layout_mode = 0
+offset_left = 864.0
+offset_top = 488.0
+offset_right = 1064.0
+offset_bottom = 576.0
+theme_override_font_sizes/font_size = 24
+text = "RETREAT"
+
+[node name="ActivityIndicator" type="Label" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_right = 832.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 32
+text = "test text"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_j1wc6")
+
+[node name="SkillMenus" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="KnightSkillMenu" type="VBoxContainer" parent="SkillMenus"]
+layout_mode = 0
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Slash" type="Button" parent="SkillMenus/KnightSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "SLASH"
+
+[node name="Motivate" type="Button" parent="SkillMenus/KnightSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "MOTIVATE"
+
+[node name="HolyBlade" type="Button" parent="SkillMenus/KnightSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "HOLY BLADE"
+
+[node name="RoundSlash" type="Button" parent="SkillMenus/KnightSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "ROUND SLASH
+"
+
+[node name="Cleave" type="Button" parent="SkillMenus/KnightSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "CLEAVE"
+
+[node name="WizardSkillMenu" type="VBoxContainer" parent="SkillMenus"]
+layout_mode = 0
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Fireball" type="Button" parent="SkillMenus/WizardSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "FIREBALL"
+
+[node name="Iceshard" type="Button" parent="SkillMenus/WizardSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "ICESHARD"
+
+[node name="Heal" type="Button" parent="SkillMenus/WizardSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "HEAL"
+
+[node name="Meteor" type="Button" parent="SkillMenus/WizardSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "METEOR"
+
+[node name="IceAge" type="Button" parent="SkillMenus/WizardSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "ICE AGE"
+
+[node name="MonkSkillMenu" type="VBoxContainer" parent="SkillMenus"]
+layout_mode = 0
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Punch" type="Button" parent="SkillMenus/MonkSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "PUNCH"
+
+[node name="Rocksling" type="Button" parent="SkillMenus/MonkSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "ROCKSLING"
+
+[node name="Meditate" type="Button" parent="SkillMenus/MonkSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "MEDITATE"
+
+[node name="FlurryBlows" type="Button" parent="SkillMenus/MonkSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "FLURRY OF BLOWS"
+
+[node name="EarthShatter" type="Button" parent="SkillMenus/MonkSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "EARTHSHATTER"
+
+[node name="RangerSkillMenu" type="VBoxContainer" parent="SkillMenus"]
+layout_mode = 0
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Arrowshot" type="Button" parent="SkillMenus/RangerSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "ARROWSHOT"
+
+[node name="WindShot" type="Button" parent="SkillMenus/RangerSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "WIND SHOT"
+
+[node name="ArrowRain" type="Button" parent="SkillMenus/RangerSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "ARROW RAIN"
+
+[node name="HurricaneArrow" type="Button" parent="SkillMenus/RangerSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "HURRICANE ARROW"
+
+[node name="OneShot" type="Button" parent="SkillMenus/RangerSkillMenu"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "ONE SHOT"
+
+[node name="TargetingMenu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TargetEnemy1" type="Button" parent="TargetingMenu"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 448.0
+offset_right = 544.0
+offset_bottom = 512.0
+
+[node name="ClassLabel" type="Label" parent="TargetingMenu/TargetEnemy1"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TargetEnemy2" type="Button" parent="TargetingMenu"]
+layout_mode = 0
+offset_left = 608.0
+offset_top = 448.0
+offset_right = 864.0
+offset_bottom = 512.0
+
+[node name="ClassLabel" type="Label" parent="TargetingMenu/TargetEnemy2"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TargetEnemy3" type="Button" parent="TargetingMenu"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 536.0
+offset_right = 544.0
+offset_bottom = 600.0
+
+[node name="ClassLabel" type="Label" parent="TargetingMenu/TargetEnemy3"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TargetEnemy4" type="Button" parent="TargetingMenu"]
+layout_mode = 0
+offset_left = 608.0
+offset_top = 536.0
+offset_right = 864.0
+offset_bottom = 600.0
+
+[node name="ClassLabel" type="Label" parent="TargetingMenu/TargetEnemy4"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TargetAllEnemies" type="Button" parent="TargetingMenu"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 448.0
+offset_right = 864.0
+offset_bottom = 600.0
+
+[node name="ClassLabel" type="Label" parent="TargetingMenu/TargetAllEnemies"]
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 152.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TargetAlly1" type="Button" parent="TargetingMenu"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 448.0
+offset_right = 544.0
+offset_bottom = 512.0
+
+[node name="ClassLabel" type="Label" parent="TargetingMenu/TargetAlly1"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TargetAlly2" type="Button" parent="TargetingMenu"]
+layout_mode = 0
+offset_left = 608.0
+offset_top = 448.0
+offset_right = 864.0
+offset_bottom = 512.0
+
+[node name="ClassLabel" type="Label" parent="TargetingMenu/TargetAlly2"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TargetAlly3" type="Button" parent="TargetingMenu"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 536.0
+offset_right = 544.0
+offset_bottom = 600.0
+
+[node name="ClassLabel" type="Label" parent="TargetingMenu/TargetAlly3"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TargetAlly4" type="Button" parent="TargetingMenu"]
+layout_mode = 0
+offset_left = 608.0
+offset_top = 536.0
+offset_right = 864.0
+offset_bottom = 600.0
+
+[node name="ClassLabel" type="Label" parent="TargetingMenu/TargetAlly4"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TargetAllAllies" type="Button" parent="TargetingMenu"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 448.0
+offset_right = 864.0
+offset_bottom = 600.0
+
+[node name="ClassLabel" type="Label" parent="TargetingMenu/TargetAllAllies"]
+layout_mode = 0
+offset_right = 576.0
+offset_bottom = 152.0
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ItemMenu" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ItemMenu" type="VBoxContainer" parent="ItemMenu"]
+layout_mode = 0
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Potion" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "POTION"
+
+[node name="Ether" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "ETHER"
+
+[node name="Mega Potion" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "MEGA POTION"
+
+[node name="Mega Ether" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "MEGA ETHER"
+
+[node name="Full Heal" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "FULL HEAL"
+
+[node name="Full Ether" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "FULL ETHER"
+
+[node name="Team Heal" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "TEAM HEAL"
+
+[node name="Team Ether" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "TEAM ETHER"
+
+[node name="Elixer" type="Button" parent="ItemMenu/ItemMenu"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "GOLDEN ELIXER"
+
+[node name="UIManager" type="Control" parent="." node_paths=PackedStringArray("actionMenu", "skillMenus", "itemMenu", "itemVBox", "targetMenu", "attackButton", "itemButton", "defendButton", "retreatButton", "skillBackButton", "targetBackButton", "itemBackButton")]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("10_8mejd")
+actionMenu = NodePath("../ActionMenu")
+skillMenus = [NodePath("../SkillMenus/KnightSkillMenu"), NodePath("../SkillMenus/WizardSkillMenu"), NodePath("../SkillMenus/MonkSkillMenu"), NodePath("../SkillMenus/RangerSkillMenu")]
+itemMenu = NodePath("../ItemMenu")
+itemVBox = NodePath("../ItemMenu/ItemMenu")
+targetMenu = NodePath("../TargetingMenu")
+attackButton = NodePath("../ActionMenu/Attack")
+itemButton = NodePath("../ActionMenu/Item")
+defendButton = NodePath("../ActionMenu/Defend")
+retreatButton = NodePath("../ActionMenu/Retreat")
+skillBackButton = NodePath("../SkillBackButton")
+targetBackButton = NodePath("../TargetBackButton")
+itemBackButton = NodePath("../ItemBackButton")
+
+[node name="SkillBackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 440.0
+offset_right = 568.0
+offset_bottom = 64.0
+text = "BACK"
+
+[node name="ItemBackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 440.0
+offset_right = 568.0
+offset_bottom = 64.0
+text = "BACK"
+
+[node name="TargetBackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 376.0
+offset_right = 416.0
+offset_bottom = 440.0
+text = "BACK"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_irtle")
+volume_db = -21.266
+autoplay = true
+script = ExtResource("10_irtle")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cl2q76sfcgiio"]
+[gd_scene load_steps=20 format=3 uid="uid://cl2q76sfcgiio"]
 
 [ext_resource type="Script" uid="uid://g83qol21hqim" path="res://SaveLoadScreen.cs" id="1_md2nw"]
 [ext_resource type="Texture2D" uid="uid://b2xpqoiio82tr" path="res://Assets/UI/save load.jpg" id="2_pex4s"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://cmsmcjklokens" path="res://Assets/fonts/vecna-font/VecnaBoldItalic-011d.ttf" id="5_2jdpi"]
 [ext_resource type="Texture2D" uid="uid://ncle44f8kd7p" path="res://Assets/UI/image-removebg-preview (1).png" id="6_4u2ol"]
 [ext_resource type="AudioStream" uid="uid://di0pou3v3qtb3" path="res://Assets/audio/music/start/SaveScreen.mp3" id="7_7em0f"]
+[ext_resource type="Script" uid="uid://d1segrgu0q31x" path="res://AudioPlayerController.cs" id="8_hngip"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sgkut"]
 
@@ -175,3 +176,4 @@ stream = ExtResource("7_7em0f")
 volume_db = -18.608
 autoplay = true
 parameters/looping = true
+script = ExtResource("8_hngip")

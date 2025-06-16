@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmow31ee6rmj"]
+
+[ext_resource type="Script" uid="uid://boeevwleur0ve" path="res://DefeatScreen.cs" id="1_wnu14"]
+[ext_resource type="AudioStream" uid="uid://c78peycq6t3fl" path="res://Assets/audio/music/battle/defeat/全ての人の魂の詩 - 小宮知子.mp3" id="2_dj3wk"]
+[ext_resource type="Script" uid="uid://d1segrgu0q31x" path="res://AudioPlayerController.cs" id="3_guqiy"]
+
+[node name="DefeatScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wnu14")
+returnToStartButtonPath = NodePath("ReturnButton")
+quitGameButtonPath = NodePath("QuitButton")
+defeatMessagePath = NodePath("DefeatLabel")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="ReturnButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 320.0
+offset_right = 512.0
+offset_bottom = 512.0
+theme_override_font_sizes/font_size = 34
+text = "RETURN TO START"
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 320.0
+offset_right = 1088.0
+offset_bottom = 512.0
+theme_override_font_sizes/font_size = 42
+text = "QUIT"
+
+[node name="DefeatLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 32.0
+offset_right = 1032.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 32
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_dj3wk")
+volume_db = -21.266
+autoplay = true
+parameters/looping = true
+script = ExtResource("3_guqiy")

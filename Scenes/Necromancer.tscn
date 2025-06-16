@@ -1,0 +1,122 @@
+[gd_scene load_steps=12 format=3 uid="uid://dtemqce2omgbc"]
+
+[ext_resource type="Script" uid="uid://bvqipmcjxq5ti" path="res://Enemy.cs" id="1_b5j3v"]
+[ext_resource type="Texture2D" uid="uid://dm0imivonehom" path="res://Assets/enemies/necroflipped.png" id="1_sa1ks"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5j3v"]
+atlas = ExtResource("1_sa1ks")
+region = Rect2(2560, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nl70b"]
+atlas = ExtResource("1_sa1ks")
+region = Rect2(2400, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1t28d"]
+atlas = ExtResource("1_sa1ks")
+region = Rect2(2240, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoc3a"]
+atlas = ExtResource("1_sa1ks")
+region = Rect2(2080, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rd8d2"]
+atlas = ExtResource("1_sa1ks")
+region = Rect2(1920, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7s48e"]
+atlas = ExtResource("1_sa1ks")
+region = Rect2(1760, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgxik"]
+atlas = ExtResource("1_sa1ks")
+region = Rect2(1600, 0, 160, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kx68g"]
+atlas = ExtResource("1_sa1ks")
+region = Rect2(1440, 0, 160, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mxbak"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5j3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nl70b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1t28d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoc3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rd8d2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7s48e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgxik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kx68g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Necromancer" type="Node2D"]
+script = ExtResource("1_b5j3v")
+Class = 6
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(168, 96)
+scale = Vector2(3.625, 3.5625)
+sprite_frames = SubResource("SpriteFrames_mxbak")
+autoplay = "default"
+frame_progress = 0.00328519
+
+[node name="HPBar" type="ProgressBar" parent="."]
+offset_left = 72.0
+offset_top = 40.0
+offset_right = 248.0
+offset_bottom = 67.0
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="HPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SPBar" type="ProgressBar" parent="."]
+offset_left = 72.0
+offset_top = 72.0
+offset_right = 248.0
+offset_bottom = 99.0
+show_percentage = false
+
+[node name="SPLabel" type="Label" parent="SPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Name" type="Label" parent="."]
+offset_left = 72.0
+offset_top = 16.0
+offset_right = 248.0
+offset_bottom = 39.0
+text = "NECROMANCER"
+horizontal_alignment = 1
+vertical_alignment = 1

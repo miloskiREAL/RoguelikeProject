@@ -1,0 +1,171 @@
+[gd_scene load_steps=19 format=3 uid="uid://tcw2sikumlo2"]
+
+[ext_resource type="Texture2D" uid="uid://d1wkuig20ydd1" path="res://Assets/enemies/Agis.png" id="1_u0pse"]
+[ext_resource type="Script" uid="uid://bvqipmcjxq5ti" path="res://Enemy.cs" id="1_x3xqk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0usae"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(0, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fos3w"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(224, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ircds"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(448, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3c2x"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(672, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4xhk"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(896, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bre7"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(1120, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_je0ox"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(1344, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwcup"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(1568, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3wx5"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(1792, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_djpux"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(2016, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ei7s"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(2240, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_03sl7"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(2464, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cj5fk"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(2688, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdor3"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(2912, 0, 224, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0yvaa"]
+atlas = ExtResource("1_u0pse")
+region = Rect2(3136, 0, 224, 240)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4ytp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0usae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fos3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ircds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3c2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4xhk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2bre7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_je0ox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iwcup")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3wx5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_djpux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ei7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_03sl7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cj5fk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdor3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0yvaa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="FellGod" type="Node2D"]
+script = ExtResource("1_x3xqk")
+Class = 11
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(160, 240)
+scale = Vector2(2.33036, 2.16667)
+sprite_frames = SubResource("SpriteFrames_g4ytp")
+autoplay = "default"
+frame_progress = 0.695987
+
+[node name="HPBar" type="ProgressBar" parent="."]
+offset_left = 72.0
+offset_top = -24.0
+offset_right = 248.0
+offset_bottom = 3.0
+show_percentage = false
+
+[node name="HPLabel" type="Label" parent="HPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SPBar" type="ProgressBar" parent="."]
+offset_left = 72.0
+offset_top = 8.0
+offset_right = 248.0
+offset_bottom = 35.0
+show_percentage = false
+
+[node name="SPLabel" type="Label" parent="SPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Name" type="Label" parent="."]
+offset_left = 72.0
+offset_top = -48.0
+offset_right = 248.0
+offset_bottom = -25.0
+text = "THE FELL GOD"
+horizontal_alignment = 1
+vertical_alignment = 1

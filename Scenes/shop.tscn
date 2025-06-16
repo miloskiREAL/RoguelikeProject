@@ -1,17 +1,277 @@
-[gd_scene load_steps=2 format=3 uid="uid://bougfbyf64v7s"]
+[gd_scene load_steps=23 format=3 uid="uid://bougfbyf64v7s"]
 
+[ext_resource type="Script" uid="uid://d0mah6vmv5iwi" path="res://Shop.cs" id="1_2shtd"]
 [ext_resource type="Texture2D" uid="uid://bycanj1cephe8" path="res://Assets/UI/shop back (2).jpg" id="1_a0mxf"]
+[ext_resource type="Texture2D" uid="uid://dt7y05lbhicom" path="res://Assets/UI/manuscript-game-buttons-pixel-art-260nw-2185932929-removebg-preview.png" id="3_io27d"]
+[ext_resource type="Texture2D" uid="uid://bvtl51urrkjdy" path="res://Assets/2D Chests & Coins/Coin.png" id="4_fdj0q"]
 
-[node name="Shop" type="Control"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fdj0q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k6jq0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3ps1r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ymrm4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s8dlv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tyrku"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5xp22"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ow1eo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k6pkm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1sjcd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1cyt5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6jq0"]
+atlas = ExtResource("4_fdj0q")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ps1r"]
+atlas = ExtResource("4_fdj0q")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ymrm4"]
+atlas = ExtResource("4_fdj0q")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8dlv"]
+atlas = ExtResource("4_fdj0q")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyrku"]
+atlas = ExtResource("4_fdj0q")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5xp22"]
+atlas = ExtResource("4_fdj0q")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ow1eo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6jq0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ps1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ymrm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8dlv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyrku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5xp22")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ShopScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_2shtd")
+shopTitleLabelPath = NodePath("ShopTitle")
+goldLabelPath = NodePath("GoldLabel")
+backButtonPath = NodePath("BackButton")
+item1ButtonPath = NodePath("ItemButton1")
+item1NameLabelPath = NodePath("ItemButton1/Name")
+item1DescriptionLabelPath = NodePath("ItemButton1/Desc")
+item1CostLabelPath = NodePath("ItemButton1/Cost")
+item2ButtonPath = NodePath("ItemButton2")
+item2NameLabelPath = NodePath("ItemButton2/Name")
+item2DescriptionLabelPath = NodePath("ItemButton2/Desc")
+item2CostLabelPath = NodePath("ItemButton2/Cost")
+item3ButtonPath = NodePath("ItemButton3")
+item3NameLabelPath = NodePath("ItemButton3/Name")
+item3DescriptionLabelPath = NodePath("ItemButton3/Desc")
+item3CostLabelPath = NodePath("ItemButton3/Cost")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1152.0
+offset_bottom = 648.0
 texture = ExtResource("1_a0mxf")
+
+[node name="ShopTitle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 312.0
+offset_top = 8.0
+offset_right = 848.0
+offset_bottom = 61.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 38
+text = "Test TEXT "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GoldLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 816.0
+offset_top = 24.0
+offset_right = 1032.0
+offset_bottom = 104.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "10000000000000"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 36.0
+offset_right = 50.0
+offset_bottom = 44.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fdj0q")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_k6jq0")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_3ps1r")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_ymrm4")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_s8dlv")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_tyrku")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_5xp22")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_ow1eo")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_k6pkm")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_1sjcd")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1cyt5")
+icon = ExtResource("3_io27d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1072, 64)
+scale = Vector2(7, 6.375)
+sprite_frames = SubResource("SpriteFrames_ow1eo")
+autoplay = "default"
+frame_progress = 0.523527
+
+[node name="ItemButton1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 192.0
+offset_right = 384.0
+offset_bottom = 512.0
+icon_alignment = 1
+expand_icon = true
+
+[node name="Name" type="Label" parent="ItemButton1"]
+layout_mode = 0
+offset_top = -64.0
+offset_right = 192.0
+offset_bottom = -1.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Desc" type="Label" parent="ItemButton1"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 192.0
+offset_bottom = 383.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "TEST"
+
+[node name="Cost" type="Label" parent="ItemButton1"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "TEST"
+
+[node name="ItemButton2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 192.0
+offset_right = 672.0
+offset_bottom = 512.0
+icon_alignment = 1
+expand_icon = true
+
+[node name="Name" type="Label" parent="ItemButton2"]
+layout_mode = 0
+offset_top = -64.0
+offset_right = 192.0
+offset_bottom = -1.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Desc" type="Label" parent="ItemButton2"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 192.0
+offset_bottom = 383.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "TEST"
+
+[node name="Cost" type="Label" parent="ItemButton2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "TEST"
+
+[node name="ItemButton3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 768.0
+offset_top = 192.0
+offset_right = 960.0
+offset_bottom = 512.0
+icon_alignment = 1
+expand_icon = true
+
+[node name="Name" type="Label" parent="ItemButton3"]
+layout_mode = 0
+offset_top = -64.0
+offset_right = 192.0
+offset_bottom = -1.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Desc" type="Label" parent="ItemButton3"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 192.0
+offset_bottom = 383.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "TEST"
+
+[node name="Cost" type="Label" parent="ItemButton3"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "TEST"

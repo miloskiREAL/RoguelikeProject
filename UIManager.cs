@@ -22,7 +22,19 @@ public partial class UIManager : Control
 	private Dictionary<Button, Action> skillButtonActions = new();
 	private Dictionary<Button, Action> targetButtonActions = new(); 
 	private Dictionary<Button, Action> itemButtonActions = new();
-	private Item selectedItem; 
+	private Item selectedItem;
+	
+	// Tracks what menu state you are in currently
+	private enum MenuState
+	{
+		Action,
+		Skill,
+		Item,
+		SkillTarget,
+		ItemTarget
+	}
+	
+	private MenuState currentMenuState = MenuState.Action;
 
 	public override void _Ready()
 	{
@@ -36,6 +48,7 @@ public partial class UIManager : Control
 		battleManager = bm;
 	}
 
+	// Connects all buttons in the action menu to their respective functions
 	private void ConnectActionButtons()
 	{
 		attackButton.Pressed += () => ShowSkillMenu(currentCharacter);
@@ -44,18 +57,22 @@ public partial class UIManager : Control
 		retreatButton.Pressed += () => battleManager.OnPlayerActionSelected("Retreat");
 	}
 
+	// Shows the main action menu buttons for the current character
 	public void ShowActionButtons(Character character)
 	{
 		HideAllMenus();
 		currentCharacter = character;
 		actionMenu.Visible = true;
+		currentMenuState = MenuState.Action;
 	}
 
+	// Shows all unlocked skills for the current character and disables the button if that character doesn't have enough SP
 	public void ShowSkillMenu(Character character)
 	{
 		HideAllMenus();
 		currentCharacter = character;
 		skillBackButton.Visible = true;
+		currentMenuState = MenuState.Skill;
 
 		foreach (var menu in skillMenus)
 		{
@@ -88,24 +105,24 @@ public partial class UIManager : Control
 		}
 	}
 
+	// Shows all item buttons, disables them if there are none in inventory, and displays the count of how many you have
 	public void ShowItemMenu(Character character)
 	{
 		HideAllMenus();
 		currentCharacter = character;
 		itemMenu.Visible = true;
 		itemBackButton.Visible = true;
+		currentMenuState = MenuState.Item;
 
-	
+		// Clear previous button presses
 		foreach (var entry in itemButtonActions)
 		{
 			entry.Key.Pressed -= entry.Value;
 		}
 		itemButtonActions.Clear();
 
-
 		foreach (Button btn in itemVBox.GetChildren())
 		{
-			
 			if (Item.All.TryGetValue(btn.Name, out Item item))
 			{
 				btn.Visible = true;
@@ -134,26 +151,48 @@ public partial class UIManager : Control
 		}
 	}
 
+	// Sends you to targeting menu if single, and just uses it if party wide
 	private void OnItemButtonPressed(Item item)
 	{
+		if (item == null)
+		{
+			GD.PrintErr("OnItemButtonPressed: Item is null!");
+			return;
+		}
+
+		GD.Print($"OnItemButtonPressed: {item.Name}, IsTeamWide: {item.IsTeamWide}");
 		selectedItem = item;
 		
 		if (item.IsTeamWide)
 		{
+			// For teamwide items, call battleManager directly with null target
 			battleManager.OnItemSelected(item, null);
 		}
 		else
 		{
+			// For single target items, show target selection menu
 			ShowItemTargetMenu(item);
 		}
 	}
 
+	// Shows the target selection menu for items that target a single ally
 	private void ShowItemTargetMenu(Item item)
 	{
+		if (item == null)
+		{
+			GD.PrintErr("ShowItemTargetMenu: Item is null!");
+			return;
+		}
+
+		GD.Print($"ShowItemTargetMenu: Setting up targets for {item.Name}");
+		
 		HideAllMenus();
 		targetMenu.Visible = true;
 		targetBackButton.Visible = true;
+		currentMenuState = MenuState.ItemTarget; 
+		selectedItem = item;
 
+		// Clear previous target button handlers
 		foreach (Button btn in targetMenu.GetChildren())
 		{
 			if (targetButtonActions.TryGetValue(btn, out var oldHandler))
@@ -162,6 +201,7 @@ public partial class UIManager : Control
 		}
 		targetButtonActions.Clear();
 
+		// Set up ally target buttons for single-target items
 		for (int i = 0; i < battleManager.playerParty.Count; i++)
 		{
 			var ally = battleManager.playerParty[i];
@@ -173,17 +213,26 @@ public partial class UIManager : Control
 			var label = btn.GetNode<Label>("ClassLabel");
 			label.Text = ally.CharacterName; 
 
-			Action handler = () => battleManager.OnItemSelected(selectedItem, ally);
+			Item capturedItem = item; 
+			Character capturedAlly = ally;
+			
+			Action handler = () => {
+				GD.Print($"Target selected: {capturedItem.Name} on {capturedAlly.CharacterName}");
+				battleManager.OnItemSelected(capturedItem, capturedAlly);
+			};
+			
 			btn.Pressed += handler;
 			targetButtonActions[btn] = handler;
 		}
 	}
 
+	// Shows the target menu based on the skill's targeting type
 	public void ShowTargetMenu(Character.Skill skill)
 	{
 		HideAllMenus();
 		targetMenu.Visible = true;
 		targetBackButton.Visible = true;
+		currentMenuState = MenuState.SkillTarget;
 
 		foreach (Button btn in targetMenu.GetChildren())
 		{
@@ -257,6 +306,7 @@ public partial class UIManager : Control
 		}
 	}
 
+	// Connects all back buttons to their respective handlers
 	private void ConnectBackButtons()
 	{
 		skillBackButton.Visible = false;
@@ -272,25 +322,33 @@ public partial class UIManager : Control
 		itemBackButton.Pressed += OnItemBackPressed;
 	}
 
+	// Handles going back from skill menu to action menu
 	private void OnSkillBackPressed()
 	{
 		HideAllMenus();
 		ShowActionButtons(currentCharacter);
 	}
 
+	// Handles going back from target menu to either skill or item menu based on current state
 	private void OnTargetBackPressed()
 	{
-		if (selectedItem != null)
+		// Use menu state instead of selectedItem to determine where to go back
+		switch (currentMenuState)
 		{
-			selectedItem = null;
-			ShowItemMenu(currentCharacter);
-		}
-		else
-		{
-			ShowSkillMenu(currentCharacter);
+			case MenuState.ItemTarget:
+				ShowItemMenu(currentCharacter);
+				break;
+			case MenuState.SkillTarget:
+				ShowSkillMenu(currentCharacter);
+				break;
+			default:
+				// Fallback to action menu if state is unclear
+				ShowActionButtons(currentCharacter);
+				break;
 		}
 	}
 
+	// Handles going back from item menu to action menu
 	private void OnItemBackPressed()
 	{
 		selectedItem = null;
@@ -298,6 +356,8 @@ public partial class UIManager : Control
 		ShowActionButtons(currentCharacter);
 	}
 
+	// Sets visibility of all menus and buttons to false 
+	// Also disconnects all button presses to prevent any bugs
 	public void HideAllMenus()
 	{
 		actionMenu.Visible = false;
@@ -324,12 +384,11 @@ public partial class UIManager : Control
 				btn.Pressed -= handler;
 		}
 		targetButtonActions.Clear();
+		
 		foreach (var entry in itemButtonActions)
 		{
 			entry.Key.Pressed -= entry.Value;
 		}
 		itemButtonActions.Clear();
-
-		selectedItem = null;
 	}
 }

@@ -23,119 +23,183 @@ public class Item
 		IsTeamWide = isTeamWide;
 		MultiTargetEffect = multiTargetEffect;
 	}
-
+//These are the activation functions for the items 
 	public void UseOn(Character target)
 	{
 		SingleTargetEffect?.Invoke(target);
 	}
-
+	
 	public void UseOn(List<Character> targets)
 	{
 		MultiTargetEffect?.Invoke(targets);
 	}
-
+	// All of the item definitions, has a key, name, desc, and effect type
 	public static Dictionary<string, Item> All = new()
 	{
 		{
-			"HP_Potion_Single",
+			"Potion",
 			new Item(
-				"HP_Potion_Single",
-				"HP Potion",
+				"Potion",
+				"Potion",
 				"Restores 50 HP to one ally.",
 				(target) => {
-					target.Heal(50);
+					if (target != null)
+					{
+						target.Heal(50);
+					}
 				}
 			)
 		},
 		{
-			"SP_Potion_Single",
+			"Ether",
 			new Item(
-				"SP_Potion_Single",
-				"SP Potion",
+				"Ether",
+				"Ether",
 				"Restores 30 SP to one ally.",
 				(target) => {
-					int restored = Math.Min(30, target.MaxSP - target.CurrentSP);
-					target.CurrentSP = Math.Min(target.MaxSP, target.CurrentSP + 30);
-					// Note: ActivityIndicator messages would need to be handled in BattleManager
+					if (target != null)
+					{
+						int restored = Math.Min(30, target.MaxSP - target.CurrentSP);
+						target.CurrentSP = Math.Min(target.MaxSP, target.CurrentSP + 30);
+					}
 				}
 			)
 		},
 		{
-			"HP_Potion_Team",
+			"Mega Potion",
 			new Item(
-				"HP_Potion_Team",
-				"Team HP Potion",
+				"Mega Potion",
+				"Mega Potion",
 				"Restores 30 HP to all allies.",
 				null,
-				true,
-				(targets) => targets.ForEach(t => t.Heal(30))
+				true, 
+				(targets) => {
+					if (targets != null)
+					{
+						foreach (var target in targets)
+						{
+							if (target != null)
+							{
+								target.Heal(30);
+							}
+						}
+					}
+				}
 			)
 		},
 		{
-			"SP_Potion_Team",
+			"Mega Ether",
 			new Item(
-				"SP_Potion_Team",
-				"Team SP Potion",
+				"Mega Ether",
+				"Mega Ether",
 				"Restores 15 SP to all allies.",
-				null,
-				true,
-				(targets) => targets.ForEach(t => t.CurrentSP = Math.Min(t.MaxSP, t.CurrentSP + 15))
+				null, 
+				true, 
+				(targets) => {
+					if (targets != null)
+					{
+						foreach (var target in targets)
+						{
+							if (target != null)
+							{
+								target.CurrentSP = Math.Min(target.MaxSP, target.CurrentSP + 15);
+							}
+						}
+					}
+				}
 			)
 		},
 		{
-			"Full_HP_Single",
+			"Full Heal",
 			new Item(
-				"Full_HP_Single",
+				"Full Heal",
 				"Full Heal",
 				"Fully heals one ally.",
-				(target) => target.Heal(target.MaxHP)
+				(target) => {
+					if (target != null)
+					{
+						target.Heal(target.MaxHP);
+					}
+				}
 			)
 		},
 		{
-			"Full_SP_Single",
+			"Full Ether",
 			new Item(
-				"Full_SP_Single",
+				"Full Ether",
 				"Full SP",
 				"Fully restores SP to one ally.",
-				(target) => target.CurrentSP = target.MaxSP
+				(target) => {
+					if (target != null)
+					{
+						target.CurrentSP = target.MaxSP;
+					}
+				}
 			)
 		},
 		{
-			"Full_HP_Team",
+			"Team Heal",
 			new Item(
-				"Full_HP_Team",
-				"Full Heal All",
+				"Team Heal",
+				"Team Heal",
 				"Fully heals all allies.",
 				null,
 				true,
-				(targets) => targets.ForEach(t => t.Heal(t.MaxHP))
+				(targets) => {
+					if (targets != null)
+					{
+						foreach (var target in targets)
+						{
+							if (target != null)
+							{
+								target.Heal(target.MaxHP);
+							}
+						}
+					}
+				}
 			)
 		},
 		{
-			"Full_SP_Team",
+			"Team Ether",
 			new Item(
-				"Full_SP_Team",
-				"Full SP All",
+				"Team Ether",
+				"Team Ether",
 				"Fully restores SP to all allies.",
-				null,
-				true,
-				(targets) => targets.ForEach(t => t.CurrentSP = t.MaxSP)
+				null, 
+				true, 
+				(targets) => {
+					if (targets != null)
+					{
+						foreach (var target in targets)
+						{
+							if (target != null)
+							{
+								target.CurrentSP = target.MaxSP;
+							}
+						}
+					}
+				}
 			)
 		},
 		{
-			"Full_Restore_Team",
+			"Elixer",
 			new Item(
-				"Full_Restore_Team",
+				"Elixer",
 				"Elixir",
 				"Fully restores HP and SP to all allies.",
 				null,
-				true,
-				(targets) =>
-				{
-					foreach (var t in targets)
+				true, 
+				(targets) => {
+					if (targets != null)
 					{
-						t.Heal(t.MaxHP);
-						t.CurrentSP = t.MaxSP;
+						foreach (var target in targets)
+						{
+							if (target != null)
+							{
+								target.Heal(target.MaxHP);
+								target.CurrentSP = target.MaxSP;
+							}
+						}
 					}
 				}
 			)

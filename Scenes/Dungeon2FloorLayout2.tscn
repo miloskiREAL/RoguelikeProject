@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=4 uid="uid://dd83exdr33ntp"]
+[gd_scene load_steps=8 format=4 uid="uid://dd83exdr33ntp"]
 
 [ext_resource type="TileSet" uid="uid://dbmdlguiurdi2" path="res://tilesetdec.tres" id="1_2ccgp"]
 [ext_resource type="PackedScene" uid="uid://dx7nnwe2rscgr" path="res://Scenes/door.tscn" id="2_2cubb"]
 [ext_resource type="PackedScene" uid="uid://c2rs7xxnu36eh" path="res://Scenes/PlayerDungeon.tscn" id="3_3565a"]
 [ext_resource type="AudioStream" uid="uid://hi0s75ym2f2l" path="res://Assets/audio/music/overworld/dungeon/floor2/youtube_tJmYAE6SNOw_audio.mp3" id="4_2cubb"]
+[ext_resource type="PackedScene" uid="uid://b8401mwkrhb8k" path="res://Scenes/Chest.tscn" id="4_3565a"]
+[ext_resource type="PackedScene" uid="uid://dk03vjkt4dwt" path="res://Scenes/ChestFlip.tscn" id="5_1ek2g"]
+[ext_resource type="Script" uid="uid://d1segrgu0q31x" path="res://AudioPlayerController.cs" id="7_fket1"]
 
 [node name="Dungeon2Floor" type="Node2D"]
 
@@ -32,8 +35,21 @@ position = Vector2(408, 520)
 build_mode = 1
 polygon = PackedVector2Array(48, 0, 88, 0, 88, -72, 64, -72, 64, -88, -144, -88, -144, -56, -240, -56, -240, -144, -144, -144, -144, -112, 64, -112, 64, -240, 88, -240, 88, -328, 48, -328, 48, -376, -96, -376, -96, -344, -192, -344, -192, -432, -96, -432, -96, -400, 48, -400, 48, -448, 88, -448, 88, -568, 64, -568, 64, -688, 88, -688, 88, -712, 88, -728, 120, -728, 120, -688, 144, -688, 144, -576, 144, -568, 120, -568, 120, -448, 160, -448, 160, -400, 304, -400, 304, -432, 400, -432, 400, -344, 304, -344, 304, -376, 160, -376, 160, -328, 120, -328, 120, -240, 144, -240, 144, -112, 352, -112, 352, -144, 448, -144, 448, -56, 352, -56, 352, -88, 144, -88, 144, -72, 120, -72, 120, 0, 160, 0, 160, 120, 48, 120)
 
+[node name="ChestFaceLeft" parent="." instance=ExtResource("4_3565a")]
+position = Vector2(816, 424)
+
+[node name="ChestFaceLeft2" parent="." instance=ExtResource("4_3565a")]
+position = Vector2(768, 128)
+
+[node name="ChestFaceRight" parent="." instance=ExtResource("5_1ek2g")]
+position = Vector2(216, 424)
+
+[node name="ChestFaceRight2" parent="." instance=ExtResource("5_1ek2g")]
+position = Vector2(256, 128)
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_2cubb")
 volume_db = -16.613
 autoplay = true
 parameters/looping = true
+script = ExtResource("7_fket1")

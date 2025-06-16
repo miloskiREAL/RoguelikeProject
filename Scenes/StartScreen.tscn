@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ds5gqvkgdupbl"]
+[gd_scene load_steps=41 format=3 uid="uid://ds5gqvkgdupbl"]
 
 [ext_resource type="Script" uid="uid://bnfc3peeikfnm" path="res://StartScreen.cs" id="1_ko4ly"]
 [ext_resource type="Texture2D" uid="uid://bfq8x6mtjrx8u" path="res://Assets/UI/mainmenuback.jpg" id="2_0on6r"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://crqtqdjvfjuri" path="res://Assets/UI/button-removebg-preview.png" id="4_3u666"]
 [ext_resource type="FontFile" uid="uid://1sq4l7q6dkdm" path="res://Assets/fonts/vecna-font/VecnaBold-4YY4.ttf" id="4_a2231"]
 [ext_resource type="AudioStream" uid="uid://bywt8qewcm36v" path="res://Assets/audio/music/start/startscreen.mp3" id="7_6mw8b"]
+[ext_resource type="Script" uid="uid://d1segrgu0q31x" path="res://AudioPlayerController.cs" id="8_kehkj"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ey7n4"]
 texture = ExtResource("4_3u666")
@@ -218,3 +219,4 @@ stream = ExtResource("7_6mw8b")
 volume_db = -15.149
 autoplay = true
 parameters/looping = true
+script = ExtResource("8_kehkj")

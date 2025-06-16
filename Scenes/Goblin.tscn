@@ -1,15 +1,83 @@
-[gd_scene load_steps=3 format=3 uid="uid://joh2pqeh6spe"]
+[gd_scene load_steps=12 format=3 uid="uid://joh2pqeh6spe"]
 
 [ext_resource type="Script" uid="uid://bvqipmcjxq5ti" path="res://Enemy.cs" id="1_564fj"]
+[ext_resource type="Texture2D" uid="uid://cnp1x75diu223" path="res://Assets/enemies/GoblinPack/basegob.png" id="2_wqigr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_128dr"]
+atlas = ExtResource("2_wqigr")
+region = Rect2(4800, 0, 600, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjpl2"]
+atlas = ExtResource("2_wqigr")
+region = Rect2(4200, 0, 600, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02kj1"]
+atlas = ExtResource("2_wqigr")
+region = Rect2(3600, 0, 600, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0stx"]
+atlas = ExtResource("2_wqigr")
+region = Rect2(3000, 0, 600, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_428mb"]
+atlas = ExtResource("2_wqigr")
+region = Rect2(2400, 0, 600, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8wau"]
+atlas = ExtResource("2_wqigr")
+region = Rect2(1800, 0, 600, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxja1"]
+atlas = ExtResource("2_wqigr")
+region = Rect2(1200, 0, 600, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_16yau"]
+atlas = ExtResource("2_wqigr")
+region = Rect2(600, 0, 600, 500)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l8o15"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_128dr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjpl2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02kj1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0stx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_428mb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8wau")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxja1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_16yau")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Goblin" type="Node2D"]
 script = ExtResource("1_564fj")
 Class = 2
 
 [node name="Goblin" type="AnimatedSprite2D" parent="."]
+position = Vector2(152, 160)
+rotation = -6.28319
+scale = Vector2(0.245985, 0.23642)
 sprite_frames = SubResource("SpriteFrames_l8o15")
+autoplay = "default"
+frame_progress = 0.540386
 
 [node name="HPBar" type="ProgressBar" parent="."]
 offset_left = 72.0
@@ -42,5 +110,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Name" type="Label" parent="."]
+offset_left = 72.0
+offset_top = 16.0
+offset_right = 248.0
+offset_bottom = 39.0
+text = "GOBLIN"
 horizontal_alignment = 1
 vertical_alignment = 1

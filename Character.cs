@@ -17,8 +17,11 @@ public partial class Character : Node2D
 	public int Magic;
 	public int Defense;
 	public int Speed;
+	public int CriticalChance = 10;
+	public int DamageReduction = 0;
 	public bool IsDefending = false;
 	public int BuffStacks = 0;
+	public int DebuffStacks = 0;
 	public List<Skill> Skills = new();
 	public HashSet<ElementType> Weaknesses = new();
 	public HashSet<ElementType> Resistances = new();
@@ -42,7 +45,7 @@ public partial class Character : Node2D
 		public int Power;
 		public ElementType Element;
 		public bool Unlocked;
-
+		// Defines what happens when each skill type is activated
 		public void Activate(Character user, Character target)
 		{
 			if (user.CurrentSP < Cost)
@@ -71,14 +74,19 @@ public partial class Character : Node2D
 					target.BuffStacks += 1;
 					target.activityIndicator?.AddMessage($"{target.CharacterName} gains a buff! (Total: {target.BuffStacks})");
 					break;
+				case SkillType.Debuff:
+					target.DebuffStacks += 1;
+					target.activityIndicator?.AddMessage($"{target.CharacterName} is debuffed! (Total: {target.DebuffStacks})");
+					break;
 			}
 		}
 	}
-
+	// This is how damage is calculated
 	public void DealDamage(Character target, int baseDamage, ElementType element)
 	{
 		double finalDmg = baseDamage;
 
+		// Element weakness/resistance
 		if (target.Weaknesses.Contains(element))
 		{
 			finalDmg *= 1.5;
@@ -90,10 +98,20 @@ public partial class Character : Node2D
 			activityIndicator?.AddMessage($"{target.CharacterName} resists {element}! Reduced damage!");
 		}
 
+		// Buff stacks (attacker damage bonus)
 		finalDmg *= 1 + (0.5 * BuffStacks);
 
+		// Debuff stacks (target takes more damage)
+		if (target.DebuffStacks > 0)
+		{
+			double debuffMultiplier = 1 + (0.3 * target.DebuffStacks);
+			finalDmg *= debuffMultiplier;
+			activityIndicator?.AddMessage($"{target.CharacterName} takes {(debuffMultiplier - 1) * 100:F0}% more damage due to debuffs!");
+		}
+
+		// Critical hit check using CriticalChance
 		bool isCritical = false;
-		if (rng.NextDouble() <= 0.1)
+		if (rng.Next(1, 101) <= CriticalChance) // 1-100 roll vs your critical chance
 		{
 			finalDmg *= 2;
 			isCritical = true;
@@ -108,23 +126,45 @@ public partial class Character : Node2D
 			: $"{CharacterName} deals {finalDamage} damage to {target.CharacterName}";
 		activityIndicator?.AddMessage(damageMsg);
 	}
-
+	// How damage taken is calculated
 	public void TakeDamage(int amount)
 	{
+		double defenseReduction = Defense * 0.001;
+		defenseReduction = Math.Min(defenseReduction, 0.5); 
+	
+		if (defenseReduction > 0)
+		{
+			double defenseMultiplier = 1.0 - defenseReduction;
+			amount = (int)Math.Ceiling(amount * defenseMultiplier);
+		}
+
+		if (DamageReduction > 0)
+		{
+			double reductionMultiplier = 1.0 - (DamageReduction / 100.0);
+			amount = (int)Math.Ceiling(amount * reductionMultiplier);
+			activityIndicator?.AddMessage($"{CharacterName} reduces damage by {DamageReduction}%!");
+		}
+
 		if (IsDefending)
 		{
 			amount = (int)Math.Ceiling(amount / 2.0);
 			activityIndicator?.AddMessage($"{CharacterName} blocks half the damage!");
 		}
+
 		CurrentHP = Math.Max(0, CurrentHP - amount);
 		activityIndicator?.Log($"{CharacterName} → {CurrentHP}/{MaxHP} HP");
 		IsDefending = false;
-		
+		if (DebuffStacks > 0)
+		{
+			int clearedStacks = DebuffStacks;
+			DebuffStacks = 0;
+			activityIndicator?.AddMessage($"{CharacterName}'s {clearedStacks} debuff stack(s) are cleared after taking damage!");
+		}
 		if (IsDead())
 		{
 			activityIndicator?.AddMessage($"{CharacterName} has been defeated!");
 		}
-		
+	
 		UpdateUI();
 	}
 
@@ -135,24 +175,31 @@ public partial class Character : Node2D
 		activityIndicator?.AddMessage($"{CharacterName} recovers {actualHeal} HP");
 		UpdateUI();
 	}
-
+	// Sets Defending to be true and halves incoming damage
 	public void Defend()
 	{
 		IsDefending = true;
 		activityIndicator?.AddMessage($"{CharacterName} takes a defensive stance");
 	}
-
+	// Updates the health and sp bars 
 	public void UpdateUI()
 	{
-		var hpBar = GetNode<ProgressBar>("HPBar");
-		var spBar = GetNode<ProgressBar>("SPBar");
+		var hpBar = GetNodeOrNull<ProgressBar>("HPBar");
+		var spBar = GetNodeOrNull<ProgressBar>("SPBar");
 		var hpLabel = GetNodeOrNull<Label>("HPBar/HPLabel");
 		var spLabel = GetNodeOrNull<Label>("SPBar/SPLabel");
 	
-		hpBar.MaxValue = MaxHP;
-		hpBar.Value = CurrentHP;
-		spBar.MaxValue = MaxSP;
-		spBar.Value = CurrentSP;
+		if (hpBar != null)
+		{
+			hpBar.MaxValue = MaxHP;
+			hpBar.Value = CurrentHP;
+		}
+		
+		if (spBar != null)
+		{
+			spBar.MaxValue = MaxSP;
+			spBar.Value = CurrentSP;
+		}
 		
 		if (hpLabel != null)
 		{
@@ -163,8 +210,12 @@ public partial class Character : Node2D
 			spLabel.Text = $"{CurrentSP}/{MaxSP}";
 		}
 
-		var tween = CreateTween();
-		tween.TweenProperty(hpBar, "value", CurrentHP, 0.3f);
-		tween.TweenProperty(spBar, "value", CurrentSP, 0.3f);
+		// Only animate if we have the bars
+		if (hpBar != null && spBar != null)
+		{
+			var tween = CreateTween();
+			tween.TweenProperty(hpBar, "value", CurrentHP, 0.3f);
+			tween.TweenProperty(spBar, "value", CurrentSP, 0.3f);
+		}
 	}
 }

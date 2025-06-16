@@ -4,8 +4,10 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	[Export] public int Speed = 100;
-	[Export] public float EncounterRate = 0.008f; // Chance per step (0.8% per step)
-	[Export] public int MinStepsBetweenEncounters = 10; // Minimum steps before next encounter can occur
+	// Chance for an encounter each step currently 5%
+	[Export] public float EncounterRate = 0.05f; 
+	// Minimum steps before next encounter can occur
+	[Export] public int MinStepsBetweenEncounters = 8; 
 	
 	private AnimatedSprite2D animatedSprite;
 	private int stepsSinceLastEncounter = 0;
@@ -23,7 +25,7 @@ public partial class Player : CharacterBody2D
 			GlobalPosition = GameManager.Instance.GetAndClearBattleReturnPosition();
 			GD.Print($"Returned from battle, restored position: {GlobalPosition}");
 		}
-		// Load regular saved position if it exists (for normal game loads)
+		// Load regular saved position if it exists
 		else if (GameManager.Instance.SaveData.HasSavedPosition)
 		{
 			GlobalPosition = GameManager.Instance.SaveData.SavedPosition;
@@ -31,7 +33,7 @@ public partial class Player : CharacterBody2D
 			GD.Print($"Loaded saved position: {GlobalPosition}");
 		}
 	}
-	
+	// This is what controls and responds to player movement input
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Vector2.Zero;
@@ -69,8 +71,8 @@ public partial class Player : CharacterBody2D
 	{
 		bool isMovingNow = velocity.Length() > 0;
 		
-		// Check if we've moved a significant distance (one "step")
-		if (isMovingNow && GlobalPosition.DistanceTo(lastPosition) > 16) // Adjust step size as needed
+		// Check if we've moved a significant distance 
+		if (isMovingNow && GlobalPosition.DistanceTo(lastPosition) > 16)
 		{
 			stepsSinceLastEncounter++;
 			lastPosition = GlobalPosition;
@@ -97,7 +99,7 @@ public partial class Player : CharacterBody2D
 	
 	private void TriggerRandomEncounter()
 	{
-		// Save current position for battle return (separate from main game save)
+		// Save current position for battle return
 		GameManager.Instance.QuickSaveForBattle(GlobalPosition);
 		
 		int block = DungeonManager.FloorHelper.GetBlock(GameManager.Instance.SaveData.Floor);
@@ -116,7 +118,7 @@ public partial class Player : CharacterBody2D
 	{
 		if (velocity == Vector2.Zero)
 		{
-			animatedSprite.Play("Idle"); // Or keep track of last direction
+			animatedSprite.Play("Idle");
 			return;
 		}
 		

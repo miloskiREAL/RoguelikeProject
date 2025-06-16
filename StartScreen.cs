@@ -3,21 +3,19 @@ using System;
 
 public partial class StartScreen : Control
 {
-	private const string StartMusic = "res://audio/start/startscreen.wav";
+	//Basic Godot function that performs instructions upon loading the scene
 	public override void _Ready()
 	{
-		if (MusicManager.Instance != null)
-		{
-			MusicManager.Instance.PlayMusicByPath(StartMusic);
-		}
+		//Grabs the button node and hooks it up to a method
 		GetNode<Button>("CenterContainer/VBoxContainer/StartButton").Pressed += OnStartButtonPressed;
 		GetNode<Button>("CenterContainer/VBoxContainer/SettingsButton").Pressed += OnSettingsButtonPressed;
 		GetNode<Button>("CenterContainer/VBoxContainer/QuitButton").Pressed += OnQuitButtonPressed;
 	}
-	
+	//Hooks up to the button presses
 	private void OnStartButtonPressed()
 	{
 		GD.Print("start initialized");
+		//Changes the scene to the specified file location
 		GetTree().ChangeSceneToFile("res://Scenes/SaveLoadScreen.tscn");
 	}
 	

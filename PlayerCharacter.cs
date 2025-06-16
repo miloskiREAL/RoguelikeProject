@@ -7,7 +7,7 @@ public partial class PlayerCharacter : Character
 
 	[Export]
 	public CharacterClass Class;
-
+	// Initializes the player object with the determined stats
 	public void Init(CharacterClass cls)
 	{
 		Class = cls;
@@ -16,6 +16,9 @@ public partial class PlayerCharacter : Character
 		Weaknesses.Clear();
 		Resistances.Clear();
 		Skills.Clear();
+
+		CriticalChance = 10;
+		DamageReduction = 0;
 
 		switch (cls)
 		{
@@ -108,6 +111,30 @@ public partial class PlayerCharacter : Character
 				break;
 		}
 
+		CurrentHP = MaxHP;
+		CurrentSP = MaxSP;
+		ApplyWildCardBonuses();
+	}
+	// Calls the apply function on each wildcard in inventory
+	private void ApplyWildCardBonuses()
+	{
+		var gameManager = GameManager.Instance;
+		if (gameManager?.SaveData?.WildCards == null) return;
+
+	
+		foreach (var wildCardEntry in gameManager.SaveData.WildCards)
+		{
+			string cardName = wildCardEntry.Key;
+			int count = wildCardEntry.Value;
+
+			
+			for (int i = 0; i < count; i++)
+			{
+				WildCardSystem.ApplyWildCardToCharacter(cardName, this);
+			}
+		}
+
+		
 		CurrentHP = MaxHP;
 		CurrentSP = MaxSP;
 	}

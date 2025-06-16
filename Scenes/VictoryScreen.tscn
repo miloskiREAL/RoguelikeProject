@@ -1,0 +1,129 @@
+[gd_scene load_steps=4 format=3 uid="uid://qk2mrts3nkhl"]
+
+[ext_resource type="Script" uid="uid://gg6r35t3b4xr" path="res://VictoryScreen.cs" id="1_2n4xq"]
+[ext_resource type="AudioStream" uid="uid://b5ob4eiwmrmu" path="res://Assets/audio/music/battle/VICTORY!!!!!!!!/Results - Persona 4 - PSC.mp3" id="2_8kq2x"]
+[ext_resource type="Script" uid="uid://d1segrgu0q31x" path="res://AudioPlayerController.cs" id="3_1mj8m"]
+
+[node name="VictoryScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2n4xq")
+levelUpLabelPath = NodePath("Level")
+wildCard1ButtonPath = NodePath("WildCardButton1")
+wildCard1NameLabelPath = NodePath("WildCardButton1/Name")
+wildCard1DescriptionLabelPath = NodePath("WildCardButton1/Desc")
+wildCard2ButtonPath = NodePath("WildCardButton2")
+wildCard2NameLabelPath = NodePath("WildCardButton2/Name")
+wildCard2DescriptionLabelPath = NodePath("WildCardButton2/Desc")
+wildCard3ButtonPath = NodePath("WildCardButton3")
+wildCard3NameLabelPath = NodePath("WildCardButton3/Name")
+wildCard3DescriptionLabelPath = NodePath("WildCardButton3/Desc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="Level" type="Label" parent="."]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 16.0
+offset_right = 904.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 32
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WildCardButton1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 192.0
+offset_right = 384.0
+offset_bottom = 512.0
+icon_alignment = 1
+expand_icon = true
+
+[node name="Name" type="Label" parent="WildCardButton1"]
+layout_mode = 0
+offset_top = -64.0
+offset_right = 192.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 24
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Desc" type="Label" parent="WildCardButton1"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 192.0
+offset_bottom = 383.0
+theme_override_font_sizes/font_size = 12
+text = "TEST"
+
+[node name="WildCardButton2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 192.0
+offset_right = 672.0
+offset_bottom = 512.0
+icon_alignment = 1
+expand_icon = true
+
+[node name="Name" type="Label" parent="WildCardButton2"]
+layout_mode = 0
+offset_top = -64.0
+offset_right = 192.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 24
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Desc" type="Label" parent="WildCardButton2"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 192.0
+offset_bottom = 383.0
+theme_override_font_sizes/font_size = 12
+text = "TEST"
+
+[node name="WildCardButton3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 768.0
+offset_top = 192.0
+offset_right = 960.0
+offset_bottom = 512.0
+icon_alignment = 1
+expand_icon = true
+
+[node name="Name" type="Label" parent="WildCardButton3"]
+layout_mode = 0
+offset_top = -64.0
+offset_right = 192.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 24
+text = "TEST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Desc" type="Label" parent="WildCardButton3"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 192.0
+offset_bottom = 383.0
+theme_override_font_sizes/font_size = 12
+text = "TEST"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_8kq2x")
+volume_db = -21.266
+autoplay = true
+parameters/looping = true
+script = ExtResource("3_1mj8m")

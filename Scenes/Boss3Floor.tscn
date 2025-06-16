@@ -1,16 +1,21 @@
-[gd_scene load_steps=8 format=4 uid="uid://urajodu7p4j8"]
+[gd_scene load_steps=11 format=4 uid="uid://urajodu7p4j8"]
 
 [ext_resource type="TileSet" uid="uid://bmo7frlthja56" path="res://tileset.tres" id="1_bjxdd"]
 [ext_resource type="TileSet" uid="uid://dbmdlguiurdi2" path="res://tilesetdec.tres" id="2_h2c57"]
 [ext_resource type="PackedScene" uid="uid://dx7nnwe2rscgr" path="res://Scenes/door.tscn" id="3_81ivu"]
 [ext_resource type="PackedScene" uid="uid://rb15qfypnsg2" path="res://Scenes/player.tscn" id="4_h2c57"]
 [ext_resource type="AudioStream" uid="uid://hi0s75ym2f2l" path="res://Assets/audio/music/overworld/dungeon/floor2/youtube_tJmYAE6SNOw_audio.mp3" id="5_81ivu"]
+[ext_resource type="Script" uid="uid://d1segrgu0q31x" path="res://AudioPlayerController.cs" id="6_6k873"]
+[ext_resource type="Script" uid="uid://br24yk878achd" path="res://BossTripWire.cs" id="6_dstst"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjxdd"]
 size = Vector2(32, 440)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2c57"]
 size = Vector2(34, 384)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_6k873"]
+b = Vector2(512, 0)
 
 [node name="Boss3Floor" type="Node2D"]
 
@@ -66,3 +71,13 @@ stream = ExtResource("5_81ivu")
 volume_db = -16.613
 autoplay = true
 parameters/looping = true
+script = ExtResource("6_6k873")
+
+[node name="Trigger" type="Area2D" parent="."]
+position = Vector2(320, 288)
+script = ExtResource("6_dstst")
+BossBlock = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger"]
+position = Vector2(0, 56)
+shape = SubResource("SegmentShape2D_6k873")

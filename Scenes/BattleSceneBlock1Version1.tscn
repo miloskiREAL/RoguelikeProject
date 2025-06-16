@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cgfwn63w3ap4w"]
+[gd_scene load_steps=13 format=3 uid="uid://cgfwn63w3ap4w"]
 
 [ext_resource type="Script" uid="uid://p74epvrppkdt" path="res://BattleManager.cs" id="1_5j33r"]
 [ext_resource type="PackedScene" uid="uid://b3ltkdbccaqtv" path="res://Scenes/Ranger.tscn" id="2_jgtbt"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bwodx36quwt0d" path="res://Scenes/Skeleton.tscn" id="8_pgfro"]
 [ext_resource type="Script" uid="uid://ub8kr3f7fvo3" path="res://ActivityIndicator.cs" id="9_24ajl"]
 [ext_resource type="Script" uid="uid://dh1dt2gd1v3x4" path="res://UIManager.cs" id="10_60rrs"]
+[ext_resource type="AudioStream" uid="uid://cr5cvh2ynfggk" path="res://Assets/audio/music/battle/standard/battletheme1.mp3" id="11_jgtbt"]
+[ext_resource type="Script" uid="uid://d1segrgu0q31x" path="res://AudioPlayerController.cs" id="12_2acjt"]
 
 [node name="BattleScene" type="Control"]
 layout_mode = 3
@@ -52,17 +54,17 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Goblin2" parent="EnemyParty" instance=ExtResource("6_1av1i")]
-position = Vector2(896, 312)
-
-[node name="Goblin" parent="EnemyParty" instance=ExtResource("6_1av1i")]
-position = Vector2(896, 312)
+[node name="Skeleton" parent="EnemyParty" instance=ExtResource("8_pgfro")]
+position = Vector2(800, 0)
 
 [node name="Gravetender" parent="EnemyParty" instance=ExtResource("7_673ai")]
-position = Vector2(832, 360)
+position = Vector2(744, 64)
 
-[node name="Skeleton" parent="EnemyParty" instance=ExtResource("8_pgfro")]
-position = Vector2(776, 448)
+[node name="Goblin2" parent="EnemyParty" instance=ExtResource("6_1av1i")]
+position = Vector2(688, 136)
+
+[node name="Goblin" parent="EnemyParty" instance=ExtResource("6_1av1i")]
+position = Vector2(616, 224)
 
 [node name="ActionMenu" type="Control" parent="."]
 anchors_preset = 0
@@ -227,6 +229,7 @@ text = "FLURRY OF BLOWS"
 [node name="EarthShatter" type="Button" parent="SkillMenus/MonkSkillMenu"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "EARTHSHATTER"
 
 [node name="RangerSkillMenu" type="VBoxContainer" parent="SkillMenus"]
@@ -523,3 +526,10 @@ offset_top = 376.0
 offset_right = 416.0
 offset_bottom = 440.0
 text = "BACK"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_jgtbt")
+volume_db = -21.266
+autoplay = true
+parameters/looping = true
+script = ExtResource("12_2acjt")
